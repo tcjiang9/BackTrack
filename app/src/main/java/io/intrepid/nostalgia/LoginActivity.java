@@ -19,6 +19,7 @@ import butterknife.InjectView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     CallbackManager callbackManager;
+    FacebookCallback<LoginResult> facebookCallback;
     @InjectView(R.id.skip_facebook)
     Button skipFacebook;
 
@@ -30,29 +31,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setupFacebook();
     }
 
-    FacebookCallback<LoginResult> facebookCallback = new FacebookCallback<LoginResult>() {
-        @Override
-        public void onSuccess(LoginResult loginResult) {
-            AccessToken accessToken = loginResult.getAccessToken();
-            Profile profile = Profile.getCurrentProfile();
-            if (profile != null) {
-                Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
-            }
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-
-        @Override
-        public void onError(FacebookException e) {
-
-        }
-    };
-
     private void setupFacebook() {
         callbackManager = CallbackManager.Factory.create();
+        facebookCallback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                Profile profile = Profile.getCurrentProfile();
+                if (profile != null) {
+                    Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        };
         LoginButton facebookLogin = (LoginButton) findViewById(R.id.login_button);
         facebookLogin.setOnClickListener(this);
         facebookLogin.setReadPermissions("public_profile", "read_stream", "user_posts");
