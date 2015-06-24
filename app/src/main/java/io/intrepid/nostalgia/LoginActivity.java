@@ -17,7 +17,7 @@ import com.facebook.login.widget.LoginButton;
 
 import butterknife.InjectView;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
     @InjectView(R.id.skip_facebook)
@@ -54,14 +54,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
         LoginButton facebookLogin = (LoginButton) findViewById(R.id.login_button);
-        facebookLogin.setOnClickListener(this);
         facebookLogin.setReadPermissions("public_profile", "read_stream", "user_posts");
         facebookLogin.registerCallback(callbackManager, facebookCallback);
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override
