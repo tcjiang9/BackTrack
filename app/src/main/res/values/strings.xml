@@ -5,4 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="key_id">1460765774239001</string>
     <string name="skip_facebook">Continue without Facebook</string>
+    <string name="date_text">Today\'s Date</string>
+    <string name="song_title">Song Title</string>
+    <string name="song_artist">Artist</string>
+    <string name="facebook_tab">Facebook Activities</string>
+    <string name="news_tab">News</string>
+    <string name="next_year">Next Year</string>
 </resources>
