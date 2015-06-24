@@ -3,4 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="key_id">1460765774239001</string>
+    <string name="skip_facebook">Continue without Facebook</string>
 </resources>
