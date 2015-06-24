@@ -26,12 +26,14 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
     public  static boolean isFacebook = false;
-    public  static  String accessToken = "access";
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
     Button skipFacebook;
     @InjectView(R.id.skip_facebook)
     Button getSkipFacebook;
+    // name of token can be accessed from other classes for SharedPrefs
+    public static String accessToken = "accessToken";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +78,11 @@ public class LoginActivity extends AppCompatActivity {
         facebookLogin.registerCallback(callbackManager, facebookCallback);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
     private void saveDataInPreferences() {
         SharedPreferences.Editor editor = getSharedPreferences(accessToken, MODE_PRIVATE).edit();
         if (isFacebook) {
@@ -90,12 +97,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
         finish();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 }
