@@ -4,15 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -21,16 +15,12 @@ import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
-    Button skipFacebook;
-    @InjectView(R.id.skip_facebook)
-    Button getSkipFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
         setupFacebook();
+        runActivityOnce();
     }
+
     @OnClick(R.id.skip_facebook)
     void onSkipFb() {
         Constants.IS_FACEBOOK = false;
@@ -49,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void runActivityOnce() {
         SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
-        if(pref.getBoolean("activity_executed", false)){
+        if (pref.getBoolean("activity_executed", false)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -95,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
     private void saveDataInPreferences() {
         SharedPreferences.Editor editor = getSharedPreferences(Constants.ACCESS_TOKEN, MODE_PRIVATE).edit();
         if (Constants.IS_FACEBOOK) {
