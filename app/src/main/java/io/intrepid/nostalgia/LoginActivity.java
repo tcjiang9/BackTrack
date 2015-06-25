@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,20 +20,17 @@ import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
-    public  static boolean isFacebook = false;
+
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
     Button skipFacebook;
     @InjectView(R.id.skip_facebook)
     Button getSkipFacebook;
-    // name of token can be accessed from other classes for SharedPrefs
-    public static String accessToken = "accessToken";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +40,24 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         setupFacebook();
     }
-
-    @OnClick(R.id.skip_facebook) void onSkipFb(){
-
+    @OnClick(R.id.skip_facebook)
+    void onSkipFb() {
+        Constants.isFacebook = false;
+        saveDataInPreferences();
         startMainActivity();
+    }
+
+    private void runActivityOnce() {
+        SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
+        if(pref.getBoolean("activity_executed", false)){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("activity_executed", true);
+            editor.apply();
+        }
     }
 
     private void setupFacebook() {
@@ -56,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
                 if (profile != null) {
-                    isFacebook = true;
+                    Constants.isFacebook = true;
                     saveDataInPreferences();
                     startMainActivity();
                     Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
@@ -84,12 +96,12 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
     private void saveDataInPreferences() {
-        SharedPreferences.Editor editor = getSharedPreferences(accessToken, MODE_PRIVATE).edit();
-        if (isFacebook) {
-            editor.putString(accessToken, AccessToken.getCurrentAccessToken().getToken());
+        SharedPreferences.Editor editor = getSharedPreferences(Constants.accessToken, MODE_PRIVATE).edit();
+        if (Constants.isFacebook) {
+            editor.putString(Constants.accessToken, AccessToken.getCurrentAccessToken().getToken());
             editor.apply();
         } else {
-            editor.putString(accessToken, null);
+            editor.putString(Constants.accessToken, null);
         }
     }
 
