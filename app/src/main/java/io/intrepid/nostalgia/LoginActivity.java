@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
+    private boolean isFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,21 +35,18 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.skip_facebook)
     void onSkipFb() {
-        Constants.IS_FACEBOOK = false;
+        isFacebook = false;
         saveDataInPreferences();
         startMainActivity();
+
     }
 
     private void runActivityOnce() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (pref.getBoolean("activity_executed", false)) {
+        if (pref.getBoolean(Constants.SHARED_PREFS_LOGIN, false)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("activity_executed", true);
-            editor.apply();
         }
     }
 
@@ -60,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
                 if (profile != null) {
-                    Constants.IS_FACEBOOK = true;
+                    isFacebook = true;
                     saveDataInPreferences();
                     startMainActivity();
                     Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
@@ -89,12 +87,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveDataInPreferences() {
-        SharedPreferences.Editor editor = getSharedPreferences(Constants.ACCESS_TOKEN, MODE_PRIVATE).edit();
-        if (Constants.IS_FACEBOOK) {
-            editor.putString(Constants.ACCESS_TOKEN, AccessToken.getCurrentAccessToken().getToken());
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        if (isFacebook) {
+            editor.putString(Constants.SHARED_PREFS_ACCESS_TOKEN, AccessToken.getCurrentAccessToken().getToken());
         } else {
-            editor.putString(Constants.ACCESS_TOKEN, null);
+            editor.putString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
         }
+        editor.putBoolean(Constants.SHARED_PREFS_LOGIN, true);
         editor.apply();
     }
 
