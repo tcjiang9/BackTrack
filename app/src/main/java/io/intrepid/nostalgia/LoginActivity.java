@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     @OnClick(R.id.skip_facebook)
     void onSkipFb() {
-        Constants.isFacebook = false;
+        Constants.IS_FACEBOOK = false;
         saveDataInPreferences();
         startMainActivity();
     }
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
                 if (profile != null) {
-                    Constants.isFacebook = true;
+                    Constants.IS_FACEBOOK = true;
                     saveDataInPreferences();
                     startMainActivity();
                     Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
@@ -96,12 +96,12 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
     private void saveDataInPreferences() {
-        SharedPreferences.Editor editor = getSharedPreferences(Constants.accessToken, MODE_PRIVATE).edit();
-        if (Constants.isFacebook) {
-            editor.putString(Constants.accessToken, AccessToken.getCurrentAccessToken().getToken());
+        SharedPreferences.Editor editor = getSharedPreferences(Constants.ACCESS_TOKEN, MODE_PRIVATE).edit();
+        if (Constants.IS_FACEBOOK) {
+            editor.putString(Constants.ACCESS_TOKEN, AccessToken.getCurrentAccessToken().getToken());
             editor.apply();
         } else {
-            editor.putString(Constants.accessToken, null);
+            editor.putString(Constants.ACCESS_TOKEN, null);
         }
     }
 
