@@ -52,7 +52,7 @@
             android:layout_centerHorizontal="true" />
 
         <ProgressBar
-            android:id="@+id/circularProgressbar"
+            android:id="@+id/circular_progressbar"
             android:layout_below="@id/song_artist_text"
             android:layout_centerHorizontal="true"
             android:layout_width="150dp"
@@ -72,8 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/music_view"
-        android:id="@+id/facebook_view"
-        android:layout_marginTop="@dimen/abc_action_bar_overflow_padding_end_material">
+        android:id="@+id/facebook_view">
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,8 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/facebook_view"
-        android:id="@+id/news_view"
-        android:layout_marginTop="@dimen/abc_action_bar_overflow_padding_end_material">
+        android:id="@+id/news_view">
 
         <TextView
             android:layout_width="wrap_content"
