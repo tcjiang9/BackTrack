@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import com.facebook.AccessToken;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void runActivityOnce() {
-        SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (pref.getBoolean("activity_executed", false)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
