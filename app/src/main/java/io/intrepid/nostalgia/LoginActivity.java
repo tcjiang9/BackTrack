@@ -92,10 +92,10 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(Constants.ACCESS_TOKEN, MODE_PRIVATE).edit();
         if (Constants.IS_FACEBOOK) {
             editor.putString(Constants.ACCESS_TOKEN, AccessToken.getCurrentAccessToken().getToken());
-            editor.apply();
         } else {
             editor.putString(Constants.ACCESS_TOKEN, null);
         }
+        editor.apply();
     }
 
     private void startMainActivity() {
