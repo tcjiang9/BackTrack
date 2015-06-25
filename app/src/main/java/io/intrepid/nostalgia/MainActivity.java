@@ -1,25 +1,30 @@
 package io.intrepid.nostalgia;
 
-import android.graphics.Canvas;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
-import java.util.Calendar;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import butterknife.InjectView;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    @InjectView(R.id.facebook_view)
+    RelativeLayout facebookView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.fragment);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (preferences.getString("accessToken", null) == null){
+            facebookView.setVisibility(View.GONE);
+        }
     }
 
 
