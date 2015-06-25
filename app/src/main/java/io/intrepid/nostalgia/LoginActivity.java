@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
-    private boolean isFacebook = false;
+    private boolean isFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             editor.putString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
         }
-        editor.putBoolean("", true);
+        editor.putBoolean(Constants.SHARED_PREFS_LOGIN, true);
         editor.apply();
     }
 
