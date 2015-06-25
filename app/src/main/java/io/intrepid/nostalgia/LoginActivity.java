@@ -1,6 +1,5 @@
 package io.intrepid.nostalgia;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -41,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void runActivityOnce() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         if (pref.getBoolean("activity_executed", false)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
