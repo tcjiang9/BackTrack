@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements YearFragment.Prev
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getFragmentManager().beginTransaction()
+                .add(R.id.facebook_view, new FacebookPostsFragment())
+                .commit();
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new YearCollectionPagerAdapter(getSupportFragmentManager()));
