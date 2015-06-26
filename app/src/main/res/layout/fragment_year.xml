@@ -1,28 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/years_scroll_view">
-
-    </HorizontalScrollView>
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/date_text"
         android:text="@string/date_text"
-        android:layout_below="@id/years_scroll_view"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/years_scroll_view"
-        android:layout_alignStart="@+id/years_scroll_view"
-        android:layout_alignParentTop="true"
         android:gravity="center_horizontal" />
 
     <RelativeLayout
@@ -31,9 +18,7 @@
         android:id="@+id/music_view"
         android:layout_below="@+id/date_text"
         android:layout_alignRight="@+id/date_text"
-        android:layout_alignEnd="@+id/date_text"
-        android:layout_toRightOf="@+id/years_scroll_view"
-        android:layout_toEndOf="@+id/years_scroll_view">
+        android:layout_alignEnd="@+id/date_text">
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,8 +48,6 @@
             android:max="100"
             android:secondaryProgress="100"
             android:progressDrawable="@drawable/circular" />
-
-
 
     </RelativeLayout>
 
