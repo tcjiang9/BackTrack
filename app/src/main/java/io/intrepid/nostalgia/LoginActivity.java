@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
         setupFacebook();
-       // runActivityOnce();
+        runActivityOnce();
     }
 
     @OnClick(R.id.skip_facebook)

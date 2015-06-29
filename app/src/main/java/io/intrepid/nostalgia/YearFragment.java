@@ -43,6 +43,9 @@ public class YearFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
+        getFragmentManager().beginTransaction()
+                .add(R.id.facebook_view, new FacebookPostsFragment())
+                .commit();
 
         Button prevYearButton = (Button) rootView.findViewById(R.id.previous_year_button);
         prevYearButton.setOnClickListener(new View.OnClickListener() {
