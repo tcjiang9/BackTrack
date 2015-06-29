@@ -22,7 +22,7 @@ public class YearFragment extends Fragment {
     RelativeLayout facebookView;
 
     public interface PrevYearButtonListener {
-        public void onButtonClicked();
+        void onPrevYearButtonClicked();
     }
 
     @Override
@@ -39,8 +39,6 @@ public class YearFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        int currentYear = getArguments().getInt(YEAR);
-
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
@@ -48,7 +46,7 @@ public class YearFragment extends Fragment {
         prevYearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prevYearButtonListener.onButtonClicked();
+                prevYearButtonListener.onPrevYearButtonClicked();
             }
         });
 
