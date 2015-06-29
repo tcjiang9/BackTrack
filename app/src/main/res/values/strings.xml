@@ -10,5 +10,5 @@
     <string name="song_artist">Artist</string>
     <string name="facebook_tab">Facebook Activities</string>
     <string name="news_tab">News</string>
-    <string name="next_year">Next Year</string>
+    <string name="prev_year">Previous Year</string>
 </resources>

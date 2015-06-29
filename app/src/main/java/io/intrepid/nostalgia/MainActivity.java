@@ -9,17 +9,20 @@ import android.view.MenuItem;
 import android.widget.ScrollView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements YearFragment.PrevYearButtonListener{
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    private ViewPager viewPager;
+    private YearCollectionPagerAdapter yearCollectionPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new YearCollectionPagerAdapter(getSupportFragmentManager()));
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        yearCollectionPagerAdapter = new YearCollectionPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(yearCollectionPagerAdapter);
         viewPager.setCurrentItem(Constants.DEFAULT_YEAR);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -47,5 +50,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onButtonClicked() {
+        viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
     }
 }
