@@ -28,6 +28,8 @@ public class YearFragment extends Fragment {
     TextView yearTemp;
     @InjectView(R.id.facebook_view)
     RelativeLayout facebookView;
+    @InjectView(R.id.no_facebook_account)
+    TextView noFacebook;
 
     public interface PrevYearButtonListener {
         void onPrevYearButtonClicked();
@@ -68,7 +70,7 @@ public class YearFragment extends Fragment {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if (preferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null) == null) {
-            facebookView.setVisibility(View.GONE);
+            noFacebook.setVisibility(View.VISIBLE);
         }
         return rootView;
     }

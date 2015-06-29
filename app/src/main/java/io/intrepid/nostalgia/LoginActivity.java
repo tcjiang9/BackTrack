@@ -62,13 +62,12 @@ public class LoginActivity extends AppCompatActivity {
                 Profile profile = Profile.getCurrentProfile();
 
                 if (profile != null) {
-                    Log.e("profile name ",profile.getName());
+                    Log.e("profile name ", profile.getName());
                     isFacebook = true;
                     saveDataInPreferences();
                     startMainActivity();
                     Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
                 }
-                Log.e("profile name" , loginResult .getRecentlyDeniedPermissions().toString());
             }
 
             @Override

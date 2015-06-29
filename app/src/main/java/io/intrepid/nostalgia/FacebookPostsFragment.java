@@ -28,11 +28,14 @@ import butterknife.InjectView;
 
 public class FacebookPostsFragment extends Fragment {
     public static final String YEAR_KEY = "YEAR_KEY";
+    public static final int MILLISECOND_PER_SECOND = 1000;
+
 
     @InjectView(R.id.fb_name)
     TextView name;
     @InjectView(R.id.fb_status)
     TextView status;
+
     @InjectView(R.id.image_shared)
     ImageView fbImage;
 
@@ -65,29 +68,29 @@ public class FacebookPostsFragment extends Fragment {
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() != null) {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
-                    "/me/posts/", setUserSelectedDate(currentYear), HttpMethod.GET,
+                    FacebookConstants.ME_POSTS, setUserSelectedDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {
                         @Override
                         public void onCompleted(GraphResponse graphResponse) {
                             processFacebookResponse(graphResponse);
                         }
-                    }).executeAsync();
+                    }
+            ).executeAsync();
         }
     }
     private void processFacebookResponse(GraphResponse graphResponse) {
-        JSONObject completeDatafromFb;
-        completeDatafromFb = graphResponse.getJSONObject();
+        JSONObject completeDatafromFb = graphResponse.getJSONObject();
         try {
-            JSONArray specificData = (JSONArray) completeDatafromFb.get("data");
+            JSONArray specificData = (JSONArray) completeDatafromFb.get(FacebookConstants.DATA);
             if (specificData.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
                 status.setVisibility(View.GONE);
             } else {
-                completeDatafromFb = (JSONObject) specificData.getJSONObject(0).get("from");
-                status.setText(specificData.getJSONObject(0).get("message").toString());
-                name.setText(completeDatafromFb.get("name").toString());
-                if (specificData.toString().contains("picture")) {
-                    loadImagefromPost(specificData);
+                completeDatafromFb = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.FROM);
+                status.setText(specificData.getJSONObject(0).get(FacebookConstants.MESSAGE).toString());
+                name.setText(completeDatafromFb.get(FacebookConstants.NAME).toString());
+                if (specificData.toString().contains(FacebookConstants.PICTURE)) {
+                    loadImageFromPost(specificData);
                 }
             }
 
@@ -96,8 +99,8 @@ public class FacebookPostsFragment extends Fragment {
         }
     }
 
-    private void loadImagefromPost(JSONArray specificData) throws JSONException {
-        String imageUrl = specificData.getJSONObject(0).get("picture").toString();
+    private void loadImageFromPost(JSONArray specificData) throws JSONException {
+        String imageUrl = specificData.getJSONObject(0).get(FacebookConstants.PICTURE).toString();
         fbImage.setVisibility(View.VISIBLE);
         Picasso.with(getActivity()).
                 load(imageUrl).into(fbImage);
@@ -108,12 +111,12 @@ public class FacebookPostsFragment extends Fragment {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.HOUR_OF_DAY, 0);
-        long initialTime = cal.getTimeInMillis() / 1000;
+        long initialTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
         parameters.putString("since", "" + initialTime);
         cal.set(Calendar.HOUR_OF_DAY, 23);
-        long limitTime = cal.getTimeInMillis() / 1000;
+        long limitTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
         parameters.putString("until", "" + limitTime);
-        parameters.putString("limit", " 1");
+        parameters.putString("limit", "1");
         return parameters;
     }
 
