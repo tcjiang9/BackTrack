@@ -1,10 +1,12 @@
 package io.intrepid.nostalgia;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new YearCollectionPagerAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(Constants.DEFAULT_YEAR);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
