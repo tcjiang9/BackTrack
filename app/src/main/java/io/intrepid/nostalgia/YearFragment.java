@@ -11,14 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class YearFragment extends Fragment {
     public static final String YEAR = "Display Year";
-    private PrevYearButtonListener prevYearButtonListener;
+    public int currentYear;
+    public int getCurrentYear() {
+        return currentYear;
+    }
 
+    private PrevYearButtonListener prevYearButtonListener;
+    @InjectView(R.id.song_artist_text)
+    TextView yearTemp;
     @InjectView(R.id.facebook_view)
     RelativeLayout facebookView;
 
@@ -40,13 +47,15 @@ public class YearFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Constants.currentYear = getArguments().getInt(YEAR); //the current year, for future use.
 
-        Log.i("!!!!!!!!!!!!!!!!!!!!", String.valueOf(Constants.currentYear));
+         //the current year, for future use.
+        currentYear = getArguments().getInt(YEAR);
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
-        getFragmentManager().beginTransaction()
-                .add(R.id.facebook_view, new FacebookPostsFragment())
+        ButterKnife.inject(this, rootView);
+        yearTemp.setText(String.valueOf(currentYear));
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.facebook_view, FacebookPostsFragment.getInstance(currentYear))
                 .commit();
 
         Button prevYearButton = (Button) rootView.findViewById(R.id.previous_year_button);
