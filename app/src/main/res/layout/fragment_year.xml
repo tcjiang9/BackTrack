@@ -59,18 +59,6 @@
         android:id="@+id/facebook_view"
         android:visibility="visible">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/facebook_tab"
-            android:id="@+id/facebook_tab"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no_facebook_content"
-            android:layout_below="@+id/facebook_tab"/>
-
     </RelativeLayout>
 
     <RelativeLayout

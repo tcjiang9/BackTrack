@@ -30,6 +30,7 @@ public class FacebookPostsFragment extends Fragment {
     CallbackManager callbackManager;
     TextView name, status;
     ImageView fbImage;
+
     public FacebookPostsFragment() {
         // Required empty public constructor
     }
@@ -43,6 +44,7 @@ public class FacebookPostsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("???????????????", String.valueOf(Constants.currentYear) + "'s facebook post created");
         // Inflate the layout for this fragment
         callbackManager = CallbackManager.Factory.create();
 
@@ -69,15 +71,18 @@ public class FacebookPostsFragment extends Fragment {
                         try {
                             JSONArray json = (JSONArray) jsonObject.get("data");
                             status.setText(json.getJSONObject(0).get("message").toString());
-                            jsonObject = (JSONObject)json.getJSONObject(0).get("from");
+                            jsonObject = (JSONObject) json.getJSONObject(0).get("from");
                             name.setText(jsonObject.get("name").toString());
                             String str = json.toString();
 
-                            if (str.contains("picture")){
-                                Log.e("str",str);
+                            if (str.contains("picture")) {
+                                Log.e("str", str);
+                                String imageUrl = json.getJSONObject(0).get("picture").toString();
+                               // imageUrl = imageUrl.replace("\\","");
+                             //   Log.e("image url",imageUrl);
                                 fbImage.setVisibility(View.VISIBLE);
                                 Picasso.with(getActivity()).
-                                        load("https://scontent.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/s130x130/10155019_1040521542647132_1464910456886844310_n.jpg?oh=b7d16fb014cf3b9b24dbca941cb80189&oe=562ADAA1").into(fbImage);
+                                        load(imageUrl).into(fbImage);
                             }
 
                         } catch (JSONException e) {
@@ -96,12 +101,13 @@ public class FacebookPostsFragment extends Fragment {
         parameters.putString("since", "" + initialTime);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         long limitTime = cal.getTimeInMillis() / 1000;
-        parameters.putString("until", ""+limitTime);
+        parameters.putString("until", "" + limitTime);
         parameters.putString("limit", " 1");
-        Log.e("since", "" + initialTime);
-        Log.e("until", "" + limitTime);
+       // Log.e("since", "" + initialTime);
+        //Log.e("until", "" + limitTime);
         return parameters;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +42,9 @@ public class YearFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Constants.currentYear = getArguments().getInt(YEAR); //the current year, for future use.
 
+        Log.i("!!!!!!!!!!!!!!!!!!!!", String.valueOf(Constants.currentYear));
+
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
-        ButterKnife.inject(this, rootView);
         getFragmentManager().beginTransaction()
                 .add(R.id.facebook_view, new FacebookPostsFragment())
                 .commit();
