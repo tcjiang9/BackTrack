@@ -63,16 +63,17 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void getUserPosts() {
-        new GraphRequest(AccessToken.getCurrentAccessToken(),
-                "/me/posts/", setUserSelectedDate(currentYear), HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    @Override
-                    public void onCompleted(GraphResponse graphResponse) {
-                        processFacebookResponse(graphResponse);
-                    }
-                }).executeAsync();
+        if (AccessToken.getCurrentAccessToken() != null) {
+            new GraphRequest(AccessToken.getCurrentAccessToken(),
+                    "/me/posts/", setUserSelectedDate(currentYear), HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        @Override
+                        public void onCompleted(GraphResponse graphResponse) {
+                            processFacebookResponse(graphResponse);
+                        }
+                    }).executeAsync();
+        }
     }
-
     private void processFacebookResponse(GraphResponse graphResponse) {
         JSONObject completeDatafromFb;
         completeDatafromFb = graphResponse.getJSONObject();
