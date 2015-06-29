@@ -6,19 +6,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ScrollView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements YearFragment.PrevYearButtonListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new YearCollectionPagerAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(Constants.DEFAULT_YEAR);
 
@@ -47,5 +47,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPrevYearButtonClicked() {
+        viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
     }
 }

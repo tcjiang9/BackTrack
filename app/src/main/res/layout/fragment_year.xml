@@ -79,6 +79,7 @@
     </RelativeLayout>
 
     <Button
+        android:id = "@+id/previous_year_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -86,6 +87,6 @@
         android:layout_alignStart="@+id/news_view"
         android:layout_alignRight="@+id/music_view"
         android:layout_alignEnd="@+id/music_view"
-        android:text="@string/next_year"/>
+        android:text="@string/prev_year"/>
 
 </RelativeLayout>
