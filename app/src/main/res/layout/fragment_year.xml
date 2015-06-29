@@ -10,15 +10,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/date_text"
         android:text="@string/date_text"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/music_view"
         android:layout_below="@+id/date_text"
-        android:layout_alignRight="@+id/date_text"
-        android:layout_alignEnd="@+id/date_text">
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +62,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/facebook_tab"/>
+            android:text="@string/facebook_tab"
+            android:id="@+id/facebook_tab"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_facebook_content"
+            android:layout_below="@+id/facebook_tab"/>
 
     </RelativeLayout>
 
@@ -80,13 +88,9 @@
 
     <Button
         android:id = "@+id/previous_year_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/news_view"
-        android:layout_alignStart="@+id/news_view"
-        android:layout_alignRight="@+id/music_view"
-        android:layout_alignEnd="@+id/music_view"
         android:text="@string/prev_year"/>
 
 </RelativeLayout>
