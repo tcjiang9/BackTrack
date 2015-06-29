@@ -13,6 +13,7 @@ public class YearCollectionPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int i) {
         Fragment fragment = new YearFragment();
+        //information about current year gets passed to fragment for later use
         Bundle args = new Bundle();
         args.putInt(YearFragment.YEAR, i + 1852);
         fragment.setArguments(args);

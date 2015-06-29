@@ -11,4 +11,6 @@ public class Constants {
      * the default year to display, one less than the present year
      */
     public static final int DEFAULT_YEAR = Calendar.getInstance().get(Calendar.YEAR) - 1852;
+
+    public static int currentYear;
 }

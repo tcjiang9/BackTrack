@@ -39,6 +39,8 @@ public class YearFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Constants.currentYear = getArguments().getInt(YEAR); //the current year, for future use.
+
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
