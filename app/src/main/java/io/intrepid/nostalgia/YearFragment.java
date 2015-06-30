@@ -18,7 +18,7 @@ import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import io.intrepid.nostalgia.models.NyTimesReturn;
+import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -39,6 +39,12 @@ public class YearFragment extends Fragment {
     RelativeLayout facebookView;
     @InjectView(R.id.no_facebook_account)
     TextView noFacebook;
+
+    @InjectView(R.id.news_headline)
+    TextView newsHeadline;
+
+    @InjectView(R.id.news_body)
+    TextView newsBody;
 
     public interface PrevYearButtonListener {
         void onPrevYearButtonClicked();
@@ -100,6 +106,8 @@ public class YearFragment extends Fragment {
                         String snippet = timesReturn.getResponse().getDocs().get(0).getSnippet();
                         String pubDate = timesReturn.getResponse().getDocs().get(0).getPubDate();
 
+                        newsHeadline.setText(headline);
+                        newsBody.setText(snippet);
                         Log.d(TAG, pubDate + webUrl + headline + snippet);
                     }
 

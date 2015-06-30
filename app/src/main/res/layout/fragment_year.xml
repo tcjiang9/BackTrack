@@ -77,7 +77,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/news_tab" />
+            android:text="@string/news_tab"
+            android:id="@+id/news_tab"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/news_headline"
+            android:layout_below="@+id/news_tab" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/news_body"
+            android:layout_below="@id/news_headline" />
 
     </RelativeLayout>
 

@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia.models;
+package io.intrepid.nostalgia.nytmodels;
 
 import com.google.gson.annotations.Expose;
 
