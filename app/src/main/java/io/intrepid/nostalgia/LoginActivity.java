@@ -62,21 +62,14 @@ public class LoginActivity extends AppCompatActivity {
                 AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
                 if (profile != null) {
-                    Log.e("profile name ", profile.getName());
-                    isFacebook = true;
-                    saveDataInPreferences();
-                    startMainActivity();
-                    Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
+                    verifyFbProfile(profile);
                 }
                 ProfileTracker profileTracker = new ProfileTracker() {
                     @Override
                     protected void onCurrentProfileChanged(Profile profile, Profile currentProfile) {
                         Profile.setCurrentProfile(currentProfile);
-                        Log.e("in profile changed","profile has changed");
-                        isFacebook = true;
-                        saveDataInPreferences();
-                        startMainActivity();
-                        Toast.makeText(getApplicationContext(), "Logged in as : " + currentProfile.getFirstName(), Toast.LENGTH_LONG).show();
+                        Log.e("in profile changed", "profile has changed");
+                        verifyFbProfile(currentProfile);
                         this.stopTracking();
                     }
                 };
@@ -96,6 +89,13 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton facebookLogin = (LoginButton) findViewById(R.id.login_button);
         facebookLogin.setReadPermissions("public_profile");
         facebookLogin.registerCallback(callbackManager, facebookCallback);
+    }
+
+    private void verifyFbProfile(Profile profile) {
+        isFacebook = true;
+        saveDataInPreferences();
+        startMainActivity();
+        Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -31,7 +31,6 @@ import io.intrepid.nostalgia.R;
 public class FacebookPostsFragment extends Fragment {
 
 
-
     @InjectView(R.id.fb_name)
     TextView name;
     @InjectView(R.id.fb_status)
@@ -79,12 +78,13 @@ public class FacebookPostsFragment extends Fragment {
             ).executeAsync();
         }
     }
+
     private void processFacebookResponse(GraphResponse graphResponse) {
         JSONObject completeDatafromFb = graphResponse.getJSONObject();
         try {
             JSONArray specificData = (JSONArray) completeDatafromFb.get(FacebookConstants.DATA);
             String responseStr = specificData.toString();
-            Log.e("specific data",specificData.toString());
+            Log.e("specific data", specificData.toString());
             if (specificData.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
                 status.setVisibility(View.GONE);
@@ -92,13 +92,13 @@ public class FacebookPostsFragment extends Fragment {
                 completeDatafromFb = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.FROM);
                 status.setText(specificData.getJSONObject(0).get(FacebookConstants.STORY).toString());
                 name.setText(completeDatafromFb.get(FacebookConstants.NAME).toString());
-            } else if (responseStr.contains(FacebookConstants.STATUS)){
+            } else if (responseStr.contains(FacebookConstants.STATUS)) {
                 status.setText(specificData.getJSONObject(0).get(FacebookConstants.STATUS).toString());
                 name.setText(completeDatafromFb.get(FacebookConstants.NAME).toString());
             }
-                if (specificData.toString().contains(FacebookConstants.PICTURE)) {
-                    loadImageFromPost(specificData);
-                }
+            if (specificData.toString().contains(FacebookConstants.PICTURE)) {
+                loadImageFromPost(specificData);
+            }
 
 
         } catch (JSONException e) {
@@ -110,7 +110,7 @@ public class FacebookPostsFragment extends Fragment {
         String imageUrl = specificData.getJSONObject(0).get(FacebookConstants.PICTURE).toString();
         fbImage.setVisibility(View.VISIBLE);
         Picasso.with(getActivity()).
-                load(imageUrl).into(fbImage);
+                load(imageUrl).fit().into(fbImage);
     }
 
     private Bundle setUserSelectedDate(int year) {
@@ -131,6 +131,13 @@ public class FacebookPostsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
 
     }
 }

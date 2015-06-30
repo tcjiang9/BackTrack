@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/image_shared"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/fb_status"
         android:contentDescription="@string/facebook_tab"
         android:paddingTop="@dimen/image_padding"
