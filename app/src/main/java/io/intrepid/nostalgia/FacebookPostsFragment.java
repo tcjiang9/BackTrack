@@ -85,9 +85,9 @@ public class FacebookPostsFragment extends Fragment {
             if (specificData.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
                 status.setVisibility(View.GONE);
-            } else {
+            } else if (specificData.toString().contains("story")){
                 completeDatafromFb = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.FROM);
-                status.setText(specificData.getJSONObject(0).get(FacebookConstants.MESSAGE).toString());
+                status.setText(specificData.getJSONObject(0).get("story").toString());
                 name.setText(completeDatafromFb.get(FacebookConstants.NAME).toString());
                 if (specificData.toString().contains(FacebookConstants.PICTURE)) {
                     loadImageFromPost(specificData);
