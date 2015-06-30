@@ -19,7 +19,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import io.intrepid.nostalgia.Facebook.FacebookPostsFragment;
+import io.intrepid.nostalgia.Facebook.*;
 import io.intrepid.nostalgia.nytmodels.Doc;
 import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
 import retrofit.Callback;
@@ -66,7 +66,7 @@ public class YearFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        
+
          //the current year, for future use.
         currentYear = getArguments().getInt(YEAR);
 
