@@ -25,6 +25,7 @@ import java.util.Calendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import io.intrepid.nostalgia.R;
 
 
@@ -33,14 +34,13 @@ public class FacebookPostsFragment extends Fragment {
 
     @InjectView(R.id.fb_name)
     TextView name;
-    @InjectView(R.id.fb_status)
-    TextView status;
 
     @InjectView(R.id.image_shared)
     ImageView fbImage;
 
     CallbackManager callbackManager;
     private int currentYear;
+    JSONObject completeDatafromFb;
 
     public static FacebookPostsFragment getInstance(int currentYear) {
         FacebookPostsFragment fragment = new FacebookPostsFragment();
@@ -65,6 +65,18 @@ public class FacebookPostsFragment extends Fragment {
         return rootView;
     }
 
+    @OnClick(R.id.image_shared)
+    void openFullScreenActivity() {
+        Intent intent = new Intent(getActivity(), FacebookDetailsActivity.class);
+        Bundle bundle = new Bundle();
+        if (completeDatafromFb != null){
+            bundle.putString(FacebookConstants.JSON_OBJECT, completeDatafromFb.toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+    }
+
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() != null) {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
@@ -80,26 +92,16 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void processFacebookResponse(GraphResponse graphResponse) {
-        JSONObject completeDatafromFb = graphResponse.getJSONObject();
+        completeDatafromFb = graphResponse.getJSONObject();
         try {
             JSONArray specificData = (JSONArray) completeDatafromFb.get(FacebookConstants.DATA);
             String responseStr = specificData.toString();
-            Log.e("specific data", specificData.toString());
             if (specificData.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
-                status.setVisibility(View.GONE);
-            } else if (responseStr.contains(FacebookConstants.STORY)) {
-                completeDatafromFb = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.FROM);
-                status.setText(specificData.getJSONObject(0).get(FacebookConstants.STORY).toString());
-                name.setText(completeDatafromFb.get(FacebookConstants.NAME).toString());
-            } else if (responseStr.contains(FacebookConstants.STATUS)) {
-                status.setText(specificData.getJSONObject(0).get(FacebookConstants.STATUS).toString());
-                name.setText(completeDatafromFb.get(FacebookConstants.NAME).toString());
             }
             if (specificData.toString().contains(FacebookConstants.PICTURE)) {
                 loadImageFromPost(specificData);
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -11,4 +11,5 @@ public class FacebookConstants {
     public static final int MILLISECOND_PER_SECOND = 1000;
     public static final String STORY = "story";
     public static final String STATUS = "status";
+    public static final String JSON_OBJECT = "jsonObject";
 }

@@ -7,6 +7,40 @@
     tools:context="io.intrepid.nostalgia.facebook.FacebookDetailsActivity">
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/fb_name"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fb_name"
+        android:text="@string/status"
+        android:layout_alignBaseline="@+id/fb_name"
+        android:layout_toRightOf="@+id/fb_name"
+        android:paddingLeft="@dimen/image_padding"
+        android:layout_toEndOf="@+id/fb_name"
+        android:id="@+id/fb_status"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fb_status"
+        android:id="@+id/full_picture"
+        android:src="@drawable/ic_launcher"
+        android:contentDescription="@string/facebook_tab"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/likes"
+        android:text="@string/likes"
+        android:layout_below="@+id/full_picture"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comments"
+        android:text="@string/comments"
+        android:layout_alignBottom="@+id/likes"
+        android:paddingLeft="@dimen/image_padding"
+        android:layout_toRightOf="@+id/likes"
+        android:layout_toEndOf="@+id/likes" />
 
 </RelativeLayout>
