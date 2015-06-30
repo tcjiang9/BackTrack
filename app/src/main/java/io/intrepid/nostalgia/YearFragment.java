@@ -13,15 +13,25 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.apache.http.util.EntityUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class YearFragment extends Fragment {
+    public static final String TAG = YearFragment.class.getSimpleName();
     public static final String YEAR = "Display Year";
     public int currentYear;
     public int getCurrentYear() {
         return currentYear;
     }
+
 
     private PrevYearButtonListener prevYearButtonListener;
     @InjectView(R.id.song_artist_text)
@@ -49,9 +59,11 @@ public class YearFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        
          //the current year, for future use.
         currentYear = getArguments().getInt(YEAR);
+
+        sendNytGetRequest(Integer.toString(currentYear));
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
@@ -73,5 +85,25 @@ public class YearFragment extends Fragment {
             noFacebook.setVisibility(View.VISIBLE);
         }
         return rootView;
+    }
+
+    private void sendNytGetRequest(String currentYear) {
+        String day = new SimpleDateFormat("MMdd").format(new Date());
+        String date = currentYear + day;
+        Log.d(TAG, date);
+
+        NytServiceAdapter.getNytServiceInstance()
+                .getNytArticle(date, date, new Callback<Object>() {
+                    @Override
+                    public void success(Object o, Response response) {
+                        Log.d(TAG, o.toString());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+
     }
 }

@@ -1,10 +1,12 @@
 package io.intrepid.nostalgia;
 
+import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface NytService {
 
-    @GET("/svc/search/v2/articlesearch.json?api-key=b79d2983dd0cbf2ef9c649921710f267:6:72359923&begin_date={date}&sort=oldest&end_date={date}")
-    void getNytArticle(@Path(value= "date", encode = false) String date);
+    @GET("/svc/search/v2/articlesearch.json?api-key=b79d2983dd0cbf2ef9c649921710f267:6:72359923&sort=oldest")
+    void getNytArticle(@Query("begin_date") String begin, @Query("end_date") String end, Callback<Object> callback);
 }
