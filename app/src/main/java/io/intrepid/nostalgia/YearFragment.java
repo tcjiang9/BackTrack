@@ -13,13 +13,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.apache.http.util.EntityUtils;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import io.intrepid.nostalgia.models.NyTimesReturn;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -93,10 +92,15 @@ public class YearFragment extends Fragment {
         Log.d(TAG, date);
 
         NytServiceAdapter.getNytServiceInstance()
-                .getNytArticle(date, date, new Callback<Object>() {
+                .getNytArticle(date, date, new Callback<NyTimesReturn>() {
                     @Override
-                    public void success(Object o, Response response) {
-                        Log.d(TAG, o.toString());
+                    public void success(NyTimesReturn timesReturn, Response response) {
+                        String webUrl = timesReturn.getResponse().getDocs().get(0).getWebUrl();
+                        String headline = timesReturn.getResponse().getDocs().get(0).getHeadline().getMain();
+                        String snippet = timesReturn.getResponse().getDocs().get(0).getSnippet();
+                        String pubDate = timesReturn.getResponse().getDocs().get(0).getPubDate();
+
+                        Log.d(TAG, pubDate + webUrl + headline + snippet);
                     }
 
                     @Override
