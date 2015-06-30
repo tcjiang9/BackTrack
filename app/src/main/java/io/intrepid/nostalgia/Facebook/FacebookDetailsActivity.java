@@ -38,6 +38,7 @@ public class FacebookDetailsActivity extends AppCompatActivity {
     TextView comments;
 
     JSONObject completeDatafromFb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +46,13 @@ public class FacebookDetailsActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         Intent intent = getIntent();
         try {
-            completeDatafromFb = new JSONObject (intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
+            completeDatafromFb = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
             processFacebookResponse();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
     private void processFacebookResponse() {
         try {
             JSONArray specificData = (JSONArray) completeDatafromFb.get(FacebookConstants.DATA);
@@ -70,10 +72,11 @@ public class FacebookDetailsActivity extends AppCompatActivity {
             if (specificData.toString().contains(FacebookConstants.PICTURE)) {
                 loadImageFromPost(specificData);
             }
-            if (specificData.toString().contains(FacebookConstants.LIKES)){
+            if (specificData.toString().contains(FacebookConstants.LIKES)) {
                 getLikesCount(specificData);
-            } if (specificData.toString().contains(FacebookConstants.COMMENTS)){
-                JSONObject likesObj = (JSONObject)specificData.getJSONObject(0).get(FacebookConstants.COMMENTS);
+            }
+            if (specificData.toString().contains(FacebookConstants.COMMENTS)) {
+                JSONObject likesObj = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.COMMENTS);
                 JSONArray likesArr = likesObj.getJSONArray(FacebookConstants.DATA);
                 Log.e("comments", likesArr.toString());
                 comments.setText(getString(R.string.comments) + " " + String.valueOf(likesArr.length()));
@@ -86,7 +89,7 @@ public class FacebookDetailsActivity extends AppCompatActivity {
     }
 
     private void getLikesCount(JSONArray specificData) throws JSONException {
-        JSONObject likesObj = (JSONObject)specificData.getJSONObject(0).get(FacebookConstants.LIKES);
+        JSONObject likesObj = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.LIKES);
         JSONArray likesArr = likesObj.getJSONArray(FacebookConstants.DATA);
         likes.setText(getString(R.string.likes) + " " + String.valueOf(likesArr.length()));
     }

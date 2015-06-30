@@ -69,7 +69,7 @@ public class FacebookPostsFragment extends Fragment {
     void openFullScreenActivity() {
         Intent intent = new Intent(getActivity(), FacebookDetailsActivity.class);
         Bundle bundle = new Bundle();
-        if (completeDatafromFb != null){
+        if (completeDatafromFb != null) {
             bundle.putString(FacebookConstants.JSON_OBJECT, completeDatafromFb.toString());
             intent.putExtras(bundle);
             startActivity(intent);
