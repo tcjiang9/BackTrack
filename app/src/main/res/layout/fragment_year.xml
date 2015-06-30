@@ -1,104 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:text="@string/date_text" />
-
-    <RelativeLayout
-        android:id="@+id/music_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/date_text"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:id="@+id/song_title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/song_title" />
-
-        <TextView
-            android:id="@+id/song_artist_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/song_title_text"
-            android:layout_centerHorizontal="true"
-            android:text="@string/song_artist" />
-
-        <ProgressBar
-            android:id="@+id/circular_progressbar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_below="@id/song_artist_text"
-            android:layout_centerHorizontal="true"
-            android:indeterminate="false"
-            android:max="100"
-            android:progress="25"
-            android:progressDrawable="@drawable/circular"
-            android:secondaryProgress="100" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/facebook_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/music_view"
-        android:visibility="visible">
-
-        <TextView
-            android:id="@+id/no_facebook_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no_facebook_content"
-            android:visibility="gone"
-            />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/news_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/facebook_view">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/news_tab"
-            android:id="@+id/news_tab"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/news_headline"
-            android:layout_below="@+id/news_tab" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/news_body"
-            android:layout_below="@id/news_headline" />
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/previous_year_button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/prev_year" />
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/date_text" />
+
+            <TextView
+                android:id="@+id/song_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/song_title" />
+
+            <TextView
+                android:id="@+id/song_artist_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/song_artist" />
+
+            <ProgressBar
+                android:id="@+id/circular_progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/circular"
+                android:secondaryProgress="100" />
+
+
+        <RelativeLayout
+            android:id="@+id/facebook_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/no_facebook_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_facebook_content"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+            <TextView
+                android:id="@+id/news_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/news_tab"
+                android:layout_gravity="start" />
+
+            <TextView
+                android:id="@+id/news_headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/news_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        <Button
+            android:id="@+id/previous_year_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prev_year" />
+
+    </LinearLayout>
+</ScrollView>
