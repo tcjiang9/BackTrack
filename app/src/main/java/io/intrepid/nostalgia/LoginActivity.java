@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -59,7 +60,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
+
                 if (profile != null) {
+                    Log.e("profile name ", profile.getName());
                     isFacebook = true;
                     saveDataInPreferences();
                     startMainActivity();
@@ -78,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         LoginButton facebookLogin = (LoginButton) findViewById(R.id.login_button);
-        facebookLogin.setReadPermissions("public_profile", "read_stream", "user_posts");
+        facebookLogin.setReadPermissions("public_profile");
         facebookLogin.registerCallback(callbackManager, facebookCallback);
     }
 

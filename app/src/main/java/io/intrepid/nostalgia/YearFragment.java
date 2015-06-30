@@ -5,21 +5,31 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class YearFragment extends Fragment {
     public static final String YEAR = "Display Year";
-    private PrevYearButtonListener prevYearButtonListener;
+    public int currentYear;
+    public int getCurrentYear() {
+        return currentYear;
+    }
 
+    private PrevYearButtonListener prevYearButtonListener;
+    @InjectView(R.id.song_artist_text)
+    TextView yearTemp;
     @InjectView(R.id.facebook_view)
     RelativeLayout facebookView;
+    @InjectView(R.id.no_facebook_account)
+    TextView noFacebook;
 
     public interface PrevYearButtonListener {
         void onPrevYearButtonClicked();
@@ -39,10 +49,16 @@ public class YearFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Constants.currentYear = getArguments().getInt(YEAR); //the current year, for future use.
+
+         //the current year, for future use.
+        currentYear = getArguments().getInt(YEAR);
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
+        yearTemp.setText(String.valueOf(currentYear));
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.facebook_view, FacebookPostsFragment.getInstance(currentYear))
+                .commit();
 
         Button prevYearButton = (Button) rootView.findViewById(R.id.previous_year_button);
         prevYearButton.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +70,7 @@ public class YearFragment extends Fragment {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if (preferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null) == null) {
-            facebookView.setVisibility(View.GONE);
+            noFacebook.setVisibility(View.VISIBLE);
         }
         return rootView;
     }
