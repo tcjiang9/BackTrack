@@ -1,46 +1,43 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="io.intrepid.nostalgia.facebook.FacebookDetailsActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fb_name"/>
     <TextView
+        android:id="@+id/fb_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fb_name"
-        android:text="@string/status"
-        android:layout_alignBaseline="@+id/fb_name"
-        android:layout_toRightOf="@+id/fb_name"
-        android:paddingLeft="@dimen/image_padding"
-        android:layout_toEndOf="@+id/fb_name"
-        android:id="@+id/fb_status"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fb_status"
-        android:id="@+id/full_picture"
-        android:src="@drawable/ic_launcher"
-        android:contentDescription="@string/facebook_tab"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/likes"
-        android:text="@string/likes"
-        android:layout_below="@+id/full_picture"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/comments"
-        android:text="@string/comments"
-        android:layout_alignBottom="@+id/likes"
-        android:paddingLeft="@dimen/image_padding"
-        android:layout_toRightOf="@+id/likes"
-        android:layout_toEndOf="@+id/likes" />
+        android:text="@string/hello_world" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/fb_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/status" />
+
+    <ImageView
+        android:id="@+id/full_picture"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/full_img_height"
+        android:contentDescription="@string/facebook_tab"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/likes" />
+
+    <TextView
+        android:id="@+id/comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/comments" />
+
+</LinearLayout>

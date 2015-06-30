@@ -96,6 +96,7 @@ public class FacebookPostsFragment extends Fragment {
         try {
             JSONArray specificData = (JSONArray) completeDatafromFb.get(FacebookConstants.DATA);
             String responseStr = specificData.toString();
+            Log.e("response str", responseStr);
             if (specificData.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
             }

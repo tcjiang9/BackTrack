@@ -12,4 +12,6 @@ public class FacebookConstants {
     public static final String STORY = "story";
     public static final String STATUS = "status";
     public static final String JSON_OBJECT = "jsonObject";
+    public static final String LIKES = "likes";
+    public static final String  COMMENTS = "comments";
 }
