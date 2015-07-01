@@ -22,4 +22,6 @@
     <string name="likes">Likes</string>
     <string name="status">Story</string>
     <string name="comments">Comments</string>
+    <string name="title_activity_facebook_second">FacebookSecondActivity</string>
+    <string name="status_alternative">Shared a photo</string>
 </resources>

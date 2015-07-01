@@ -20,13 +20,11 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.InjectViews;
 import butterknife.OnClick;
 import io.intrepid.nostalgia.R;
@@ -36,19 +34,15 @@ public class FacebookPostsFragment extends Fragment {
 
     public static final String YEAR_KEY = "YEAR_KEY";
     public static final int MILLISECOND_PER_SECOND = 1000;
-    @InjectView(R.id.fb_name)
-    TextView name;
-    @InjectView(R.id.fb_name_2)
-    TextView nameFor2;
-    @InjectView(R.id.fb_name_3)
-    TextView nameFor3;
+    @InjectViews({R.id.fb_name,R.id.fb_name_2, R.id.fb_name_3})
+    List <TextView> names;
+
     @InjectViews({R.id.image_shared, R.id.image_shared_2,R.id.image_shared_3})
     List<ImageView> loadImages;
 
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDatafromFb;
-
     public static FacebookPostsFragment getInstance(int currentYear) {
         FacebookPostsFragment fragment = new FacebookPostsFragment();
         Bundle args = new Bundle();
@@ -73,11 +67,48 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     @OnClick(R.id.image_shared)
-    void openFullScreenActivity() {
-        Intent intent = new Intent(getActivity(), FacebookDetailsActivity.class);
+    void openScreenForActivity1() {
+        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
+        Bundle bundle = new Bundle();
+
+        if (completeDatafromFb != null) {
+            try {
+                JSONArray array = completeDatafromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT,array.getJSONObject(loadImages.get(0).getId()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+    }@OnClick(R.id.image_shared_2)
+    void openScreenForActivity2() {
+        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
         Bundle bundle = new Bundle();
         if (completeDatafromFb != null) {
-            bundle.putString(FacebookConstants.JSON_OBJECT, completeDatafromFb.toString());
+            try {
+                JSONArray array = completeDatafromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT,array.getJSONObject(loadImages.get(1).getId()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+    }
+    @OnClick(R.id.image_shared_3)
+    void openScreenForActivity3() {
+        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
+        Bundle bundle = new Bundle();
+        if (completeDatafromFb != null) {
+            try {
+                JSONArray array = completeDatafromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT,array.getJSONObject(loadImages.get(2).getId()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             intent.putExtras(bundle);
             startActivity(intent);
         }
@@ -103,14 +134,16 @@ public class FacebookPostsFragment extends Fragment {
         try {
             JSONArray specificData = (JSONArray) completeDatafromFb.get(FacebookConstants.DATA);
             String responseStr = specificData.toString();
-            Log.e("response str", responseStr);
-            if (specificData.length() == 0) {
-                name.setText(getString(R.string.no_activity_msg));
-            }
+
             for (int i = 0; i < specificData.length(); i++) {
+                if (specificData.getJSONObject(i).length() == 0) {
+                    names.get(i).setText(getString(R.string.no_activity_msg));
+                }
                 if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
                     String imageUrl = specificData.getJSONObject(i).get(FacebookConstants.PICTURE).toString();
-                    loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i));
+                    loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
+                } else {
+                    names.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                 }
             }
 
@@ -120,9 +153,11 @@ public class FacebookPostsFragment extends Fragment {
         }
     }
 
-    private void loadImageFromPost(JSONObject specificData, ImageView image) throws JSONException {
+    private void loadImageFromPost(JSONObject specificData, ImageView image, int imageId) throws JSONException {
         String imageUrl = specificData.get(FacebookConstants.PICTURE).toString();
         image.setVisibility(View.VISIBLE);
+
+        image.setId(imageId);
         Picasso.with(getActivity()).
                 load(imageUrl).fit().into(image);
     }
