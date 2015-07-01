@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:orientation="vertical"
     tools:context="io.intrepid.nostalgia.facebook.FacebookPostsFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -14,11 +15,36 @@
     <ImageView
         android:id="@+id/image_shared"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/fb_name"
+        android:layout_height="@dimen/image_main_screen"
+        android:contentDescription="@string/facebook_tab"
+        android:paddingTop="@dimen/image_padding"
+        android:src="@drawable/ic_launcher"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/fb_name_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <ImageView
+        android:id="@+id/image_shared_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_main_screen"
+        android:contentDescription="@string/facebook_tab"
+        android:paddingTop="@dimen/image_padding"
+        android:src="@drawable/ic_launcher"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/fb_name_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <ImageView
+        android:id="@+id/image_shared_3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_main_screen"
         android:contentDescription="@string/facebook_tab"
         android:paddingTop="@dimen/image_padding"
         android:src="@drawable/ic_launcher"
         android:visibility="gone" />
 
-</RelativeLayout>
+</LinearLayout>

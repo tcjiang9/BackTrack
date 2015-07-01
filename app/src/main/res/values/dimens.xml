@@ -8,4 +8,5 @@
 
     <dimen name="circular_progress">150dp</dimen>
     <dimen name="full_img_height">300dp</dimen>
+    <dimen name="image_main_screen">150dp</dimen>
 </resources>

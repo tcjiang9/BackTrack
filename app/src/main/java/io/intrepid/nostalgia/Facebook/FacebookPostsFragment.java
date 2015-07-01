@@ -20,11 +20,14 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.InjectViews;
 import butterknife.OnClick;
 import io.intrepid.nostalgia.R;
 
@@ -35,9 +38,12 @@ public class FacebookPostsFragment extends Fragment {
     public static final int MILLISECOND_PER_SECOND = 1000;
     @InjectView(R.id.fb_name)
     TextView name;
-
-    @InjectView(R.id.image_shared)
-    ImageView fbImage;
+    @InjectView(R.id.fb_name_2)
+    TextView nameFor2;
+    @InjectView(R.id.fb_name_3)
+    TextView nameFor3;
+    @InjectViews({R.id.image_shared, R.id.image_shared_2,R.id.image_shared_3})
+    List<ImageView> loadImages;
 
     CallbackManager callbackManager;
     private int currentYear;
@@ -101,20 +107,24 @@ public class FacebookPostsFragment extends Fragment {
             if (specificData.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
             }
-            if (specificData.toString().contains(FacebookConstants.PICTURE)) {
-                loadImageFromPost(specificData);
+            for (int i = 0; i < specificData.length(); i++) {
+                if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
+                    String imageUrl = specificData.getJSONObject(i).get(FacebookConstants.PICTURE).toString();
+                    loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i));
+                }
             }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void loadImageFromPost(JSONArray specificData) throws JSONException {
-        String imageUrl = specificData.getJSONObject(0).get(FacebookConstants.PICTURE).toString();
-        fbImage.setVisibility(View.VISIBLE);
+    private void loadImageFromPost(JSONObject specificData, ImageView image) throws JSONException {
+        String imageUrl = specificData.get(FacebookConstants.PICTURE).toString();
+        image.setVisibility(View.VISIBLE);
         Picasso.with(getActivity()).
-                load(imageUrl).fit().into(fbImage);
+                load(imageUrl).fit().into(image);
     }
 
     private Bundle setUserSelectedDate(int year) {
