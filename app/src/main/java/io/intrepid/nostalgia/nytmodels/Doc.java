@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Doc {
 
+    //missing byline and keywords
+
     @SerializedName("web_url")
     @Expose
     private String webUrl;
@@ -30,8 +32,6 @@ public class Doc {
     private List<Object> multimedia = new ArrayList<Object>();
     @Expose
     private Headline headline;
-    //@Expose
-    //private List<Keyword> keywords = new ArrayList<Keyword>();
     @SerializedName("pub_date")
     @Expose
     private String pubDate;
@@ -47,8 +47,6 @@ public class Doc {
     @SerializedName("subsection_name")
     @Expose
     private Object subsectionName;
-    //@Expose
-    //private Byline byline;
     @SerializedName("type_of_material")
     @Expose
     private String typeOfMaterial;
@@ -131,14 +129,6 @@ public class Doc {
         this.headline = headline;
     }
 
-    //public List<Keyword> getKeywords() {
-    //    return keywords;
-    //}
-
-    //public void setKeywords(List<Keyword> keywords) {
-    //    this.keywords = keywords;
-    //}
-
     public String getPubDate() {
         return pubDate;
     }
@@ -178,14 +168,6 @@ public class Doc {
     public void setSubsectionName(Object subsectionName) {
         this.subsectionName = subsectionName;
     }
-
-    //public Byline getByline() {
-    //    return byline;
-    //}
-
-    //public void setByline(Byline byline) {
-    //    this.byline = byline;
-    //}
 
     public String getTypeOfMaterial() {
         return typeOfMaterial;
