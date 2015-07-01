@@ -15,9 +15,11 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import io.intrepid.nostalgia.nytmodels.Doc;
 import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -27,16 +29,15 @@ public class YearFragment extends Fragment {
     public static final String TAG = YearFragment.class.getSimpleName();
     public static final String YEAR = "Display Year";
     public int currentYear;
-    public int getCurrentYear() {
-        return currentYear;
-    }
-
 
     private PrevYearButtonListener prevYearButtonListener;
+
     @InjectView(R.id.song_artist_text)
     TextView yearTemp;
+
     @InjectView(R.id.facebook_view)
     RelativeLayout facebookView;
+
     @InjectView(R.id.no_facebook_account)
     TextView noFacebook;
 
@@ -68,8 +69,6 @@ public class YearFragment extends Fragment {
          //the current year, for future use.
         currentYear = getArguments().getInt(YEAR);
 
-        sendNytGetRequest(Integer.toString(currentYear));
-
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
         yearTemp.setText(String.valueOf(currentYear));
@@ -89,6 +88,8 @@ public class YearFragment extends Fragment {
         if (preferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null) == null) {
             noFacebook.setVisibility(View.VISIBLE);
         }
+
+        sendNytGetRequest(Integer.toString(currentYear));
         return rootView;
     }
 
@@ -101,10 +102,11 @@ public class YearFragment extends Fragment {
                 .getNytArticle(date, date, new Callback<NyTimesReturn>() {
                     @Override
                     public void success(NyTimesReturn timesReturn, Response response) {
-                        String webUrl = timesReturn.getResponse().getDocs().get(0).getWebUrl();
-                        String headline = timesReturn.getResponse().getDocs().get(0).getHeadline().getMain();
-                        String snippet = timesReturn.getResponse().getDocs().get(0).getSnippet();
-                        String pubDate = timesReturn.getResponse().getDocs().get(0).getPubDate();
+                        Doc docs = timesReturn.getResponse().getDocs().get(0);
+                        String webUrl = docs.getWebUrl();
+                        String headline = docs.getHeadline().getMain();
+                        String snippet = docs.getSnippet();
+                        String pubDate = docs.getPubDate();
 
                         newsHeadline.setText(headline);
                         newsBody.setText(snippet);
