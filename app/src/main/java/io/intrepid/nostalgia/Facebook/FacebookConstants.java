@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia.Facebook;
+package io.intrepid.nostalgia.facebook;
 
 public class FacebookConstants {
     public static final String DATA = "data";

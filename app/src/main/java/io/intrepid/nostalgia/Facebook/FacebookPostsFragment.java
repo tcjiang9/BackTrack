@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia.Facebook;
+package io.intrepid.nostalgia.facebook;
 
 import android.content.Intent;
 import android.os.Bundle;

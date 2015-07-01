@@ -19,7 +19,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import io.intrepid.nostalgia.Facebook.*;
+import io.intrepid.nostalgia.facebook.*;
 import io.intrepid.nostalgia.nytmodels.Doc;
 import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
 import retrofit.Callback;
