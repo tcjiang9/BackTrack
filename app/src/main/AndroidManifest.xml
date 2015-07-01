@@ -40,10 +40,6 @@
             android:name=".facebook.FacebookFirstActivity"
             android:label="@string/title_activity_facebook_details" >
         </activity>
-        <activity
-            android:name=".facebook.FacebookSecondActivity"
-            android:label="@string/title_activity_facebook_second" >
-        </activity>
     </application>
 
 </manifest>

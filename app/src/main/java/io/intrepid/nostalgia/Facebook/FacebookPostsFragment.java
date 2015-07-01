@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -114,6 +115,21 @@ public class FacebookPostsFragment extends Fragment {
         }
 
     }
+    @OnClick(R.id.fb_name_3) void check (){
+        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
+        Bundle bundle = new Bundle();
+        if (completeDatafromFb != null) {
+            try {
+                JSONArray array = completeDatafromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(names.get(2).getId()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    }
+
 
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() != null) {
@@ -144,6 +160,7 @@ public class FacebookPostsFragment extends Fragment {
                     loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
                 } else {
                     names.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
+                    names.get(i).setId(i);
                 }
             }
 

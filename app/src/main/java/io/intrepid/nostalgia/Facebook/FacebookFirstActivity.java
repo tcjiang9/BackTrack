@@ -43,6 +43,7 @@ public class FacebookFirstActivity extends AppCompatActivity {
         Intent intent = getIntent();
         try {
             completeDatafromFb = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
+            Log.e("budle value", completeDatafromFb.toString());
             processFacebookResponse();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -68,6 +69,8 @@ public class FacebookFirstActivity extends AppCompatActivity {
                     }
                     if (response.contains(FacebookConstants.PICTURE)) {
                         loadImageFromPost(completeDatafromFb);
+                    } else {
+                        fbImage.setVisibility(View.GONE);
                     }
                     if (response.contains(FacebookConstants.LIKES)) {
                         getLikesCount(completeDatafromFb);
@@ -94,7 +97,7 @@ public class FacebookFirstActivity extends AppCompatActivity {
     private void getComments(JSONObject specificData) throws JSONException {
         JSONObject likesObj = (JSONObject) specificData.get(FacebookConstants.COMMENTS);
         JSONArray likesArr = likesObj.getJSONArray(FacebookConstants.DATA);
-        likes.setText(getString(R.string.comments) + " " + String.valueOf(likesArr.length()));
+        comments.setText(getString(R.string.comments) + " " + String.valueOf(likesArr.length()));
     }
 
     private void loadImageFromPost(JSONObject specificData) throws JSONException {
