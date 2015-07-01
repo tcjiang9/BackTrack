@@ -61,25 +61,29 @@ public class FacebookDetailsActivity extends AppCompatActivity {
             if (specificData.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
                 status.setVisibility(View.GONE);
-            } else if (responseStr.contains(FacebookConstants.STORY)) {
-                completeDatafromFb = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.FROM);
-                status.setText(specificData.getJSONObject(0).get(FacebookConstants.STORY).toString());
-                name.setText(completeDatafromFb.get(FacebookConstants.NAME).toString());
-            } else if (responseStr.contains(FacebookConstants.STATUS)) {
-                status.setText(specificData.getJSONObject(0).get(FacebookConstants.STATUS).toString());
-                name.setText(completeDatafromFb.get(FacebookConstants.NAME).toString());
-            }
-            if (specificData.toString().contains(FacebookConstants.PICTURE)) {
-                loadImageFromPost(specificData);
-            }
-            if (specificData.toString().contains(FacebookConstants.LIKES)) {
-                getLikesCount(specificData);
-            }
-            if (specificData.toString().contains(FacebookConstants.COMMENTS)) {
-                JSONObject likesObj = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.COMMENTS);
-                JSONArray likesArr = likesObj.getJSONArray(FacebookConstants.DATA);
-                Log.e("comments", likesArr.toString());
-                comments.setText(getString(R.string.comments) + " " + String.valueOf(likesArr.length()));
+            } else {
+                for (int i = 0; i < specificData.length(); i++) {
+                    String response = specificData.getJSONObject(i).toString();
+                    Log.e("value of i", "" + i);
+                    completeDatafromFb = specificData.getJSONObject(i);
+                    name.setText(completeDatafromFb.getJSONObject(FacebookConstants.FROM)
+                            .get(FacebookConstants.NAME).toString());
+                    String createdTime = completeDatafromFb.getString(FacebookConstants.CREATED_TIME);
+                    if (response.contains(FacebookConstants.MESSAGE)) {
+                        status.setText(completeDatafromFb.get(FacebookConstants.MESSAGE).toString());
+                    }
+                    if (response.contains(FacebookConstants.PICTURE)) {
+                        loadImageFromPost(completeDatafromFb);
+                    }
+                    if (response.contains(FacebookConstants.LIKES)) {
+                        getLikesCount(completeDatafromFb);
+                        Log.e("value of i", "likes");
+                    }
+                    if (specificData.toString().contains(FacebookConstants.COMMENTS)) {
+                        getComments(completeDatafromFb);
+                        Log.e("value of i", "comments");
+                    }
+                }
             }
 
 
@@ -88,14 +92,21 @@ public class FacebookDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void getLikesCount(JSONArray specificData) throws JSONException {
-        JSONObject likesObj = (JSONObject) specificData.getJSONObject(0).get(FacebookConstants.LIKES);
+    private void getLikesCount(JSONObject specificData) throws JSONException {
+        JSONObject likesObj = (JSONObject) specificData.get(FacebookConstants.LIKES);
         JSONArray likesArr = likesObj.getJSONArray(FacebookConstants.DATA);
         likes.setText(getString(R.string.likes) + " " + String.valueOf(likesArr.length()));
+
     }
 
-    private void loadImageFromPost(JSONArray specificData) throws JSONException {
-        String imageUrl = specificData.getJSONObject(0).get(FacebookConstants.PICTURE).toString();
+    private void getComments(JSONObject specificData) throws JSONException {
+        JSONObject likesObj = (JSONObject) specificData.get(FacebookConstants.COMMENTS);
+        JSONArray likesArr = likesObj.getJSONArray(FacebookConstants.DATA);
+        likes.setText(getString(R.string.comments) + " " + String.valueOf(likesArr.length()));
+    }
+
+    private void loadImageFromPost(JSONObject specificData) throws JSONException {
+        String imageUrl = specificData.get(FacebookConstants.PICTURE).toString();
         fbImage.setVisibility(View.VISIBLE);
         Log.e("in picture", imageUrl);
         Picasso.with(this).
