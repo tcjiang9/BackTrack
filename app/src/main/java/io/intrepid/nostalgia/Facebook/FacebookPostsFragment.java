@@ -3,13 +3,11 @@ package io.intrepid.nostalgia.facebook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -35,15 +33,16 @@ public class FacebookPostsFragment extends Fragment {
 
     public static final String YEAR_KEY = "YEAR_KEY";
     public static final int MILLISECOND_PER_SECOND = 1000;
-    @InjectViews({R.id.fb_name,R.id.fb_name_2, R.id.fb_name_3})
-    List <TextView> names;
+    @InjectViews({R.id.fb_name, R.id.fb_name_2, R.id.fb_name_3})
+    List<TextView> names;
 
-    @InjectViews({R.id.image_shared, R.id.image_shared_2,R.id.image_shared_3})
+    @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     List<ImageView> loadImages;
 
     CallbackManager callbackManager;
     private int currentYear;
-    JSONObject completeDatafromFb;
+    JSONObject completeDataFromFb;
+
     public static FacebookPostsFragment getInstance(int currentYear) {
         FacebookPostsFragment fragment = new FacebookPostsFragment();
         Bundle args = new Bundle();
@@ -72,25 +71,10 @@ public class FacebookPostsFragment extends Fragment {
         Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
         Bundle bundle = new Bundle();
 
-        if (completeDatafromFb != null) {
+        if (completeDataFromFb != null) {
             try {
-                JSONArray array = completeDatafromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT,array.getJSONObject(loadImages.get(0).getId()).toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-
-    }@OnClick(R.id.image_shared_2)
-    void openScreenForActivity2() {
-        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
-        Bundle bundle = new Bundle();
-        if (completeDatafromFb != null) {
-            try {
-                JSONArray array = completeDatafromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT,array.getJSONObject(loadImages.get(1).getId()).toString());
+                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(loadImages.get(0).getId()).toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -99,14 +83,32 @@ public class FacebookPostsFragment extends Fragment {
         }
 
     }
+
+    @OnClick(R.id.image_shared_2)
+    void openScreenForActivity2() {
+        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
+        Bundle bundle = new Bundle();
+        if (completeDataFromFb != null) {
+            try {
+                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(loadImages.get(1).getId()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+    }
+
     @OnClick(R.id.image_shared_3)
     void openScreenForActivity3() {
         Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
         Bundle bundle = new Bundle();
-        if (completeDatafromFb != null) {
+        if (completeDataFromFb != null) {
             try {
-                JSONArray array = completeDatafromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT,array.getJSONObject(loadImages.get(2).getId()).toString());
+                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(loadImages.get(2).getId()).toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -115,13 +117,47 @@ public class FacebookPostsFragment extends Fragment {
         }
 
     }
-    @OnClick(R.id.fb_name_3) void check (){
+
+    @OnClick(R.id.fb_name_3)
+    void statusUpdate1() {
         Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
         Bundle bundle = new Bundle();
-        if (completeDatafromFb != null) {
+        if (completeDataFromFb != null) {
             try {
-                JSONArray array = completeDatafromFb.getJSONArray(FacebookConstants.DATA);
+                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(names.get(2).getId()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.fb_name_2)
+    void statusUpdate2() {
+        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
+        Bundle bundle = new Bundle();
+        if (completeDataFromFb != null) {
+            try {
+                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(names.get(1).getId()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.fb_name)
+    void statusUpdate3() {
+        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
+        Bundle bundle = new Bundle();
+        if (completeDataFromFb != null) {
+            try {
+                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
+                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(names.get(0).getId()).toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -146,9 +182,9 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void processFacebookResponse(GraphResponse graphResponse) {
-        completeDatafromFb = graphResponse.getJSONObject();
+        completeDataFromFb = graphResponse.getJSONObject();
         try {
-            JSONArray specificData = (JSONArray) completeDatafromFb.get(FacebookConstants.DATA);
+            JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
             String responseStr = specificData.toString();
 
             for (int i = 0; i < specificData.length(); i++) {
@@ -197,13 +233,6 @@ public class FacebookPostsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
 
     }
 }

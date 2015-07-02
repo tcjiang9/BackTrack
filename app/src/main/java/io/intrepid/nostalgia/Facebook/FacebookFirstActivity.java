@@ -33,7 +33,7 @@ public class FacebookFirstActivity extends AppCompatActivity {
     @InjectView(R.id.comments)
     TextView comments;
 
-    JSONObject completeDatafromFb;
+    JSONObject completeDataFromFb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ public class FacebookFirstActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         Intent intent = getIntent();
         try {
-            completeDatafromFb = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
-            Log.e("budle value", completeDatafromFb.toString());
+            completeDataFromFb = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
+            Log.e("budle value", completeDataFromFb.toString());
             processFacebookResponse();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -52,31 +52,31 @@ public class FacebookFirstActivity extends AppCompatActivity {
 
     private void processFacebookResponse() {
         try {
-            String responseStr = completeDatafromFb.toString();
-            if (completeDatafromFb.length() == 0) {
+            String responseStr = completeDataFromFb.toString();
+            if (completeDataFromFb.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
                 status.setVisibility(View.GONE);
             } else {
-                for (int i = 0; i < completeDatafromFb.length(); i++) {
-                    name.setText(completeDatafromFb.getJSONObject(FacebookConstants.FROM)
+                for (int i = 0; i < completeDataFromFb.length(); i++) {
+                    name.setText(completeDataFromFb.getJSONObject(FacebookConstants.FROM)
                             .get(FacebookConstants.NAME).toString());
-                    String createdTime = completeDatafromFb.getString(FacebookConstants.CREATED_TIME);
-                    String response = completeDatafromFb.toString();
+                    String createdTime = completeDataFromFb.getString(FacebookConstants.CREATED_TIME);
+                    String response = completeDataFromFb.toString();
                     if (response.contains(FacebookConstants.MESSAGE)) {
-                        status.setText(completeDatafromFb.get(FacebookConstants.MESSAGE).toString());
+                        status.setText(completeDataFromFb.get(FacebookConstants.MESSAGE).toString());
                     } else{
                         status.setText(getString(R.string.status_alternative));
                     }
                     if (response.contains(FacebookConstants.PICTURE)) {
-                        loadImageFromPost(completeDatafromFb);
+                        loadImageFromPost(completeDataFromFb);
                     } else {
                         fbImage.setVisibility(View.GONE);
                     }
                     if (response.contains(FacebookConstants.LIKES)) {
-                        getLikesCount(completeDatafromFb);
+                        getLikesCount(completeDataFromFb);
                     }
-                    if (completeDatafromFb.toString().contains(FacebookConstants.COMMENTS)) {
-                        getComments(completeDatafromFb);
+                    if (completeDataFromFb.toString().contains(FacebookConstants.COMMENTS)) {
+                        getComments(completeDataFromFb);
                     }
                 }
             }
