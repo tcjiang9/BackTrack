@@ -3,6 +3,8 @@ package io.intrepid.nostalgia;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -14,9 +16,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,6 +38,8 @@ public class YearFragment extends Fragment {
     public int currentYear;
 
     private PrevYearButtonListener prevYearButtonListener;
+    private Button playMusicButton;
+    private final MediaPlayer mediaPlayer = new MediaPlayer();
 
     @InjectView(R.id.song_artist_text)
     TextView yearTemp;
@@ -79,12 +83,57 @@ public class YearFragment extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-         //the current year, for future use.
+        //the current year, for future use.
         currentYear = getArguments().getInt(YEAR);
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
+
+        playMusicButton = (Button) rootView.findViewById(R.id.play_music_button);
+        playMusicButton.setText("Play");
+        playMusicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mediaPlayer.isPlaying()) {
+                    try {
+                        playMusic(mediaPlayer);
+
+                    } catch (IOException e) {
+                        Log.e(TAG, e.toString());
+                    }
+                } else {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    playMusicButton.setText("Play");
+                }
+            }
+
+            private void playMusic(final MediaPlayer mediaPlayer) throws IOException {
+                //Todo: fetch this url string from an iTunes JSON instead of hardcoding
+                String iTunesUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                Log.i(TAG, "Right before data source");
+                mediaPlayer.setDataSource(iTunesUrl);
+                Log.i(TAG, "About to prepare async");
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mediaPlayer.start();
+                        playMusicButton.setText("Stop");
+                        Log.i(TAG, "this has prepared");
+                    }
+                });
+                mediaPlayer.prepareAsync();
+            }
+        });
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                playMusicButton.setText("Play");
+            }
+        });
+
         yearTemp.setText(String.valueOf(currentYear));
         getChildFragmentManager().beginTransaction()
                 .add(R.id.facebook_view, FacebookPostsFragment.getInstance(currentYear))
