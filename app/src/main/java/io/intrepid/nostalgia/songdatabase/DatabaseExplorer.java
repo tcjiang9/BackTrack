@@ -3,8 +3,10 @@ package io.intrepid.nostalgia.songdatabase;
 import java.io.IOException;
 
 import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -19,26 +21,34 @@ public class DatabaseExplorer extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_year);
+        setContentView(R.layout.database_explorer);
 
-        String[] from = new String[]{"_id", "columnName1", "columnName2"};
-        int[] to = new int[]{R.id.song_name, R.id.song_artist};
+        DatabaseHelper myDbHelper = new DatabaseHelper(this);
 
-        dbhelper = new DatabaseHelper(this);
         try {
-            dbhelper.createDataBase();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+            myDbHelper.createDataBase();
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+
         }
 
-        Cursor c = dbhelper.getData();
+        try {
 
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                getApplicationContext(), R.layout.database_explorer, c, from, to);
+//             myDbHelper.openDataBase();
+            Cursor c = myDbHelper.getData();
+            String[] from = c.getColumnNames();
+            for (String s : from) {
+                Log.e("colum names",""+s);
+            }
 
-        ListView list = (ListView) findViewById(R.id.items);
+        }catch(SQLException sqle){
 
-        list.setAdapter(adapter);
+            throw sqle;
+
+        }
+
     }
 }
