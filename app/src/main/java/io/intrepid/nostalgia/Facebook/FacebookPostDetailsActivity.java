@@ -57,27 +57,25 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
                 name.setText(getString(R.string.no_activity_msg));
                 status.setVisibility(View.GONE);
             } else {
-                for (int i = 0; i < onePostFromResponse.length(); i++) {
-                    name.setText(onePostFromResponse.getJSONObject(FacebookConstants.FROM)
-                            .get(FacebookConstants.NAME).toString());
-                    String createdTime = onePostFromResponse.getString(FacebookConstants.CREATED_TIME);
-                    String response = onePostFromResponse.toString();
-                    if (response.contains(FacebookConstants.MESSAGE)) {
-                        status.setText(onePostFromResponse.get(FacebookConstants.MESSAGE).toString());
-                    } else{
-                        status.setText(getString(R.string.status_alternative));
-                    }
-                    if (response.contains(FacebookConstants.PICTURE)) {
-                        loadImageFromPost(onePostFromResponse);
-                    } else {
-                        fbImage.setVisibility(View.GONE);
-                    }
-                    if (response.contains(FacebookConstants.LIKES)) {
-                        getLikesCount(onePostFromResponse);
-                    }
-                    if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
-                        getComments(onePostFromResponse);
-                    }
+                name.setText(onePostFromResponse.getJSONObject(FacebookConstants.FROM)
+                        .get(FacebookConstants.NAME).toString());
+                String createdTime = onePostFromResponse.getString(FacebookConstants.CREATED_TIME);
+                String response = onePostFromResponse.toString();
+                if (response.contains(FacebookConstants.MESSAGE)) {
+                    status.setText(onePostFromResponse.get(FacebookConstants.MESSAGE).toString());
+                } else {
+                    status.setText(getString(R.string.status_alternative));
+                }
+                if (response.contains(FacebookConstants.PICTURE)) {
+                    loadImageFromPost(onePostFromResponse);
+                } else {
+                    fbImage.setVisibility(View.GONE);
+                }
+                if (response.contains(FacebookConstants.LIKES)) {
+                    getLikesCount(onePostFromResponse);
+                }
+                if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
+                    getComments(onePostFromResponse);
                 }
             }
 
