@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -66,66 +67,38 @@ public class FacebookPostsFragment extends Fragment {
         return rootView;
     }
 
-    @OnClick(R.id.image_shared)
-    void openScreenForActivity1() {
-        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
-        Bundle bundle = new Bundle();
+    @OnClick({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
+    void openScreenForActivity3(View view) {
+        if (view.getId() == loadImages.get(0).getId()) {
+            openPhotoDetails(loadImages.get(0).getId());
+        }
+        if (view.getId() == loadImages.get(1).getId()) {
+            openPhotoDetails(loadImages.get(1).getId());
+        }
+        if (view.getId() == loadImages.get(2).getId()) {
+            openPhotoDetails(loadImages.get(2).getId());
+        }
+    }
 
-        if (completeDataFromFb != null) {
-            try {
-                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(loadImages.get(0).getId()).toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            intent.putExtras(bundle);
-            startActivity(intent);
+    @OnClick({R.id.fb_name, R.id.fb_name_2, R.id.fb_name_3})
+    void statusUpdate(View view) {
+        if (view.getId() == names.get(0).getId()) {
+            openPhotoDetails(names.get(0).getId());
+        } else if (view.getId() == names.get(1).getId()) {
+            openPhotoDetails(names.get(1).getId());
+        } else if (view.getId() == names.get(2).getId()) {
+            openPhotoDetails(names.get(2).getId());
         }
 
     }
 
-    @OnClick(R.id.image_shared_2)
-    void openScreenForActivity2() {
-        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
+    private void openPhotoDetails(int viewType) {
+        Intent intent = new Intent(getActivity(), FacebookPostDetailsActivity.class);
         Bundle bundle = new Bundle();
         if (completeDataFromFb != null) {
             try {
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(loadImages.get(1).getId()).toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-
-    }
-
-    @OnClick(R.id.image_shared_3)
-    void openScreenForActivity3() {
-        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
-        Bundle bundle = new Bundle();
-        if (completeDataFromFb != null) {
-            try {
-                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(loadImages.get(2).getId()).toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-
-    }
-
-    @OnClick(R.id.fb_name_3)
-    void statusUpdate1() {
-        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
-        Bundle bundle = new Bundle();
-        if (completeDataFromFb != null) {
-            try {
-                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(names.get(2).getId()).toString());
+                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -133,39 +106,6 @@ public class FacebookPostsFragment extends Fragment {
             startActivity(intent);
         }
     }
-
-    @OnClick(R.id.fb_name_2)
-    void statusUpdate2() {
-        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
-        Bundle bundle = new Bundle();
-        if (completeDataFromFb != null) {
-            try {
-                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(names.get(1).getId()).toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-    }
-
-    @OnClick(R.id.fb_name)
-    void statusUpdate3() {
-        Intent intent = new Intent(getActivity(), FacebookFirstActivity.class);
-        Bundle bundle = new Bundle();
-        if (completeDataFromFb != null) {
-            try {
-                JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(names.get(0).getId()).toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-    }
-
 
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() != null) {

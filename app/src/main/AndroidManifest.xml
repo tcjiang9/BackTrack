@@ -37,7 +37,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".facebook.FacebookFirstActivity"
+            android:name=".facebook.FacebookPostDetailsActivity"
             android:label="@string/title_activity_facebook_details" >
         </activity>
     </application>

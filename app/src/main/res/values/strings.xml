@@ -19,9 +19,9 @@
     <string name="status_msg">New Text</string>
     <string name="no_activity_msg">No Facebook Activities on this date</string>
     <string name="title_activity_facebook_details">FacebookDetailsActivity</string>
-    <string name="likes">Likes</string>
+    <string name="likes">Likes %s</string>
     <string name="status">Story</string>
-    <string name="comments">Comments</string>
+    <string name="comments">Comments %s</string>
     <string name="title_activity_facebook_second">FacebookSecondActivity</string>
     <string name="status_alternative">Shared a photo</string>
 </resources>
