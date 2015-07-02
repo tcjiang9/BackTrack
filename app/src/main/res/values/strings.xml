@@ -24,4 +24,6 @@
     <string name="comments">Comments %s</string>
     <string name="title_activity_facebook_second">FacebookSecondActivity</string>
     <string name="status_alternative">Shared a photo</string>
+    <string name="song_name">Song Name</string>
+    <string name="db_explorer">Database Explorer</string>
 </resources>

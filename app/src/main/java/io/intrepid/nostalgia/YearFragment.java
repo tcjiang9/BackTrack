@@ -1,6 +1,7 @@
 package io.intrepid.nostalgia;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,9 +20,11 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import io.intrepid.nostalgia.facebook.*;
 import io.intrepid.nostalgia.nytmodels.Doc;
 import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
+import io.intrepid.nostalgia.songdatabase.DatabaseExplorer;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -66,7 +69,10 @@ public class YearFragment extends Fragment {
                     + " must implement PrevYearButtonListener");
         }
     }
-
+    @OnClick(R.id.date_text) void dbConnect(){
+        Intent intent = new Intent(getActivity(), DatabaseExplorer.class);
+        startActivity(intent);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
