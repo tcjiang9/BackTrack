@@ -27,6 +27,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectViews;
 import butterknife.OnClick;
+import io.intrepid.nostalgia.DateFormatter;
 import io.intrepid.nostalgia.R;
 
 
@@ -110,7 +111,7 @@ public class FacebookPostsFragment extends Fragment {
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() != null) {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
-                    FacebookConstants.ME_POSTS, setUserSelectedDate(currentYear), HttpMethod.GET,
+                    FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {
                         @Override
                         public void onCompleted(GraphResponse graphResponse) {
@@ -153,20 +154,6 @@ public class FacebookPostsFragment extends Fragment {
         image.setId(imageId);
         Picasso.with(getActivity()).
                 load(imageUrl).fit().into(image);
-    }
-
-    private Bundle setUserSelectedDate(int year) {
-        Bundle parameters = new Bundle();
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        long initialTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
-        parameters.putString(FacebookConstants.SINCE, "" + initialTime);
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        long limitTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
-        parameters.putString(FacebookConstants.UNTIL, "" + limitTime);
-        parameters.putString(FacebookConstants.LIMIT, "3");
-        return parameters;
     }
 
     @Override

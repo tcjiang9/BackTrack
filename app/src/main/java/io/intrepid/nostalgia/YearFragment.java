@@ -90,13 +90,15 @@ public class YearFragment extends Fragment {
             noFacebook.setVisibility(View.VISIBLE);
         }
 
+        TextView dateText = (TextView) rootView.findViewById(R.id.date_text);
+        dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
+
         sendNytGetRequest(Integer.toString(currentYear));
         return rootView;
     }
 
     private void sendNytGetRequest(String currentYear) {
-        String day = new SimpleDateFormat("MMdd").format(new Date());
-        String date = currentYear + day;
+        String date = DateFormatter.makeNytDate(currentYear);
         Log.d(TAG, date);
 
         NytServiceAdapter.getNytServiceInstance()
