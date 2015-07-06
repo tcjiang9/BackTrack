@@ -48,6 +48,9 @@ public class YearFragment extends Fragment {
     @InjectView(R.id.news_body)
     TextView newsBody;
 
+    @InjectView(R.id.date_text)
+    TextView dateText;
+
     public interface PrevYearButtonListener {
         void onPrevYearButtonClicked();
     }
@@ -90,13 +93,14 @@ public class YearFragment extends Fragment {
             noFacebook.setVisibility(View.VISIBLE);
         }
 
+        dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
+
         sendNytGetRequest(Integer.toString(currentYear));
         return rootView;
     }
 
     private void sendNytGetRequest(String currentYear) {
-        String day = new SimpleDateFormat("MMdd").format(new Date());
-        String date = currentYear + day;
+        String date = DateFormatter.makeNytDate(currentYear);
         Log.d(TAG, date);
 
         NytServiceAdapter.getNytServiceInstance()
