@@ -7,28 +7,25 @@
     <Switch
         android:layout_width="357dp"
         android:layout_height="wrap_content"
-        android:text="Connect to Facebook"
-        android:id="@+id/switch1"
-        android:layout_gravity="right"
+        android:text="@string/facebook_connection"
+        android:id="@+id/facebook_switch"
         android:layout_weight="0.06"
         android:textSize="@dimen/abc_text_size_headline_material" />
 
     <Switch
         android:layout_width="357dp"
         android:layout_height="wrap_content"
-        android:text="Autoplay Music"
-        android:id="@+id/switch2"
-        android:layout_gravity="right"
+        android:text="@string/autoplay_switch_text"
+        android:id="@+id/autoplay_switch"
         android:layout_weight="0.06"
         android:textSize="@dimen/abc_text_size_headline_material" />
 
     <TextView
         android:layout_width="362dp"
         android:layout_height="wrap_content"
-        android:text="Feedback"
-        android:id="@+id/textView"
+        android:text="@string/feedback"
+        android:id="@+id/feedback_setting"
         android:layout_weight="0.06"
-        android:textSize="@dimen/abc_text_size_headline_material"
-        android:layout_gravity="right" />
+        android:textSize="@dimen/abc_text_size_headline_material" />
 
 </LinearLayout>

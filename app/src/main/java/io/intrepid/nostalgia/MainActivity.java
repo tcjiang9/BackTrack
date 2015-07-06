@@ -6,7 +6,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ScrollView;
+import android.widget.Switch;
+import android.widget.TextView;
 
+import butterknife.InjectView;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity
         implements
@@ -15,6 +23,15 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
     private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
+
+    @InjectView(R.id.facebook_switch)
+    Switch facebookSwitch;
+
+    @InjectView(R.id.autoplay_switch)
+    Switch autoplaySwitch;
+
+    @InjectView(R.id.feedback_setting)
+    TextView feedbackSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +63,13 @@ public class MainActivity extends AppCompatActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        facebookSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            }
+        });
     }
 
 
