@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import org.w3c.dom.Text;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import io.intrepid.nostalgia.R;
+import io.intrepid.nostalgia.YearFragment;
 
 public class DatabaseExplorer extends AppCompatActivity {
 
@@ -33,6 +35,8 @@ public class DatabaseExplorer extends AppCompatActivity {
         setContentView(R.layout.database_explorer);
         ButterKnife.inject(this);
         DatabaseHelper myDbHelper = new DatabaseHelper(this);
+        Intent receive = getIntent();
+        String year = receive.getExtras().getString(YearFragment.KEY);
 
         try {
             myDbHelper.createDataBase();
@@ -41,7 +45,6 @@ public class DatabaseExplorer extends AppCompatActivity {
         }
 
         try {
-            String year = "1990";
             Cursor c = myDbHelper.getData(year);
             Random random = new Random();
             int index = random.nextInt(c.getCount() + 1);

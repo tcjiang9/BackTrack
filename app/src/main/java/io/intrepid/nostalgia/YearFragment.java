@@ -32,6 +32,7 @@ import retrofit.client.Response;
 public class YearFragment extends Fragment {
     public static final String TAG = YearFragment.class.getSimpleName();
     public static final String YEAR = "Display Year";
+    public static final String KEY = "year";
     public int currentYear;
 
     private PrevYearButtonListener prevYearButtonListener;
@@ -71,6 +72,9 @@ public class YearFragment extends Fragment {
     }
     @OnClick(R.id.date_text) void dbConnect(){
         Intent intent = new Intent(getActivity(), DatabaseExplorer.class);
+        Bundle addYear = new Bundle();
+        addYear.putString(KEY, Integer.toString(currentYear));
+        intent.putExtras(addYear);
         startActivity(intent);
     }
     @Override

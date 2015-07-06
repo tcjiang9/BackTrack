@@ -88,7 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] whereArguemnts = {year};
         myDataBase = SQLiteDatabase.openDatabase(myPath, null,
                 SQLiteDatabase.OPEN_READONLY);
-        return myDataBase.query("tracks", selectTables, whereClause, whereArguemnts, null, null, null);
+        return myDataBase.query(DB_NAME, selectTables, whereClause, whereArguemnts, null, null, null);
     }
 
     @Override
