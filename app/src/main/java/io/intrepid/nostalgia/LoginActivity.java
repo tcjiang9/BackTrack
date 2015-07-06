@@ -14,6 +14,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -60,14 +61,19 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
-
                 if (profile != null) {
-                    Log.e("profile name ", profile.getName());
-                    isFacebook = true;
-                    saveDataInPreferences();
-                    startMainActivity();
-                    Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
+                    verifyFbProfile(profile);
                 }
+                ProfileTracker profileTracker = new ProfileTracker() {
+                    @Override
+                    protected void onCurrentProfileChanged(Profile profile, Profile currentProfile) {
+                        Profile.setCurrentProfile(currentProfile);
+                        Log.e("in profile changed", "profile has changed");
+                        verifyFbProfile(currentProfile);
+                        this.stopTracking();
+                    }
+                };
+                profileTracker.startTracking();
             }
 
             @Override
@@ -83,6 +89,13 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton facebookLogin = (LoginButton) findViewById(R.id.login_button);
         facebookLogin.setReadPermissions("public_profile");
         facebookLogin.registerCallback(callbackManager, facebookCallback);
+    }
+
+    private void verifyFbProfile(Profile profile) {
+        isFacebook = true;
+        saveDataInPreferences();
+        startMainActivity();
+        Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
     }
 
     @Override
