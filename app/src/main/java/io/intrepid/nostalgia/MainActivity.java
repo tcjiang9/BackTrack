@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity
             public void onPageSelected(int newPosition) {
                 ViewPagerFragmentLifeCycle fragmentToHide = (ViewPagerFragmentLifeCycle) PAGER_ADAPTER.getItem(currentPosition);
                 fragmentToHide.onPauseFragment();
+
+                ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) PAGER_ADAPTER.getItem(newPosition);
+                fragmentToResume.onResumeFragment();
                 currentPosition = newPosition;
             }
 

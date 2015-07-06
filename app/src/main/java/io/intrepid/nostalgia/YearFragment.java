@@ -39,7 +39,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     public int currentYear;
 
     private PrevYearButtonListener prevYearButtonListener;
-    private final MediaPlayer mediaPlayer = new MediaPlayer();
+    private MediaPlayer mediaPlayer = new MediaPlayer();
     private boolean isPreparing = false;
 
     @InjectView(R.id.play_music_button)
@@ -77,18 +77,18 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             throw new ClassCastException(activity.toString()
                     + " must implement PrevYearButtonListener");
         }
-        try {
-            //mediaPlayer = mediaPlayerActivity.getMediaPlayer();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement MediaPlayerActivity");
-        }
     }
 
     @Override
     public void onPauseFragment() {
         Log.i(TAG, String.valueOf(currentYear) + "This has pausedfragment");
+        isPreparing = false;
         stopMusic();
+        mediaPlayer.release();
+    }
+
+    public void onResumeFragment() {
+        mediaPlayer = new MediaPlayer();
     }
     @OnClick(R.id.date_text) void dbConnect(){
         Intent intent = new Intent(getActivity(), DatabaseExplorer.class);
@@ -110,9 +110,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             @Override
             public void onClick(View v) {
                 if (isPreparing) {
+                    Log.i(TAG, "it thinks we're preparing");
                     return;
-                }
-                 else if (!mediaPlayer.isPlaying()) {
+                } else if (!mediaPlayer.isPlaying()) {
                     try {
                         playMusic(mediaPlayer); //Todo: modify this method param to take a JSON string as well when the time comes
                     } catch (IOException e) {
@@ -178,7 +178,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     private void stopMusic() {
-        mediaPlayer.stop();
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
         playMusicButton.setText(R.string.button_text_play);
         mediaPlayer.reset();
     }
