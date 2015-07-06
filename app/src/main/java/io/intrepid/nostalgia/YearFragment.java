@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -31,15 +32,18 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class YearFragment extends Fragment {
+public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle{
     public static final String TAG = YearFragment.class.getSimpleName();
     public static final String YEAR = "Display Year";
     public static final String KEY = "year";
     public int currentYear;
 
     private PrevYearButtonListener prevYearButtonListener;
-    private Button playMusicButton;
     private final MediaPlayer mediaPlayer = new MediaPlayer();
+    private boolean isPreparing = false;
+
+    @InjectView(R.id.play_music_button)
+    Button playMusicButton;
 
     @InjectView(R.id.song_artist_text)
     TextView yearTemp;
@@ -73,6 +77,18 @@ public class YearFragment extends Fragment {
             throw new ClassCastException(activity.toString()
                     + " must implement PrevYearButtonListener");
         }
+        try {
+            //mediaPlayer = mediaPlayerActivity.getMediaPlayer();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement MediaPlayerActivity");
+        }
+    }
+
+    @Override
+    public void onPauseFragment() {
+        Log.i(TAG, String.valueOf(currentYear) + "This has pausedfragment");
+        stopMusic();
     }
     @OnClick(R.id.date_text) void dbConnect(){
         Intent intent = new Intent(getActivity(), DatabaseExplorer.class);
@@ -89,48 +105,31 @@ public class YearFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
-        playMusicButton = (Button) rootView.findViewById(R.id.play_music_button);
-        playMusicButton.setText("Play");
+        playMusicButton.setText(getString(R.string.button_text_play));
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mediaPlayer.isPlaying()) {
+                if (isPreparing) {
+                    return;
+                }
+                 else if (!mediaPlayer.isPlaying()) {
                     try {
-                        playMusic(mediaPlayer);
-
+                        playMusic(mediaPlayer); //Todo: modify this method param to take a JSON string as well when the time comes
                     } catch (IOException e) {
                         Log.e(TAG, e.toString());
                     }
                 } else {
-                    mediaPlayer.stop();
-                    mediaPlayer.reset();
-                    playMusicButton.setText("Play");
+                    Log.i(TAG, "You stopped the media player");
+                    stopMusic();
                 }
-            }
-
-            private void playMusic(final MediaPlayer mediaPlayer) throws IOException {
-                //Todo: fetch this url string from an iTunes JSON instead of hardcoding
-                String iTunesUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                Log.i(TAG, "Right before data source");
-                mediaPlayer.setDataSource(iTunesUrl);
-                Log.i(TAG, "About to prepare async");
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        mediaPlayer.start();
-                        playMusicButton.setText("Stop");
-                        Log.i(TAG, "this has prepared");
-                    }
-                });
-                mediaPlayer.prepareAsync();
             }
         });
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                playMusicButton.setText("Play");
+                Log.i(TAG, "Music completed");
+                stopMusic();
             }
         });
 
@@ -156,6 +155,32 @@ public class YearFragment extends Fragment {
 
         sendNytGetRequest(Integer.toString(currentYear));
         return rootView;
+    }
+
+    private void playMusic(final MediaPlayer mediaPlayer) throws IOException {
+      // Todo: fetch this url string from an iTunes JSON instead of hardcoding
+            String iTunesUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            Log.i(TAG, "Right before data source");
+            mediaPlayer.setDataSource(iTunesUrl);
+            Log.i(TAG, "About to prepare async");
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mediaPlayer.start();
+                    playMusicButton.setText(getString(R.string.button_text_stop));
+                    Log.i(TAG, "this has prepared");
+                    isPreparing = false;
+                }
+            });
+            mediaPlayer.prepareAsync();
+            isPreparing = true;
+    }
+
+    private void stopMusic() {
+        mediaPlayer.stop();
+        playMusicButton.setText(R.string.button_text_play);
+        mediaPlayer.reset();
     }
 
     private void sendNytGetRequest(String currentYear) {
