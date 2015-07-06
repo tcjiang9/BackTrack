@@ -161,11 +161,11 @@ public class FacebookPostsFragment extends Fragment {
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         long initialTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
-        parameters.putString("since", "" + initialTime);
+        parameters.putString(FacebookConstants.SINCE, "" + initialTime);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         long limitTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
-        parameters.putString("until", "" + limitTime);
-        parameters.putString("limit", "4");
+        parameters.putString(FacebookConstants.UNTIL, "" + limitTime);
+        parameters.putString(FacebookConstants.LIMIT, "3");
         return parameters;
     }
 

@@ -43,7 +43,6 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         try {
             onePostFromResponse = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
-            Log.e("budle value", onePostFromResponse.toString());
             processFacebookResponse();
         } catch (JSONException e) {
             e.printStackTrace();

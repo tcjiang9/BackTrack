@@ -13,4 +13,7 @@ public class FacebookConstants {
     public static final String LIKES = "likes";
     public static final String COMMENTS = "comments";
     public static final String CREATED_TIME = "created_time";
+    public static final String SINCE = "since";
+    public static final String UNTIL = "until";
+    public static final String LIMIT = "limit";
 }
