@@ -19,30 +19,19 @@ import android.widget.Toast;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String FILE_NAME = "tracks.db";
     private final Context myContext;
-    //The Android's default system path of your application database.
-    private String DB_PATH =   "/data/data/io.intrepid.nostalgia/databases/";
+    private static String DB_PATH;
 
     private static String DB_NAME = "tracks";
 
     private SQLiteDatabase myDataBase;
 
-
-
-    /**
-     * Constructor
-     * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
-     *
-     * @param context
-     */
     public DatabaseHelper(Context context) {
 
         super(context, DB_NAME, null, 1);
         this.myContext = context;
+        String path = context.getFilesDir().getPath();
+        DB_PATH = path.substring(0, path.lastIndexOf("/")) + "/databases";
     }
-
-    /**
-     * Creates a empty database on the system and rewrites it with your own database.
-     */
     public void createDataBase() throws IOException {
 
         boolean dbExist = checkDataBase();
