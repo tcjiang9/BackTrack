@@ -1,6 +1,5 @@
 package io.intrepid.nostalgia;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -15,7 +14,6 @@ public class MainActivity extends AppCompatActivity
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
     private int currentPosition = Constants.DEFAULT_YEAR - 1;
 
     @Override

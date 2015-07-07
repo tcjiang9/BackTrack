@@ -15,16 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import io.intrepid.nostalgia.facebook.*;
+import io.intrepid.nostalgia.facebook.FacebookPostsFragment;
 import io.intrepid.nostalgia.nytmodels.Doc;
 import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
 import io.intrepid.nostalgia.songdatabase.DatabaseExplorer;
@@ -32,7 +30,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle{
+public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle {
     public static final String TAG = YearFragment.class.getSimpleName();
     public static final String YEAR = "Display Year";
     public static final String KEY = "year";
@@ -158,23 +156,23 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     private void playMusic(final MediaPlayer mediaPlayer) throws IOException {
-      // Todo: fetch this url string from an iTunes JSON instead of hardcoding
-            String iTunesUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            Log.i(TAG, "Right before data source");
-            mediaPlayer.setDataSource(iTunesUrl);
-            Log.i(TAG, "About to prepare async");
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediaPlayer.start();
-                    playMusicButton.setText(getString(R.string.button_text_stop));
-                    Log.i(TAG, "this has prepared");
-                    isPreparing = false;
-                }
-            });
-            mediaPlayer.prepareAsync();
-            isPreparing = true;
+        // Todo: fetch this url string from an iTunes JSON instead of hardcoding
+        String iTunesUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        Log.i(TAG, "Right before data source");
+        mediaPlayer.setDataSource(iTunesUrl);
+        Log.i(TAG, "About to prepare async");
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mediaPlayer.start();
+                playMusicButton.setText(getString(R.string.button_text_stop));
+                Log.i(TAG, "this has prepared");
+                isPreparing = false;
+            }
+        });
+        mediaPlayer.prepareAsync();
+        isPreparing = true;
     }
 
     private void stopMusic() {
