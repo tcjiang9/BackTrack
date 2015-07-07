@@ -5,27 +5,24 @@
     android:weightSum="1">
 
     <Switch
-        android:layout_width="357dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/facebook_connection"
         android:id="@+id/facebook_switch"
-        android:layout_weight="0.06"
         android:textSize="@dimen/abc_text_size_headline_material" />
 
     <Switch
-        android:layout_width="357dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/autoplay_switch_text"
         android:id="@+id/autoplay_switch"
-        android:layout_weight="0.06"
         android:textSize="@dimen/abc_text_size_headline_material" />
 
     <TextView
-        android:layout_width="362dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/feedback"
         android:id="@+id/feedback_setting"
-        android:layout_weight="0.06"
         android:textSize="@dimen/abc_text_size_headline_material" />
 
 </LinearLayout>

@@ -15,6 +15,9 @@ import butterknife.InjectView;
 
 public class SettingsActivity extends AppCompatActivity{
 
+    public String email = "hayley@intrepid.io";
+    public String subjectLine = "hayley@intrepid.io";
+
 
     @InjectView(R.id.facebook_switch)
     Switch facebookSwitch;
@@ -53,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     //turn autoplay on
-                } else{
+                } else {
                     //turn autoplay off
                 }
             }
@@ -65,8 +68,8 @@ public class SettingsActivity extends AppCompatActivity{
                 //go to feedback interface
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"hayley@intrepid.io"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Nostalgia App Feedback");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+                intent.putExtra(Intent.EXTRA_SUBJECT, subjectLine);
                 startActivity(Intent.createChooser(intent, ""));
                 return false;
             }
