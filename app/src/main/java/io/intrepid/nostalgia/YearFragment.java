@@ -76,11 +76,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     + " must implement PrevYearButtonListener");
         }
     }
-    @OnClick(R.id.date_text) void dbConnect(){
-        Intent intent = new Intent(getActivity(), DatabaseExplorer.class);
-        intent.putExtra(KEY, Integer.toString(currentYear));
-        startActivity(intent);
-    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //the current year, for future use.

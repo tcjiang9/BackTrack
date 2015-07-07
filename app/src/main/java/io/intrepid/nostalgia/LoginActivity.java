@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     protected void onCurrentProfileChanged(Profile profile, Profile currentProfile) {
                         Profile.setCurrentProfile(currentProfile);
-                        Log.e("in profile changed", "profile has changed");
                         verifyFbProfile(currentProfile);
                         this.stopTracking();
                     }
