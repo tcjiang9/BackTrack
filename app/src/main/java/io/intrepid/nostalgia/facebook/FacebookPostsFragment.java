@@ -45,7 +45,7 @@ public class FacebookPostsFragment extends Fragment {
     List<RelativeLayout> postLayout;
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     List<ImageView> loadImages;
-    public String url = "";
+    public static String url = "";
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
@@ -130,8 +130,6 @@ public class FacebookPostsFragment extends Fragment {
         completeDataFromFb = graphResponse.getJSONObject();
         try {
             JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
-            String responseStr = specificData.toString();
-
             for (int i = 0; i < specificData.length(); i++) {
                 FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
                 if (specificData.getJSONObject(i).length() == 0) {
@@ -156,36 +154,44 @@ public class FacebookPostsFragment extends Fragment {
         }
     }
 
-    private void loadImageFromPost(JSONObject specificData, ImageView image, int imageId) throws JSONException {
+    private void loadImageFromPost(JSONObject specificData, final ImageView image, final int imageId) throws JSONException {
         String obj = "/" + specificData.get(FacebookConstants.OBJECT_ID).toString();
-
         if (AccessToken.getCurrentAccessToken() != null) {
-            new GraphRequest(
-                    AccessToken.getCurrentAccessToken(),
-                    obj,
-                    null,
-                    HttpMethod.GET,
-                    new GraphRequest.Callback() {
-                        public void onCompleted(GraphResponse response) {
-                            JSONObject arr = response.getJSONObject();
-
-                           /* try {
-                                JSONArray jsonArr = arr.getJSONArray("images");
-                                url = jsonArr.getJSONObject(0).get("source").toString();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }*/
-                            Log.e("image", response.toString());
-
-                        }
-                    }
-            ).executeAsync();
+            getFullImage(image, imageId, obj);
         }
-        image.setVisibility(View.VISIBLE);
 
+    }
+
+    private void getFullImage(final ImageView image, final int imageId, String obj) {
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                obj,
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        JSONObject arr = response.getJSONObject();
+
+                        try {
+                            JSONArray jsonArr = arr.getJSONArray("images");
+                            url = jsonArr.getJSONObject(0).get("source").toString();
+                            loadImage(imageId, image);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }
+        ).executeAsync();
+    }
+
+    private void loadImage(int imageId, ImageView image) {
+        image.setVisibility(View.VISIBLE);
         image.setId(imageId);
         Picasso.with(getActivity()).
-                load(url).fit().into(image);
+                load(url).fit()
+                .into(image);
     }
 
     @Override

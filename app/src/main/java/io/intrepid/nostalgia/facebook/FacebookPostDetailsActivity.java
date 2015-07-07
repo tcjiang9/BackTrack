@@ -90,10 +90,9 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     }
 
     private void loadImageFromPost(FacebookResponse facebookResponse) throws JSONException {
-        String imageUrl = facebookResponse.getPictureUrl();
         fbImage.setVisibility(View.VISIBLE);
         Picasso.with(this).
-                load(imageUrl).fit().into(fbImage);
+                load(FacebookPostsFragment.url).fit().into(fbImage);
     }
 
 
