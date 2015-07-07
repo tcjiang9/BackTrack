@@ -25,16 +25,14 @@ public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
-    private boolean isFacebook;
+    public static boolean isFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
         setupFacebook();
-        runActivityOnce();
     }
 
     @OnClick(R.id.skip_facebook)
@@ -43,15 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         saveDataInPreferences();
         startMainActivity();
 
-    }
-
-    private void runActivityOnce() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (pref.getBoolean(Constants.SHARED_PREFS_LOGIN, false)) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
     }
 
     private void setupFacebook() {

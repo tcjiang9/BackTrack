@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Switch
+        android:text="@string/facebook_connection"
+        android:id="@+id/facebook_switch"
+        style="@style/settings_style" />
+
+    <Switch
+        android:text="@string/autoplay_switch_text"
+        android:id="@+id/autoplay_switch"
+        style="@style/settings_style" />
+
+    <TextView
+        android:text="@string/feedback"
+        android:id="@+id/feedback_setting"
+        style="@style/settings_style" />
+
+</LinearLayout>

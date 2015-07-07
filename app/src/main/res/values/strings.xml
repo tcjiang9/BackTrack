@@ -24,6 +24,9 @@
     <string name="comments">Comments %s</string>
     <string name="title_activity_facebook_second">FacebookSecondActivity</string>
     <string name="status_alternative">Shared a photo</string>
+    <string name="autoplay_switch_text">Autoplay Music</string>
+    <string name="facebook_connection">Connect to Facebook</string>
+    <string name="feedback">Feedback</string>
     <string name="song_name">Song Name</string>
     <string name="db_explorer">Database Explorer</string>
     <string name="button_text_play">Play</string>
