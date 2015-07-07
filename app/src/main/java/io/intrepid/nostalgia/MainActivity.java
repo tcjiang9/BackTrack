@@ -11,15 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ScrollView;
-import android.widget.Switch;
-import android.widget.TextView;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity
         implements
@@ -28,15 +22,6 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
     private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
-
-    @InjectView(R.id.facebook_switch)
-    Switch facebookSwitch;
-
-    @InjectView(R.id.autoplay_switch)
-    Switch autoplaySwitch;
-
-    @InjectView(R.id.feedback_setting)
-    TextView feedbackSetting;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -87,10 +72,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            setContentView(R.layout.settings);
-            ButterKnife.inject(this);
-            facebookSwitch.setChecked(LoginActivity.isFacebook);
-            setSettingsListeners();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -100,47 +83,5 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPrevYearButtonClicked() {
         viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-    }
-
-    public void setSettingsListeners() {
-        facebookSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    loginToFacebook();
-                } else {
-                    //logout of facebook
-                }
-            }
-        });
-
-        autoplaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //turn autoplay on
-                } else{
-                    //turn autoplay off
-                }
-            }
-        });
-
-        feedbackSetting.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //go to feedback interface
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"hayley@intrepid.io"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Nostalgia App Feedback");
-                startActivity(Intent.createChooser(intent, ""));
-                return false;
-            }
-        });
-    }
-
-    private void loginToFacebook() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
     }
 }

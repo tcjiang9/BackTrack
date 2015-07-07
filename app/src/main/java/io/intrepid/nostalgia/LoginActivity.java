@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
         setupFacebook();
