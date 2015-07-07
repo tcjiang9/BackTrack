@@ -21,7 +21,6 @@ import java.io.IOException;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import io.intrepid.nostalgia.facebook.*;
 import io.intrepid.nostalgia.facebook.FacebookPostsFragment;
 import io.intrepid.nostalgia.nytmodels.Doc;
 import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
@@ -39,6 +38,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private PrevYearButtonListener prevYearButtonListener;
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private boolean isPreparing = false;
+    private String iTunesUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
 
     @InjectView(R.id.play_music_button)
     Button playMusicButton;
@@ -77,24 +77,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         }
     }
 
-    @Override
-    public void onPauseFragment() {
-        Log.i(TAG, String.valueOf(currentYear) + "This has pausedfragment");
-        isPreparing = false;
-        stopMusic();
-        mediaPlayer.release();
-    }
-
-    public void onResumeFragment() {
-        mediaPlayer = new MediaPlayer();
-    }
-    @OnClick(R.id.date_text) void dbConnect(){
-        Intent intent = new Intent(getActivity(), DatabaseExplorer.class);
-        Bundle addYear = new Bundle();
-        addYear.putString(KEY, Integer.toString(currentYear));
-        intent.putExtras(addYear);
-        startActivity(intent);
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //the current year, for future use.
@@ -157,7 +139,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     private void playMusic(final MediaPlayer mediaPlayer) throws IOException {
         // Todo: fetch this url string from an iTunes JSON instead of hardcoding
-        String iTunesUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         Log.i(TAG, "Right before data source");
         mediaPlayer.setDataSource(iTunesUrl);
@@ -208,5 +189,26 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     }
                 });
 
+    }
+
+    @Override
+    public void onPauseFragment() {
+        Log.i(TAG, String.valueOf(currentYear) + "This has pausedfragment");
+        isPreparing = false;
+        stopMusic();
+        mediaPlayer.release();
+    }
+
+    public void onResumeFragment() {
+        mediaPlayer = new MediaPlayer();
+    }
+
+    @OnClick(R.id.date_text)
+    void dbConnect() {
+        Intent intent = new Intent(getActivity(), DatabaseExplorer.class);
+        Bundle addYear = new Bundle();
+        addYear.putString(KEY, Integer.toString(currentYear));
+        intent.putExtras(addYear);
+        startActivity(intent);
     }
 }

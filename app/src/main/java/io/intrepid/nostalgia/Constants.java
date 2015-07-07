@@ -11,6 +11,6 @@ public class Constants {
     /**
      * the default year to display, one less than the present year
      */
-    public static final int DEFAULT_YEAR = Calendar.getInstance().get(Calendar.YEAR) - MIN_YEAR;
+    public static final int NUMBER_OF_YEARS = Calendar.getInstance().get(Calendar.YEAR) - MIN_YEAR;
 
 }

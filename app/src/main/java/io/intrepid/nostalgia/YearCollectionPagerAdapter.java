@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class YearCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
-    private YearFragment[] yearFragments = new YearFragment[Constants.DEFAULT_YEAR];
+    private YearFragment[] yearFragments = new YearFragment[Constants.NUMBER_OF_YEARS];
 
     public YearCollectionPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -29,7 +29,7 @@ public class YearCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return Constants.DEFAULT_YEAR; //The number of years to display since minimum year
+        return Constants.NUMBER_OF_YEARS; //The number of years to display since minimum year
     }
 
     @Override
