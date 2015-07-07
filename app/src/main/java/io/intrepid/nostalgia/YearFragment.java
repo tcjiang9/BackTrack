@@ -87,7 +87,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
-        if (autoPlay) {
+        if (mediaPlayer.isPlaying()) {
             playMusicButton.setText(getString(R.string.button_text_stop));
         } else {
             playMusicButton.setText(getString(R.string.button_text_play));
