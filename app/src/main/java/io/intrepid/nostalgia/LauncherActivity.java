@@ -33,6 +33,7 @@ public class LauncherActivity extends AppCompatActivity {
             skipFacebook.setVisibility(View.VISIBLE);
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }

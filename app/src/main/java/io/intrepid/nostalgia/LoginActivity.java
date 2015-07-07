@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void startMainActivity() {
+    private void startMainActivity() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
         finish();
