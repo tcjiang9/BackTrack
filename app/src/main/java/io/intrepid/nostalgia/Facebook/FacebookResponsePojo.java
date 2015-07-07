@@ -1,388 +1,106 @@
 package io.intrepid.nostalgia.facebook;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
+import android.view.View;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.intrepid.nostalgia.R;
 
 public class FacebookResponsePojo {
-    public class Action {
+    private JSONArray commentData = new JSONArray();
 
+    private int likeCount = 0;
+    private int commentCount = 0;
+    private String[] likeNames;
+    private String pictureUrl;
+    private JSONObject parseJson = new JSONObject();
+    private JSONArray likesData = new JSONArray();
+    private String status;
+    private String createdTime;
+    String name;
 
-        private String name;
-
-        private String link;
-
-        /**
-         *
-         * @return
-         * The name
-         */
-        public String getName() {
+    public String getName() {
+        try {
+            JSONObject tempJson = parseJson.getJSONObject(FacebookConstants.FROM);
+            name = tempJson.getString(FacebookConstants.NAME);
             return name;
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        /**
-         *
-         * @param name
-         * The name
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        /**
-         *
-         * @return
-         * The link
-         */
-        public String getLink() {
-            return link;
-        }
-
-        /**
-         *
-         * @param link
-         * The link
-         */
-        public void setLink(String link) {
-            this.link = link;
-        }
-
+        return name;
     }
-    public class Comments {
 
-
-        private List<Datum__> data = new ArrayList<Datum__>();
-
-
-        /**
-         *
-         * @return
-         * The data
-         */
-        public List<Datum__> getData() {
-            return data;
+    public String getCreatedTime() {
+        try {
+            createdTime = parseJson.getString(FacebookConstants.CREATED_TIME);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        /**
-         *
-         * @param data
-         * The data
-         */
-        public void setData(List<Datum__> data) {
-            this.data = data;
-        }
-
-
-
+        return createdTime;
     }
-    public class Datum {
 
-        private String id;
-        private From from;
-        private String story;
-        private String picture;
-        private String link;
-        private String icon;
-        private List<Action> actions = new ArrayList<Action>();
-        private String type;
-        private String statusType;
-        private String createdTime;
-        private String updatedTime;
-        private Boolean isHidden;
-        private Boolean subscribed;
-        private Boolean isExpired;
-        private Likes likes;
-        private Comments comments;
-
-        /**
-         *
-         * @return
-         * The id
-         */
-        public String getId() {
-            return id;
+    public String getStatus() {
+        try {
+            status = (parseJson.getString(FacebookConstants.MESSAGE));
+            Log.e("in pojo 2", status);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        /**
-         *
-         * @param id
-         * The id
-         */
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        /**
-         *
-         * @return
-         * The from
-         */
-        public From getFrom() {
-            return from;
-        }
-
-        /**
-         *
-         * @param from
-         * The from
-         */
-        public void setFrom(From from) {
-            this.from = from;
-        }
-
-        /**
-         *
-         * @return
-         * The story
-         */
-        public String getStory() {
-            return story;
-        }
-
-        /**
-         *
-         * @param story
-         * The story
-         */
-        public void setStory(String story) {
-            this.story = story;
-        }
-
-
-        /**
-         *
-         * @return
-         * The picture
-         */
-        public String getPicture() {
-            return picture;
-        }
-
-        /**
-         *
-         * @param picture
-         * The picture
-         */
-        public void setPicture(String picture) {
-            this.picture = picture;
-        }
-
-        /**
-         *
-         * @return
-         * The link
-         */
-        public String getLink() {
-            return link;
-        }
-
-        /**
-         *
-         * @param link
-         * The link
-         */
-        public void setLink(String link) {
-            this.link = link;
-        }
-
-        /**
-         *
-         * @return
-         * The icon
-         */
-        public String getIcon() {
-            return icon;
-        }
-
-        /**
-         *
-         * @param icon
-         * The icon
-         */
-        public void setIcon(String icon) {
-            this.icon = icon;
-        }
-
-        /**
-         *
-         * @return
-         * The actions
-         */
-        public List<Action> getActions() {
-            return actions;
-        }
-
-        /**
-         *
-         * @param actions
-         * The actions
-         */
-        public void setActions(List<Action> actions) {
-            this.actions = actions;
-        }
-
-
-
-        /**
-         *
-         * @return
-         * The statusType
-         */
-        public String getStatusType() {
-            return statusType;
-        }
-
-        /**
-         *
-         * @param statusType
-         * The status_type
-         */
-        public void setStatusType(String statusType) {
-            this.statusType = statusType;
-        }
-
-        /**
-         *
-         * @return
-         * The createdTime
-         */
-        public String getCreatedTime() {
-            return createdTime;
-        }
-
-        public Likes getLikes() {
-            return likes;
-        }
-
-
-
-        /**
-         *
-         * @return
-         * The comments
-         */
-        public Comments getComments() {
-            return comments;
-        }
-
-
+        return status;
     }
-    public class Datum_ {
 
+    public int getCommentCount() {
+            try {
+                JSONObject commentObj = (JSONObject) parseJson.get(FacebookConstants.COMMENTS);
+                commentData = commentObj.getJSONArray(FacebookConstants.DATA);
+                commentCount = commentData.length();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-        private String id;
-
-        private String name;
-
-
-        /**
-         *
-         * @return
-         * The name
-         */
-        public String getName() {
-            return name;
-        }
-
+        return commentCount;
     }
-    public class Datum__ {
 
-        private String id;
-        private From_ from;
-        private String message;
-        private Boolean canRemove;
-        private String createdTime;
-        private Integer likeCount;
-        private Boolean userLikes;
+    public int getLikeCount() {
+            try {
+                JSONObject likesObj = (JSONObject) parseJson.get(FacebookConstants.LIKES);
+                likesData = likesObj.getJSONArray(FacebookConstants.DATA);
+                likeCount = likesData.length();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-
-        /**
-         *
-         * @return
-         * The from
-         */
-        public From_ getFrom() {
-            return from;
-        }
-
-
-        /**
-         *
-         * @return
-         * The message
-         */
-        public String getMessage() {
-            return message;
-        }
-
-
-        /**
-         *
-         * @return
-         * The createdTime
-         */
-        public String getCreatedTime() {
-            return createdTime;
-        }
-
-
-        /**
-         *
-         * @return
-         * The likeCount
-         */
-        public Integer getLikeCount() {
-            return likeCount;
-        }
-
+        return likeCount;
     }
-    public class From {
 
-        private String id;
-        private String name;
-
-
-        /**
-         *
-         * @return
-         * The name
-         */
-        public String getName() {
-            return name;
-        }
-
+    public String[] getLikeNames() {
+        return likeNames;
     }
-    public class From_ {
 
-        private String id;
-        private String name;
+    public String getPictureUrl() {
+            try {
+                pictureUrl = parseJson.get(FacebookConstants.PICTURE).toString();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-
-        /**
-         *
-         * @return
-         * The name
-         */
-        public String getName() {
-            return name;
-        }
-
-
+        return pictureUrl;
     }
-    public class Likes {
-
-        private List<Datum_> data = new ArrayList<Datum_>();
-
-        /**
-         *
-         * @return
-         * The data
-         */
-        public List<Datum_> getData() {
-            return data;
-        }
 
 
+    public FacebookResponsePojo(JSONObject onePostDetails) {
+        this.parseJson = onePostDetails;
     }
+
+
+    public JSONArray getCommentData() {
+
+
+        return commentData;
+    }
+
 
 }

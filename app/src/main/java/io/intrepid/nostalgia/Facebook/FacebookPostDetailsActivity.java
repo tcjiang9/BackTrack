@@ -51,31 +51,29 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
 
     private void processFacebookResponse() {
         try {
-
+    FacebookResponsePojo responsePojo = new FacebookResponsePojo (onePostFromResponse);
             String responseStr = onePostFromResponse.toString();
             if (onePostFromResponse.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
                 status.setVisibility(View.GONE);
             } else {
-                name.setText(onePostFromResponse.getJSONObject(FacebookConstants.FROM)
-                        .get(FacebookConstants.NAME).toString());
-                String createdTime = onePostFromResponse.getString(FacebookConstants.CREATED_TIME);
+                name.setText( responsePojo.getName());
                 String response = onePostFromResponse.toString();
                 if (response.contains(FacebookConstants.MESSAGE)) {
-                    status.setText(onePostFromResponse.get(FacebookConstants.MESSAGE).toString());
+                    status.setText(responsePojo.getStatus());
                 } else {
                     status.setText(getString(R.string.status_alternative));
                 }
                 if (response.contains(FacebookConstants.PICTURE)) {
-                    loadImageFromPost(onePostFromResponse);
+                    loadImageFromPost(responsePojo);
                 } else {
                     fbImage.setVisibility(View.GONE);
                 }
                 if (response.contains(FacebookConstants.LIKES)) {
-                    getLikesCount(onePostFromResponse);
+                    getLikesCount(responsePojo);
                 }
                 if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
-                    getComments(onePostFromResponse);
+                    getComments(responsePojo);
                 }
             }
 
@@ -85,21 +83,17 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void getLikesCount(JSONObject specificData) throws JSONException {
-        JSONObject likesObj = (JSONObject) specificData.get(FacebookConstants.LIKES);
-        JSONArray likesArr = likesObj.getJSONArray(FacebookConstants.DATA);
-        likes.setText(getString(R.string.likes, String.valueOf(likesArr.length())));
+    private void getLikesCount(FacebookResponsePojo responsePojo) throws JSONException {
+        likes.setText(getString(R.string.likes, responsePojo.getLikeCount()));
 
     }
 
-    private void getComments(JSONObject specificData) throws JSONException {
-        JSONObject likesObj = (JSONObject) specificData.get(FacebookConstants.COMMENTS);
-        JSONArray likesArr = likesObj.getJSONArray(FacebookConstants.DATA);
-        comments.setText(getString(R.string.comments, String.valueOf(likesArr.length())));
+    private void getComments(FacebookResponsePojo responsePojo) throws JSONException {
+        comments.setText(getString(R.string.comments, responsePojo.getCommentCount()));
     }
 
-    private void loadImageFromPost(JSONObject specificData) throws JSONException {
-        String imageUrl = specificData.get(FacebookConstants.PICTURE).toString();
+    private void loadImageFromPost(FacebookResponsePojo responsePojo) throws JSONException {
+        String imageUrl = responsePojo.getPictureUrl();
         fbImage.setVisibility(View.VISIBLE);
         Picasso.with(this).
                 load(imageUrl).fit().into(fbImage);
