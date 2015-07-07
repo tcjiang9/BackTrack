@@ -36,7 +36,7 @@ public class DatabaseExplorer extends AppCompatActivity {
         ButterKnife.inject(this);
         DatabaseHelper myDbHelper = new DatabaseHelper(this);
         Intent receive = getIntent();
-        String year = receive.getExtras().getString(YearFragment.KEY);
+        String year = receive.getStringExtra(YearFragment.KEY);
 
         try {
             myDbHelper.createDataBase();

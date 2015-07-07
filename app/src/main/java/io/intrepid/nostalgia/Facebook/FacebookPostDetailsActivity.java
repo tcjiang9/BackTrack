@@ -51,6 +51,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
 
     private void processFacebookResponse() {
         try {
+
             String responseStr = onePostFromResponse.toString();
             if (onePostFromResponse.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));

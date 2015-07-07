@@ -1,51 +1,79 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context="io.intrepid.nostalgia.facebook.FacebookPostsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/fb_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         />
-    <ImageView
-        android:id="@+id/image_shared"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/image_main_screen"
-        android:contentDescription="@string/facebook_tab"
-        android:paddingTop="@dimen/image_padding"
-        android:src="@drawable/ic_launcher"
-        android:visibility="gone" />
-    <TextView
-        android:id="@+id/fb_name_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    <ImageView
-        android:id="@+id/image_shared_2"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_shared"
+            style="@style/imageViewStyle"
+            />
+        <!--android:visibility="gone"-->
+
+        <TextView
+            android:id="@+id/fb_name"
+            style="@style/textViewStyle"
+            android:layout_below="@+id/image_shared" />
+
+        <ImageView android:id="@+id/likes"
+            tools:text="Likes"
+            android:layout_below="@+id/fb_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/time_post_1"
+            style="@style/timeText"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/image_main_screen"
-        android:contentDescription="@string/facebook_tab"
-        android:paddingTop="@dimen/image_padding"
-        android:src="@drawable/ic_launcher"
-        android:visibility="gone" />
-    <TextView
-        android:id="@+id/fb_name_3"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    <ImageView
-        android:id="@+id/image_shared_3"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image_shared_2"
+            style="@style/imageViewStyle"
+             />
+        <!--android:visibility="gone"-->
+
+
+        <TextView
+            android:id="@+id/fb_name_2"
+            style="@style/textViewStyle"
+            android:layout_below="@+id/image_shared_2"/>
+        <TextView
+            android:id="@+id/time_post_2"
+            style="@style/timeText"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/image_main_screen"
-        android:contentDescription="@string/facebook_tab"
-        android:paddingTop="@dimen/image_padding"
-        android:src="@drawable/ic_launcher"
-        android:visibility="gone" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image_shared_3"
+            style="@style/imageViewStyle" />
+        <!--android:visibility="gone" -->
+
+        <TextView
+            android:id="@+id/fb_name_3"
+            android:layout_below="@+id/image_shared_3"
+            style="@style/textViewStyle" />
+        <TextView
+            android:id="@+id/time_post_3"
+            style="@style/timeText"
+            />
+    </RelativeLayout>
 
 </LinearLayout>
