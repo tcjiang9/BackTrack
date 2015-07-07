@@ -3,14 +3,12 @@ package io.intrepid.nostalgia.facebook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,7 +36,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_facebook_first);
+        setContentView(R.layout.activity_facebook_details_post);
         ButterKnife.inject(this);
         Intent intent = getIntent();
         try {
@@ -51,29 +49,28 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
 
     private void processFacebookResponse() {
         try {
-    FacebookResponsePojo responsePojo = new FacebookResponsePojo (onePostFromResponse);
-            String responseStr = onePostFromResponse.toString();
+            FacebookResponse facebookResponse = new FacebookResponse(onePostFromResponse);
             if (onePostFromResponse.length() == 0) {
                 name.setText(getString(R.string.no_activity_msg));
                 status.setVisibility(View.GONE);
             } else {
-                name.setText( responsePojo.getName());
+                name.setText(facebookResponse.getName());
                 String response = onePostFromResponse.toString();
                 if (response.contains(FacebookConstants.MESSAGE)) {
-                    status.setText(responsePojo.getStatus());
+                    status.setText(facebookResponse.getStatus());
                 } else {
                     status.setText(getString(R.string.status_alternative));
                 }
                 if (response.contains(FacebookConstants.PICTURE)) {
-                    loadImageFromPost(responsePojo);
+                    loadImageFromPost(facebookResponse);
                 } else {
                     fbImage.setVisibility(View.GONE);
                 }
                 if (response.contains(FacebookConstants.LIKES)) {
-                    getLikesCount(responsePojo);
+                    getLikesCount(facebookResponse);
                 }
                 if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
-                    getComments(responsePojo);
+                    getComments(facebookResponse);
                 }
             }
 
@@ -82,18 +79,17 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    private void getLikesCount(FacebookResponsePojo responsePojo) throws JSONException {
-        likes.setText(getString(R.string.likes, responsePojo.getLikeCount()));
+    private void getLikesCount(FacebookResponse responsePojo) throws JSONException {
+        likes.setText(getString(R.string.likes, responsePojo.getLikeNames()));
 
     }
 
-    private void getComments(FacebookResponsePojo responsePojo) throws JSONException {
-        comments.setText(getString(R.string.comments, responsePojo.getCommentCount()));
+    private void getComments(FacebookResponse facebookResponse) throws JSONException {
+        comments.setText(getString(R.string.comments, facebookResponse.getCommentData()));
     }
 
-    private void loadImageFromPost(FacebookResponsePojo responsePojo) throws JSONException {
-        String imageUrl = responsePojo.getPictureUrl();
+    private void loadImageFromPost(FacebookResponse facebookResponse) throws JSONException {
+        String imageUrl = facebookResponse.getPictureUrl();
         fbImage.setVisibility(View.VISIBLE);
         Picasso.with(this).
                 load(imageUrl).fit().into(fbImage);

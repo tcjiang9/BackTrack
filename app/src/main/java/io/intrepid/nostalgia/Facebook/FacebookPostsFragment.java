@@ -3,6 +3,7 @@ package io.intrepid.nostalgia.facebook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,6 +130,9 @@ public class FacebookPostsFragment extends Fragment {
             String responseStr = specificData.toString();
 
             for (int i = 0; i < specificData.length(); i++) {
+                FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
+                int likesCnt = facebookResponse.getLikeCount();
+                Log.e("likes cnt 1", ""+likesCnt);
                 if (specificData.getJSONObject(i).length() == 0) {
                     names.get(i).setText(getString(R.string.no_activity_msg));
                 }
@@ -138,6 +142,7 @@ public class FacebookPostsFragment extends Fragment {
                 } else {
                     names.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                     names.get(i).setId(i);
+
                 }
             }
 
