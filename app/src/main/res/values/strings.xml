@@ -26,4 +26,6 @@
     <string name="status_alternative">Shared a photo</string>
     <string name="song_name">Song Name</string>
     <string name="db_explorer">Database Explorer</string>
+    <string name="button_text_play">Play</string>
+    <string name="button_text_stop">Stop</string>
 </resources>

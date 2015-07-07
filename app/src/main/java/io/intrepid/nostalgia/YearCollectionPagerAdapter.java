@@ -6,27 +6,34 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class YearCollectionPagerAdapter extends FragmentStatePagerAdapter {
+
+    private YearFragment[] yearFragments = new YearFragment[Constants.NUMBER_OF_YEARS];
+
     public YearCollectionPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int i) {
-        Fragment fragment = new YearFragment();
-        //information about current year gets passed to fragment for later use
-        Bundle args = new Bundle();
-        args.putInt(YearFragment.YEAR, i + 1852);
-        fragment.setArguments(args);
-        return fragment;
+        if (yearFragments[i] == null) {
+            yearFragments[i] = new YearFragment();
+            //information about current year gets passed to fragment for later use
+            Bundle args = new Bundle();
+            args.putInt(YearFragment.YEAR, i + Constants.MIN_YEAR);
+            yearFragments[i].setArguments(args);
+            return yearFragments[i];
+        } else {
+            return yearFragments[i];
+        }
     }
 
     @Override
     public int getCount() {
-        return Constants.DEFAULT_YEAR; //The number of years to display since 1851
+        return Constants.NUMBER_OF_YEARS; //The number of years to display since minimum year
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return String.valueOf(position + 1852);
+        return String.valueOf(position + Constants.MIN_YEAR);
     }
 }

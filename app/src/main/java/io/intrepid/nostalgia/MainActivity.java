@@ -1,31 +1,48 @@
 package io.intrepid.nostalgia;
 
-import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ScrollView;
 
 
-public class MainActivity extends AppCompatActivity implements YearFragment.PrevYearButtonListener {
+public class MainActivity extends AppCompatActivity
+        implements
+        YearFragment.PrevYearButtonListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
+    private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        final YearCollectionPagerAdapter pagerAdapter = new YearCollectionPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new YearCollectionPagerAdapter(getSupportFragmentManager()));
-        viewPager.setCurrentItem(Constants.DEFAULT_YEAR);
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int newPosition) {
+                ViewPagerFragmentLifeCycle fragmentToHide = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(currentPosition);
+                fragmentToHide.onPauseFragment();
+
+                ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
+                fragmentToResume.onResumeFragment();
+                currentPosition = newPosition;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
