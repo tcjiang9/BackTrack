@@ -3,6 +3,7 @@ package io.intrepid.nostalgia.facebook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class FacebookPostsFragment extends Fragment {
     public static final int MILLISECOND_PER_SECOND = 1000;
     @InjectViews({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     List<TextView> likesCount;
-    @InjectViews({R.id.comments_cnt, R.id.comments_cnt_2, R.id.comments_cnt_3})
+    @InjectViews({R.id.comments_cnt, R.id.comments_cnt_2, R.id.comment_count_3})
     List<TextView> commentsCount;
     @InjectViews({R.id.time_post_1, R.id.time_post_2, R.id.time_post_3})
     List<TextView> timeStamp;
@@ -44,7 +45,7 @@ public class FacebookPostsFragment extends Fragment {
     List<RelativeLayout> postLayout;
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     List<ImageView> loadImages;
-
+    public String url = "";
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
@@ -94,7 +95,6 @@ public class FacebookPostsFragment extends Fragment {
         } else if (view.getId() == likesCount.get(2).getId()) {
             openPhotoDetails(likesCount.get(2).getId());
         }
-
     }
 
     private void openPhotoDetails(int viewType) {
@@ -134,7 +134,6 @@ public class FacebookPostsFragment extends Fragment {
 
             for (int i = 0; i < specificData.length(); i++) {
                 FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
-                int likesCnt = facebookResponse.getLikeCount();
                 if (specificData.getJSONObject(i).length() == 0) {
                     likesCount.get(i).setText(getString(R.string.no_activity_msg));
                 }
@@ -158,12 +157,35 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void loadImageFromPost(JSONObject specificData, ImageView image, int imageId) throws JSONException {
-        String imageUrl = specificData.get(FacebookConstants.PICTURE).toString();
+        String obj = "/" + specificData.get(FacebookConstants.OBJECT_ID).toString();
+
+        if (AccessToken.getCurrentAccessToken() != null) {
+            new GraphRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    obj,
+                    null,
+                    HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        public void onCompleted(GraphResponse response) {
+                            JSONObject arr = response.getJSONObject();
+
+                           /* try {
+                                JSONArray jsonArr = arr.getJSONArray("images");
+                                url = jsonArr.getJSONObject(0).get("source").toString();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }*/
+                            Log.e("image", response.toString());
+
+                        }
+                    }
+            ).executeAsync();
+        }
         image.setVisibility(View.VISIBLE);
 
         image.setId(imageId);
         Picasso.with(getActivity()).
-                load(imageUrl).fit().into(image);
+                load(url).fit().into(image);
     }
 
     @Override

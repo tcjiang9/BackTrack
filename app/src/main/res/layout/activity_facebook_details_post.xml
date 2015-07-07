@@ -13,7 +13,7 @@
     tools:context="io.intrepid.nostalgia.facebook.FacebookPostDetailsActivity">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/like_cnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Name" />
