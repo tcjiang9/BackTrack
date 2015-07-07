@@ -23,7 +23,7 @@ public class FacebookResponse {
     private String status;
     private String createdTime;
     private String name;
-    private ArrayList<Pair<String, String>> comments = new ArrayList<>();
+    ArrayList<Comments> data = new ArrayList<>();
 
 
     public String getName() {
@@ -113,7 +113,6 @@ public class FacebookResponse {
 
     public String getCommentData() {
         String stringBuilder = "\n\n";
-        ArrayList<Comments> data = new ArrayList<>();
         try {
             for (int i = 0; i < getCommentCount(); i++) {
                 JSONObject temp = (JSONObject) commentData.getJSONObject(i).get(FacebookConstants.FROM);

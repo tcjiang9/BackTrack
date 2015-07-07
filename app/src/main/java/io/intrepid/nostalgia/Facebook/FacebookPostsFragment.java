@@ -132,7 +132,6 @@ public class FacebookPostsFragment extends Fragment {
             for (int i = 0; i < specificData.length(); i++) {
                 FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
                 int likesCnt = facebookResponse.getLikeCount();
-                Log.e("likes cnt 1", ""+likesCnt);
                 if (specificData.getJSONObject(i).length() == 0) {
                     names.get(i).setText(getString(R.string.no_activity_msg));
                 }
