@@ -20,13 +20,13 @@ import io.intrepid.nostalgia.R;
 public class FacebookPostDetailsActivity extends AppCompatActivity {
 
 
-    @InjectView(R.id.fb_name)
+    @InjectView(R.id.name)
     TextView name;
     @InjectView(R.id.fb_status)
     TextView status;
     @InjectView(R.id.full_picture)
     ImageView fbImage;
-    @InjectView(R.id.likes)
+    @InjectView(R.id.likes_details)
     TextView likes;
     @InjectView(R.id.comments)
     TextView comments;

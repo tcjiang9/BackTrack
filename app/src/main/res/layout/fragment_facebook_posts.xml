@@ -8,72 +8,179 @@
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
+        android:id="@+id/post_1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
 
-        <ImageView
-            android:id="@+id/image_shared"
-            style="@style/imageViewStyle"
-            />
-        <!--android:visibility="gone"-->
+        <FrameLayout
+            android:id="@+id/image_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible">
 
-        <TextView
-            android:id="@+id/fb_name"
-            style="@style/textViewStyle"
-            android:layout_below="@+id/image_shared" />
-
-        <ImageView android:id="@+id/likes"
-            tools:text="Likes"
-            android:layout_below="@+id/fb_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/image_shared"
+                style="@style/imageViewStyle" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/time_post_1"
-            style="@style/timeText"
-            />
+            style="@style/timeText" />
+
+        <ImageView
+            android:id="@+id/likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_container"
+            tools:src="@drawable/ic_launcher"
+            tools:text="Likes" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/likes"
+            android:layout_toEndOf="@+id/likes"
+            android:layout_toRightOf="@+id/likes"
+            android:text="@string/likes" />
+
+        <ImageView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_container"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_toRightOf="@+id/textView"
+            tools:src="@drawable/ic_launcher"
+            tools:text="Comments" />
+
+        <TextView
+            android:id="@+id/comments_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/likes_details"
+            android:layout_toEndOf="@+id/comments"
+            android:layout_toRightOf="@+id/comments"
+            android:text="@string/likes" />
+
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/post_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:visibility="gone">
 
-        <ImageView
-            android:id="@+id/image_shared_2"
-            style="@style/imageViewStyle"
-             />
-        <!--android:visibility="gone"-->
+        <FrameLayout
+            android:id="@+id/image_container_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
+            <ImageView
+                android:id="@+id/image_shared_2"
+                style="@style/imageViewStyle" />
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/fb_name_2"
-            style="@style/textViewStyle"
-            android:layout_below="@+id/image_shared_2"/>
         <TextView
             android:id="@+id/time_post_2"
-            style="@style/timeText"
-            />
+            style="@style/timeText" />
+        <ImageView
+            android:id="@+id/likes_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_container_2"
+            tools:src="@drawable/ic_launcher"
+            tools:text="Likes" />
+
+        <TextView
+            android:id="@+id/textView_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/likes_2"
+            android:layout_toEndOf="@+id/likes_2"
+            android:layout_toRightOf="@+id/likes_2"
+            android:text="@string/likes" />
+
+        <ImageView
+            android:id="@+id/comments_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_container_2"
+            android:layout_toEndOf="@+id/textView_2"
+            android:layout_toRightOf="@+id/textView_2"
+            tools:src="@drawable/ic_launcher"
+            tools:text="Comments" />
+
+        <TextView
+            android:id="@+id/comments_cnt_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/likes_2"
+            android:layout_toEndOf="@+id/comments_2"
+            android:layout_toRightOf="@+id/comments_2"
+            android:text="@string/likes" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/post_3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:visibility="gone">
 
-        <ImageView
-            android:id="@+id/image_shared_3"
-            style="@style/imageViewStyle" />
-        <!--android:visibility="gone" -->
+        <FrameLayout
+            android:id="@+id/image_container_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/fb_name_3"
-            android:layout_below="@+id/image_shared_3"
-            style="@style/textViewStyle" />
+            <ImageView
+                android:id="@+id/image_shared_3"
+                style="@style/imageViewStyle" />
+        </FrameLayout>
+
         <TextView
             android:id="@+id/time_post_3"
-            style="@style/timeText"
-            />
+            style="@style/timeText" />
+        <ImageView
+            android:id="@+id/likes_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_container_3"
+            tools:src="@drawable/ic_launcher"
+            tools:text="Likes" />
+
+        <TextView
+            android:id="@+id/textView_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/likes_3"
+            android:layout_toEndOf="@+id/likes_3"
+            android:layout_toRightOf="@+id/likes_3"
+            android:text="@string/likes" />
+
+        <ImageView
+            android:id="@+id/comments_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_container_3"
+            android:layout_toEndOf="@+id/textView_3"
+            android:layout_toRightOf="@+id/textView_3"
+            tools:src="@drawable/ic_launcher"
+            tools:text="Comments" />
+
+        <TextView
+            android:id="@+id/comments_cnt_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/likes_3"
+            android:layout_toEndOf="@+id/comments_3"
+            android:layout_toRightOf="@+id/comments_3"
+            android:text="@string/likes" />
+
     </RelativeLayout>
 
 </LinearLayout>

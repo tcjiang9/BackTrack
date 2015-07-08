@@ -3,13 +3,11 @@ package io.intrepid.nostalgia.facebook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -22,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -36,7 +33,7 @@ public class FacebookPostsFragment extends Fragment {
 
     public static final String YEAR_KEY = "YEAR_KEY";
     public static final int MILLISECOND_PER_SECOND = 1000;
-    @InjectViews({R.id.fb_name, R.id.fb_name_2, R.id.fb_name_3})
+    @InjectViews({R.id.likes, R.id.likes_2, R.id.likes_3})
     List<TextView> names;
 
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
@@ -82,7 +79,7 @@ public class FacebookPostsFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.fb_name, R.id.fb_name_2, R.id.fb_name_3})
+    @OnClick({R.id.likes_details, R.id.likes_2, R.id.likes_3})
     void statusUpdate(View view) {
         if (view.getId() == names.get(0).getId()) {
             openPhotoDetails(names.get(0).getId());
