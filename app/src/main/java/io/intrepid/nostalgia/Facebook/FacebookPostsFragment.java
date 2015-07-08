@@ -33,7 +33,7 @@ public class FacebookPostsFragment extends Fragment {
 
     public static final String YEAR_KEY = "YEAR_KEY";
     public static final int MILLISECOND_PER_SECOND = 1000;
-    @InjectViews({R.id.likes, R.id.likes_2, R.id.likes_3})
+    @InjectViews({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     List<TextView> names;
 
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
@@ -79,7 +79,7 @@ public class FacebookPostsFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.likes_details, R.id.likes_2, R.id.likes_3})
+    @OnClick({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     void statusUpdate(View view) {
         if (view.getId() == names.get(0).getId()) {
             openPhotoDetails(names.get(0).getId());
