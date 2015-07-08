@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -34,8 +35,13 @@ public class FacebookPostsFragment extends Fragment {
     public static final String YEAR_KEY = "YEAR_KEY";
     public static final int MILLISECOND_PER_SECOND = 1000;
     @InjectViews({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
-    List<TextView> names;
-
+    List<TextView> likesCount;
+    @InjectViews({R.id.comments_cnt, R.id.comments_cnt_2, R.id.comments_cnt_3})
+    List<TextView> commentsCount;
+    @InjectViews({R.id.time_post_1, R.id.time_post_2, R.id.time_post_3})
+    List<TextView> timeStamp;
+    @InjectViews({R.id.post_1, R.id.post_2, R.id.post_3})
+    List<RelativeLayout> postLayout;
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     List<ImageView> loadImages;
 
@@ -81,12 +87,12 @@ public class FacebookPostsFragment extends Fragment {
 
     @OnClick({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     void statusUpdate(View view) {
-        if (view.getId() == names.get(0).getId()) {
-            openPhotoDetails(names.get(0).getId());
-        } else if (view.getId() == names.get(1).getId()) {
-            openPhotoDetails(names.get(1).getId());
-        } else if (view.getId() == names.get(2).getId()) {
-            openPhotoDetails(names.get(2).getId());
+        if (view.getId() == likesCount.get(0).getId()) {
+            openPhotoDetails(likesCount.get(0).getId());
+        } else if (view.getId() == likesCount.get(1).getId()) {
+            openPhotoDetails(likesCount.get(1).getId());
+        } else if (view.getId() == likesCount.get(2).getId()) {
+            openPhotoDetails(likesCount.get(2).getId());
         }
 
     }
@@ -109,7 +115,7 @@ public class FacebookPostsFragment extends Fragment {
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() != null) {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
-                    FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
+                    FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(2015), HttpMethod.GET,
                     new GraphRequest.Callback() {
                         @Override
                         public void onCompleted(GraphResponse graphResponse) {
@@ -130,14 +136,17 @@ public class FacebookPostsFragment extends Fragment {
                 FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
                 int likesCnt = facebookResponse.getLikeCount();
                 if (specificData.getJSONObject(i).length() == 0) {
-                    names.get(i).setText(getString(R.string.no_activity_msg));
+                    likesCount.get(i).setText(getString(R.string.no_activity_msg));
                 }
                 if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
                     String imageUrl = specificData.getJSONObject(i).get(FacebookConstants.PICTURE).toString();
+                    postLayout.get(i).setVisibility(View.VISIBLE);
+                    likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
+                    commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                     loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
                 } else {
-                    names.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
-                    names.get(i).setId(i);
+                    likesCount.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
+                    likesCount.get(i).setId(i);
 
                 }
             }
