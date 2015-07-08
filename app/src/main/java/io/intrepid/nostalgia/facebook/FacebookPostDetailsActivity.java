@@ -30,7 +30,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     TextView likes;
     @InjectView(R.id.comments)
     TextView comments;
-
+    String url;
     JSONObject onePostFromResponse;
 
     @Override
@@ -40,6 +40,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         Intent intent = getIntent();
         try {
+            url = intent.getExtras().getString("image_url");
             onePostFromResponse = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
             processFacebookResponse();
         } catch (JSONException e) {
@@ -92,7 +93,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     private void loadImageFromPost(FacebookResponse facebookResponse) throws JSONException {
         fbImage.setVisibility(View.VISIBLE);
         Picasso.with(this).
-                load(FacebookPostsFragment.url).fit().into(fbImage);
+                load(url).fit().into(fbImage);
     }
 
 

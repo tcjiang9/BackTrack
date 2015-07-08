@@ -171,9 +171,9 @@
             tools:text="Comments" />
 
         <TextView
+            android:id="@+id/comments_cnt_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/comment_count_3"
             android:layout_alignBottom="@+id/comments_3"
             android:layout_toRightOf="@+id/comments_3"
             android:layout_toEndOf="@+id/comments_3" />

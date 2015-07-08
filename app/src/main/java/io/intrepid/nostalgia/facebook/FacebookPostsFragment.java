@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -45,11 +46,12 @@ public class FacebookPostsFragment extends Fragment {
     List<RelativeLayout> postLayout;
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     List<ImageView> loadImages;
+
     public static String url = "";
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
-
+    ArrayList<String> imageUrl = new ArrayList<>();
     public static FacebookPostsFragment getInstance(int currentYear) {
         FacebookPostsFragment fragment = new FacebookPostsFragment();
         Bundle args = new Bundle();
@@ -104,6 +106,7 @@ public class FacebookPostsFragment extends Fragment {
             try {
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
+                bundle.putString("image_url", imageUrl.get(viewType));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -174,7 +177,7 @@ public class FacebookPostsFragment extends Fragment {
 
                         try {
                             JSONArray jsonArr = arr.getJSONArray("images");
-                            url = jsonArr.getJSONObject(0).get("source").toString();
+                            imageUrl.add(jsonArr.getJSONObject(0).get("source").toString());
                             loadImage(imageId, image);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -189,9 +192,22 @@ public class FacebookPostsFragment extends Fragment {
     private void loadImage(int imageId, ImageView image) {
         image.setVisibility(View.VISIBLE);
         image.setId(imageId);
-        Picasso.with(getActivity()).
-                load(url).fit()
-                .into(image);
+        if (imageUrl.size() == 1){
+            Picasso.with(getActivity()).
+                    load(imageUrl.get(0)).fit()
+                    .into(image);
+        }
+        if (imageUrl.size() == 2){
+            Picasso.with(getActivity()).
+                    load(imageUrl.get(1)).fit()
+                    .into(image);
+        }
+        if (imageUrl.size() == 3){
+            Picasso.with(getActivity()).
+                    load(imageUrl.get(2)).fit()
+                    .into(image);
+        }
+
     }
 
     @Override
