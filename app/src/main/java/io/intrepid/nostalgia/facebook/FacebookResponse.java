@@ -8,7 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class FacebookResponse {
@@ -40,6 +44,16 @@ public class FacebookResponse {
     public String getCreatedTime() {
         try {
             createdTime = parseJson.getString(FacebookConstants.CREATED_TIME);
+            createdTime = createdTime.substring(createdTime.indexOf("T")+1, createdTime.lastIndexOf("+"));
+            DateFormat militaryTime = new SimpleDateFormat("HH:mm:ss"); //HH for hour of the day (0 - 23)
+            try {
+                Date time = militaryTime.parse(createdTime);
+                DateFormat date = new SimpleDateFormat("h:mma");
+                createdTime = date.format(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

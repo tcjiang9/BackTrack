@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class FacebookPostsFragment extends Fragment {
 
     public static final String YEAR_KEY = "YEAR_KEY";
     public static final int MILLISECOND_PER_SECOND = 1000;
+    public static final String IMAGE_URL = "image_url";
+
     @InjectViews({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     List<TextView> likesCount;
     @InjectViews({R.id.comments_cnt, R.id.comments_cnt_2, R.id.comment_count_3})
@@ -44,14 +47,16 @@ public class FacebookPostsFragment extends Fragment {
     List<TextView> timeStamp;
     @InjectViews({R.id.post_1, R.id.post_2, R.id.post_3})
     List<RelativeLayout> postLayout;
+    @InjectViews({R.id.image_container, R.id.image_container_2, R.id.image_container_3})
+    List<FrameLayout> imageLayout;
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     List<ImageView> loadImages;
 
-    public static String url = "";
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
     ArrayList<String> imageUrl = new ArrayList<>();
+
     public static FacebookPostsFragment getInstance(int currentYear) {
         FacebookPostsFragment fragment = new FacebookPostsFragment();
         Bundle args = new Bundle();
@@ -106,7 +111,7 @@ public class FacebookPostsFragment extends Fragment {
             try {
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
-                bundle.putString("image_url", imageUrl.get(viewType));
+                bundle.putString(IMAGE_URL, imageUrl.get(viewType));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -118,7 +123,7 @@ public class FacebookPostsFragment extends Fragment {
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() != null) {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
-                    FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(2015), HttpMethod.GET,
+                    FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {
                         @Override
                         public void onCompleted(GraphResponse graphResponse) {
@@ -131,12 +136,8 @@ public class FacebookPostsFragment extends Fragment {
 
     private void processFacebookResponse(GraphResponse graphResponse) {
         completeDataFromFb = graphResponse.getJSONObject();
-        String getNextPage;
         try {
-            if(completeDataFromFb.toString().contains("paging")){
-                getNextPage = completeDataFromFb.getJSONObject("paging").getString("next");
-                Log.e("value of next page", getNextPage);
-            }
+
             JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
             for (int i = 0; i < specificData.length(); i++) {
                 FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
@@ -146,10 +147,14 @@ public class FacebookPostsFragment extends Fragment {
                 if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
                     String imageUrl = specificData.getJSONObject(i).get(FacebookConstants.PICTURE).toString();
                     postLayout.get(i).setVisibility(View.VISIBLE);
+                    Log.e("value of i",""+i);
+                    Log.e("value of data",""+specificData.getJSONObject(i));
                     likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                     commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                     loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
                 } else {
+                    postLayout.get(i).setVisibility(View.VISIBLE);
+                    timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
                     likesCount.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                     likesCount.get(i).setId(i);
 
@@ -181,8 +186,8 @@ public class FacebookPostsFragment extends Fragment {
                         JSONObject arr = response.getJSONObject();
 
                         try {
-                            JSONArray jsonArr = arr.getJSONArray("images");
-                            imageUrl.add(jsonArr.getJSONObject(0).get("source").toString());
+                            JSONArray jsonArr = arr.getJSONArray(FacebookConstants.IMAGES);
+                            imageUrl.add(jsonArr.getJSONObject(0).get(FacebookConstants.SOURCE).toString());
                             loadImage(imageId, image);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -197,17 +202,17 @@ public class FacebookPostsFragment extends Fragment {
     private void loadImage(int imageId, ImageView image) {
         image.setVisibility(View.VISIBLE);
         image.setId(imageId);
-        if (imageUrl.size() == 1){
+        if (imageUrl.size() == 1) {
             Picasso.with(getActivity()).
                     load(imageUrl.get(0)).fit()
                     .into(image);
         }
-        if (imageUrl.size() == 2){
+        if (imageUrl.size() == 2) {
             Picasso.with(getActivity()).
                     load(imageUrl.get(1)).fit()
                     .into(image);
         }
-        if (imageUrl.size() == 3){
+        if (imageUrl.size() == 3) {
             Picasso.with(getActivity()).
                     load(imageUrl.get(2)).fit()
                     .into(image);

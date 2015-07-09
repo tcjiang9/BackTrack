@@ -17,4 +17,6 @@ public class FacebookConstants {
     public static final String SINCE = "since";
     public static final String UNTIL = "until";
     public static final String LIMIT = "limit";
+    public static final String IMAGES = "images";
+    public static final String SOURCE = "source";
 }

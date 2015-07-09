@@ -40,7 +40,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         Intent intent = getIntent();
         try {
-            url = intent.getExtras().getString("image_url");
+            url = intent.getExtras().getString(FacebookPostsFragment.IMAGE_URL);
             onePostFromResponse = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
             processFacebookResponse();
         } catch (JSONException e) {
