@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+       // YearFragment startFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1)
+       // startFragment.playMusic(SinglePlayer.getInstance());
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
