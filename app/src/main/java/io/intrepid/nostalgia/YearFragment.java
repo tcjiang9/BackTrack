@@ -35,8 +35,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     public static final String KEY = "year";
     public int currentYear;
 
+    //modify this parameter through settings
+    private boolean autoPlay = true;
     private PrevYearButtonListener prevYearButtonListener;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private MediaPlayer mediaPlayer;
     private boolean isPreparing = false;
     private String iTunesUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
 
@@ -68,13 +70,18 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
         try {
             prevYearButtonListener = (PrevYearButtonListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement PrevYearButtonListener");
         }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
     }
 
     @Override
@@ -85,19 +92,19 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
-        playMusicButton.setText(getString(R.string.button_text_play));
+        playMusicButton.setText(mediaPlayer != null && mediaPlayer.isPlaying()
+                ? R.string.button_text_stop
+                : R.string.button_text_play);
+
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
                 if (isPreparing) {
                     Log.i(TAG, "it thinks we're preparing");
                     return;
                 } else if (!mediaPlayer.isPlaying()) {
-                    try {
-                        playMusic(mediaPlayer); //Todo: modify this method param to take a JSON string as well when the time comes
-                    } catch (IOException e) {
-                        Log.e(TAG, e.toString());
-                    }
+                    playMusic(mediaPlayer); //Todo: modify this method param to take a JSON string as well when the time comes
                 } else {
                     Log.i(TAG, "You stopped the media player");
                     stopMusic();
@@ -108,8 +115,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                Log.i(TAG, "Music completed");
                 stopMusic();
+                isPreparing = false;
+                Log.i(TAG, "Music completed");
             }
         });
 
@@ -137,30 +145,36 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         return rootView;
     }
 
-    private void playMusic(final MediaPlayer mediaPlayer) throws IOException {
+    public void playMusic(final MediaPlayer mediaPlayer) {
         // Todo: fetch this url string from an iTunes JSON instead of hardcoding
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        Log.i(TAG, "Right before data source");
-        mediaPlayer.setDataSource(iTunesUrl);
-        Log.i(TAG, "About to prepare async");
-        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mediaPlayer.start();
-                playMusicButton.setText(getString(R.string.button_text_stop));
-                Log.i(TAG, "this has prepared");
-                isPreparing = false;
-            }
-        });
-        mediaPlayer.prepareAsync();
-        isPreparing = true;
+        try {
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            Log.i(TAG, "Right before data source");
+            mediaPlayer.setDataSource(iTunesUrl);
+            Log.i(TAG, "!!!!!!!!About to prepare async!!!!!!!!!!!");
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mediaPlayer.start();
+                    playMusicButton.setText(R.string.button_text_stop);
+                    Log.i(TAG, "this has prepared");
+                    isPreparing = false;
+                }
+            });
+            mediaPlayer.prepareAsync();
+            isPreparing = true;
+        } catch (IOException e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     private void stopMusic() {
         if (mediaPlayer.isPlaying()) {
+            Log.i(TAG, "Stopping mediaPlayer via stopMusic()");
             mediaPlayer.stop();
         }
         playMusicButton.setText(R.string.button_text_play);
+        Log.i(TAG, "Button text set, resetting player");
         mediaPlayer.reset();
     }
 
@@ -196,11 +210,21 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         Log.i(TAG, String.valueOf(currentYear) + "This has pausedfragment");
         isPreparing = false;
         stopMusic();
-        mediaPlayer.release();
+        /**
+         Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+         Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
+         for (int i = 0; i < threadArray.length; i ++) {
+         Log.i(TAG, threadArray[i].toString());
+         }
+         **/
     }
 
     public void onResumeFragment() {
-        mediaPlayer = new MediaPlayer();
+        playMusicButton.setText(R.string.button_text_play);
+        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
+        //if (autoPlay) {
+        //   playMusic(mediaPlayer);
+        //      }
     }
 
     @OnClick(R.id.date_text)
