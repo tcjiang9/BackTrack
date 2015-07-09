@@ -131,7 +131,12 @@ public class FacebookPostsFragment extends Fragment {
 
     private void processFacebookResponse(GraphResponse graphResponse) {
         completeDataFromFb = graphResponse.getJSONObject();
+        String getNextPage;
         try {
+            if(completeDataFromFb.toString().contains("paging")){
+                getNextPage = completeDataFromFb.getJSONObject("paging").getString("next");
+                Log.e("value of next page", getNextPage);
+            }
             JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
             for (int i = 0; i < specificData.length(); i++) {
                 FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
