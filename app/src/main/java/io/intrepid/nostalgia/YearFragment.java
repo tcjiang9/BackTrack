@@ -81,7 +81,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        mediaPlayer = SinglePlayer.getInstance();
+        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
     }
 
     @Override
@@ -99,7 +99,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer = SinglePlayer.getInstance();
+                mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
                 if (isPreparing) {
                     Log.i(TAG, "it thinks we're preparing");
                     return;
@@ -156,7 +156,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     mediaPlayer.start();
-                    playMusicButton.setText(getString(R.string.button_text_stop));
+                    playMusicButton.setText(R.string.button_text_stop);
                     Log.i(TAG, "this has prepared");
                     isPreparing = false;
                 }
@@ -173,7 +173,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             Log.i(TAG, "Stopping mediaPlayer via stopMusic()");
             mediaPlayer.stop();
         }
-        playMusicButton.setText(getString(R.string.button_text_play));
+        playMusicButton.setText(R.string.button_text_play);
         Log.i(TAG, "Button text set, resetting player");
         mediaPlayer.reset();
     }
@@ -220,8 +220,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     public void onResumeFragment() {
-        playMusicButton.setText(getString(R.string.button_text_play));
-        mediaPlayer = SinglePlayer.getInstance();
+        playMusicButton.setText(R.string.button_text_play);
+        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
         //if (autoPlay) {
         //   playMusic(mediaPlayer);
         //      }

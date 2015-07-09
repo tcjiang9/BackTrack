@@ -1,13 +1,27 @@
 package io.intrepid.nostalgia;
 
-public class SinglePlayer {
-    private static android.media.MediaPlayer mediaPlayerInstance;
+import android.media.MediaPlayer;
 
-    public static android.media.MediaPlayer getInstance() {
-        if (mediaPlayerInstance == null) {
-            mediaPlayerInstance = new android.media.MediaPlayer();
+public class SinglePlayer {
+
+    private MediaPlayer mediaPlayerInstance;
+    //private boolean isPreparing;
+
+    private SinglePlayer() {
+        mediaPlayerInstance = new android.media.MediaPlayer();
+    }
+
+    private static SinglePlayer singlePlayerInstance;
+
+    public static SinglePlayer getInstance() {
+        if (singlePlayerInstance == null) {
+            singlePlayerInstance = new SinglePlayer();
         }
-        return mediaPlayerInstance;
+        return singlePlayerInstance;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return this.mediaPlayerInstance;
     }
 
 }
