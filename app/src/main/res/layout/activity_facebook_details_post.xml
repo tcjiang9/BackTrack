@@ -1,5 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,7 +13,7 @@
     tools:context="io.intrepid.nostalgia.facebook.FacebookPostDetailsActivity">
 
     <TextView
-        android:id="@+id/fb_name"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Name" />
@@ -29,7 +32,7 @@
         tools:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/likes"
+        android:id="@+id/likes_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="3 likes" />
@@ -41,3 +44,4 @@
         tools:text="5 comments" />
 
 </LinearLayout>
+</ScrollView>
