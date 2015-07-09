@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -93,12 +92,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
-
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                playMusicButton.setText(getString(R.string.button_text_stop));
-        } else {
-                playMusicButton.setText(getString(R.string.button_text_play));
-        }
+        playMusicButton.setText(mediaPlayer != null && mediaPlayer.isPlaying()
+                ? R.string.button_text_stop
+                : R.string.button_text_play);
 
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +145,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         return rootView;
     }
 
-    public void playMusic(final MediaPlayer mediaPlayer){
+    public void playMusic(final MediaPlayer mediaPlayer) {
         // Todo: fetch this url string from an iTunes JSON instead of hardcoding
         try {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -215,12 +211,12 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         isPreparing = false;
         stopMusic();
         /**
-        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-        Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
-        for (int i = 0; i < threadArray.length; i ++) {
-            Log.i(TAG, threadArray[i].toString());
-        }
-        **/
+         Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+         Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
+         for (int i = 0; i < threadArray.length; i ++) {
+         Log.i(TAG, threadArray[i].toString());
+         }
+         **/
     }
 
     public void onResumeFragment() {
@@ -228,7 +224,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         mediaPlayer = SinglePlayer.getInstance();
         //if (autoPlay) {
         //   playMusic(mediaPlayer);
-  //      }
+        //      }
     }
 
     @OnClick(R.id.date_text)

@@ -1,18 +1,12 @@
 package io.intrepid.nostalgia;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
 
 
 public class MainActivity extends AppCompatActivity
@@ -51,8 +45,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-       // YearFragment startFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1)
-       // startFragment.playMusic(SinglePlayer.getInstance());
+        // YearFragment startFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1)
+        // startFragment.playMusic(SinglePlayer.getInstance());
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
