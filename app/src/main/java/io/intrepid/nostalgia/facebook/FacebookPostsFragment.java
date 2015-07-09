@@ -41,7 +41,7 @@ public class FacebookPostsFragment extends Fragment {
 
     @InjectViews({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     List<TextView> likesCount;
-    @InjectViews({R.id.comments_cnt, R.id.comments_cnt_2, R.id.comment_count_3})
+    @InjectViews({R.id.comments_cnt, R.id.comments_cnt_2, R.id.comments_cnt_3})
     List<TextView> commentsCount;
     @InjectViews({R.id.time_post_1, R.id.time_post_2, R.id.time_post_3})
     List<TextView> timeStamp;

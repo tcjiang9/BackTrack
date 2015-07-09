@@ -1,5 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -13,30 +12,36 @@
     </style>
 
     <style name="imageViewStyle">
-        <item name="android:layout_height">300dp</item>
+        <item name="android:layout_height">200dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:contentDescription">Facebook Activity</item>
         <item name="android:src">@drawable/river</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
-    <style name="textViewStyle">
-        <item name="android:text">Facebook status</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">#FFFFFF</item>
-        <item name="android:layout_alignParentLeft">true</item>
-    </style>
+
     <style name="timeText">
         <item name="android:text">9:00 AM</item>
-           <item name="android:background">#CCFFFF</item>
-            <item name="android:paddingRight">10dp</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_alignParentLeft">true</item>
-    </style>
-    <style name="likesImages">
+        <item name="android:background">#CCFFFF</item>
+        <item name="android:paddingRight">10dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="numbers">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="images_numbers">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_launcher</item>
+    </style>
+
+    <style name="post_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 </resources>
