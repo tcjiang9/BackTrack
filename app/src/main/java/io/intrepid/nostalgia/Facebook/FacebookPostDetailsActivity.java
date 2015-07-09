@@ -79,6 +79,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void getLikesCount(FacebookResponse responsePojo) throws JSONException {
         likes.setText(getString(R.string.likes, responsePojo.getLikeNames()));
 
