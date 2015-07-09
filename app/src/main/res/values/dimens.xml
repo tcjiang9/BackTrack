@@ -12,4 +12,12 @@
 
     //login screen
     <dimen name="skip_facebook">15pt</dimen>
+    <dimen name="facebook_sign_in_height">55dp</dimen>
+    <dimen name="facebook_icon">20dp</dimen>
+    <dimen name="facebook_icon_left_dist">78dp</dimen>
+    <dimen name="sign_in_text">18sp</dimen>
+    <dimen name="facebook_icon_text_dist">6dp</dimen>
+    <dimen name="skip_facebook_bottom_margin">78dp</dimen>
+    <dimen name="skip_facebook_top_margin">16dp</dimen>
+    <dimen name="skip_facebook_text_size">15sp</dimen>
 </resources>

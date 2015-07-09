@@ -10,18 +10,24 @@
         android:id="@+id/login_button"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/com_facebook_profilepictureview_preset_size_normal"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/facebook_sign_in_height"
         android:background="@color/white">
+
+        <ImageView
+            android:layout_width="@dimen/facebook_icon"
+            android:layout_height="@dimen/facebook_icon"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/facebook_icon_left_dist"
+            android:background="@drawable/facebook_icon" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/facebook_sign_in"
-            android:paddingLeft="@dimen/abc_text_size_display_3_material"
             android:textColor="@color/facebook_text"
-            android:textSize="@dimen/abc_dialog_padding_material" />
+            android:textSize="@dimen/sign_in_text"
+            android:layout_marginLeft="@dimen/facebook_icon_text_dist" />
 
     </LinearLayout>
 
@@ -31,8 +37,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/abc_action_bar_content_inset_material"
+        android:layout_marginBottom="@dimen/skip_facebook_bottom_margin"
         android:textColor="@color/skip_facebook_grey"
-        android:paddingTop="@dimen/abc_dialog_padding_material" />
+        android:layout_marginTop="@dimen/skip_facebook_top_margin"
+        android:textSize="@dimen/skip_facebook_text_size"/>
 
 </LinearLayout>
