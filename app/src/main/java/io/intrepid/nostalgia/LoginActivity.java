@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -15,8 +17,14 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,8 +52,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupFacebook() {
+        LinearLayout facebookLogin = (LinearLayout) findViewById(R.id.login_button);
+        facebookLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFacebookLogin();
+            }
+        });
+    }
+
+    private void onFacebookLogin() {
         callbackManager = CallbackManager.Factory.create();
-        facebookCallback = new FacebookCallback<LoginResult>() {
+        ArrayList<String> permission = new ArrayList<>();
+        permission.add("public_profile");
+        LoginManager.getInstance().logInWithReadPermissions(this, permission);
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 AccessToken accessToken = loginResult.getAccessToken();
@@ -62,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
                 profileTracker.startTracking();
+
             }
 
             @Override
@@ -73,10 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onError(FacebookException e) {
 
             }
-        };
-        LoginButton facebookLogin = (LoginButton) findViewById(R.id.login_button);
-        facebookLogin.setReadPermissions("public_profile");
-        facebookLogin.registerCallback(callbackManager, facebookCallback);
+        });
     }
 
     private void verifyFbProfile(Profile profile) {

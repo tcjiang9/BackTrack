@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 
@@ -16,7 +17,7 @@ import butterknife.InjectView;
 public class LauncherActivity extends AppCompatActivity {
 
     @InjectView(R.id.skip_facebook)
-    Button skipFacebook;
+    TextView skipFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

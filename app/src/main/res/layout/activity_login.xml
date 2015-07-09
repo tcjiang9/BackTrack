@@ -2,21 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:background="@color/login_background">
 
-    <com.facebook.login.widget.LoginButton
+    <LinearLayout
         android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/com_facebook_profilepictureview_preset_size_normal"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp" />
+        android:background="@color/white">
 
-    <Button
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/facebook_sign_in"
+            android:paddingLeft="@dimen/abc_text_size_display_3_material"
+            android:textColor="@color/facebook_text"
+            android:textSize="@dimen/abc_dialog_padding_material" />
+
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/skip_facebook"
         android:text="@string/skip_facebook"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/abc_action_bar_content_inset_material"
+        android:textColor="@color/skip_facebook_grey"
+        android:paddingTop="@dimen/abc_dialog_padding_material" />
 
 </LinearLayout>
