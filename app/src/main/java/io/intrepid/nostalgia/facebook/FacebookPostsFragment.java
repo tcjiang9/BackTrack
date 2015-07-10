@@ -55,7 +55,8 @@ public class FacebookPostsFragment extends Fragment {
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
-    ArrayList<String> imageUrl = new ArrayList<>();
+    int i=0;
+    String[] imageUrl = new String[3];
 
     public static FacebookPostsFragment getInstance(int currentYear) {
         FacebookPostsFragment fragment = new FacebookPostsFragment();
@@ -111,7 +112,8 @@ public class FacebookPostsFragment extends Fragment {
             try {
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
-                bundle.putString(IMAGE_URL, imageUrl.get(viewType));
+                bundle.putString(IMAGE_URL, imageUrl[viewType]);
+                i++;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -147,8 +149,7 @@ public class FacebookPostsFragment extends Fragment {
                 if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
                     String imageUrl = specificData.getJSONObject(i).get(FacebookConstants.PICTURE).toString();
                     postLayout.get(i).setVisibility(View.VISIBLE);
-                    Log.e("value of i",""+i);
-                    Log.e("value of data",""+specificData.getJSONObject(i));
+                    imageLayout.get(i).setVisibility(View.VISIBLE);
                     likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                     commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                     loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
@@ -187,7 +188,7 @@ public class FacebookPostsFragment extends Fragment {
 
                         try {
                             JSONArray jsonArr = arr.getJSONArray(FacebookConstants.IMAGES);
-                            imageUrl.add(jsonArr.getJSONObject(0).get(FacebookConstants.SOURCE).toString());
+                            imageUrl[imageId] = jsonArr.getJSONObject(0).get(FacebookConstants.SOURCE).toString();
                             loadImage(imageId, image);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -202,19 +203,19 @@ public class FacebookPostsFragment extends Fragment {
     private void loadImage(int imageId, ImageView image) {
         image.setVisibility(View.VISIBLE);
         image.setId(imageId);
-        if (imageUrl.size() == 1) {
+        if (imageUrl[0] != null) {
             Picasso.with(getActivity()).
-                    load(imageUrl.get(0)).fit()
+                    load(imageUrl[0]).fit()
                     .into(image);
         }
-        if (imageUrl.size() == 2) {
+        if (imageUrl[1] != null) {
             Picasso.with(getActivity()).
-                    load(imageUrl.get(1)).fit()
+                    load(imageUrl[1]).fit()
                     .into(image);
         }
-        if (imageUrl.size() == 3) {
+        if (imageUrl[2] != null) {
             Picasso.with(getActivity()).
-                    load(imageUrl.get(2)).fit()
+                    load(imageUrl[2]).fit()
                     .into(image);
         }
 
