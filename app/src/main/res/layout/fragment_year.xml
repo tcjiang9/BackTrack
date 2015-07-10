@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/play_music_button"
@@ -23,28 +22,28 @@
             android:gravity="center_horizontal"
             android:text="@string/date_text" />
 
-            <TextView
-                android:id="@+id/song_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/song_title" />
+        <TextView
+            android:id="@+id/song_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/song_title" />
 
-            <TextView
-                android:id="@+id/song_artist_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/song_artist" />
+        <TextView
+            android:id="@+id/song_artist_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/song_artist" />
 
-            <ProgressBar
-                android:id="@+id/circular_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="@dimen/circular_progress"
-                android:layout_height="@dimen/circular_progress"
-                android:indeterminate="false"
-                android:max="@integer/max_progress"
-                android:progress="@integer/current_progress"
-                android:progressDrawable="@drawable/circular"
-                android:secondaryProgress="@integer/max_progress" />
+        <ProgressBar
+            android:id="@+id/circular_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/circular_progress"
+            android:layout_height="@dimen/circular_progress"
+            android:indeterminate="false"
+            android:max="@integer/max_progress"
+            android:progress="@integer/current_progress"
+            android:progressDrawable="@drawable/circular"
+            android:secondaryProgress="@integer/max_progress" />
 
 
         <RelativeLayout
@@ -62,23 +61,12 @@
 
         </RelativeLayout>
 
-            <TextView
-                android:id="@+id/news_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/news_tab"
-                android:layout_gravity="start" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/news_view">
 
-            <TextView
-                android:id="@+id/news_headline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/news_body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+        </RelativeLayout>
 
         <Button
             android:id="@+id/previous_year_button"

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -125,6 +126,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         getChildFragmentManager().beginTransaction()
                 .add(R.id.facebook_view, FacebookPostsFragment.getInstance(currentYear))
                 .commit();
+
+        RelativeLayout placeHolder = (RelativeLayout) rootView.findViewById(R.id.news_view);
+        inflater.inflate(R.layout.fragment_news, placeHolder);
 
         Button prevYearButton = (Button) rootView.findViewById(R.id.previous_year_button);
         prevYearButton.setOnClickListener(new View.OnClickListener() {

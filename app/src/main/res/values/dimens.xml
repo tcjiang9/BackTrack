@@ -10,7 +10,6 @@
     <dimen name="full_img_height">300dp</dimen>
     <dimen name="image_main_screen">150dp</dimen>
 
-    <!--login screen-->
     <dimen name="skip_facebook">15pt</dimen>
     <dimen name="facebook_sign_in_height">55dp</dimen>
     <dimen name="facebook_icon">20dp</dimen>
