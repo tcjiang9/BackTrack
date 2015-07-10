@@ -20,8 +20,7 @@ import io.intrepid.nostalgia.R;
 public class FacebookPostDetailsActivity extends AppCompatActivity {
 
 
-    @InjectView(R.id.like_cnt)
-    TextView name;
+
     @InjectView(R.id.fb_status)
     TextView status;
     @InjectView(R.id.full_picture)
@@ -51,11 +50,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     private void processFacebookResponse() {
         try {
             FacebookResponse facebookResponse = new FacebookResponse(onePostFromResponse);
-            if (onePostFromResponse.length() == 0) {
-                name.setText(getString(R.string.no_activity_msg));
-                status.setVisibility(View.GONE);
-            } else {
-                name.setText(facebookResponse.getName());
+
                 String response = onePostFromResponse.toString();
                 if (response.contains(FacebookConstants.MESSAGE)) {
                     status.setText(facebookResponse.getStatus());
@@ -73,7 +68,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
                 if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
                     getComments(facebookResponse);
                 }
-            }
+
 
 
         } catch (JSONException e) {

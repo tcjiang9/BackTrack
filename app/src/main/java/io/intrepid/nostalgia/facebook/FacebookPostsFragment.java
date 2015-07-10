@@ -55,7 +55,6 @@ public class FacebookPostsFragment extends Fragment {
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
-    int i=0;
     String[] imageUrl = new String[3];
 
     public static FacebookPostsFragment getInstance(int currentYear) {
@@ -113,7 +112,6 @@ public class FacebookPostsFragment extends Fragment {
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
                 bundle.putString(IMAGE_URL, imageUrl[viewType]);
-                i++;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -150,6 +148,7 @@ public class FacebookPostsFragment extends Fragment {
                     String imageUrl = specificData.getJSONObject(i).get(FacebookConstants.PICTURE).toString();
                     postLayout.get(i).setVisibility(View.VISIBLE);
                     imageLayout.get(i).setVisibility(View.VISIBLE);
+                    timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
                     likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                     commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                     loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);

@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class FacebookResponse {
@@ -48,7 +49,7 @@ public class FacebookResponse {
             DateFormat militaryTime = new SimpleDateFormat("HH:mm:ss"); //HH for hour of the day (0 - 23)
             try {
                 Date time = militaryTime.parse(createdTime);
-                DateFormat date = new SimpleDateFormat("h:mma");
+                DateFormat date = new SimpleDateFormat("h:mma", Locale.US);
                 createdTime = date.format(time);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -94,7 +95,7 @@ public class FacebookResponse {
     }
 
     public String getLikeNames() {
-        String result = "\n\n";
+        String result = "";
         try {
             for (int i = 0; i < getLikeCount(); i++) {
                 likeNames.add(i, likesData.getJSONObject(i).getString(FacebookConstants.NAME));
@@ -104,9 +105,9 @@ public class FacebookResponse {
         }
 
         for (String likeName : likeNames) {
-            result += likeName + "\n";
+            result += likeName + ", ";
         }
-        return result;
+        return result.substring(0,result.lastIndexOf(","));
     }
 
     public String getPictureUrl() {
@@ -126,7 +127,7 @@ public class FacebookResponse {
 
 
     public String getCommentData() {
-        String stringBuilder = "\n\n";
+        String stringBuilder = "";
         try {
             for (int i = 0; i < getCommentCount(); i++) {
                 JSONObject temp = (JSONObject) commentData.getJSONObject(i).get(FacebookConstants.FROM);
@@ -134,7 +135,7 @@ public class FacebookResponse {
                         commentData.getJSONObject(i).getString(FacebookConstants.MESSAGE)));
             }
             for (int i = 0; i < data.size(); i++) {
-                stringBuilder += (data.get(i).name + " " + data.get(i).comment + "\n");
+                stringBuilder += (data.get(i).name + ": " + data.get(i).comment + "\n");
 
             }
         } catch (JSONException e) {
