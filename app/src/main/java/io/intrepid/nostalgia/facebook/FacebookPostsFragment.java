@@ -158,6 +158,8 @@ public class FacebookPostsFragment extends Fragment {
                     postLayout.get(i).setVisibility(View.VISIBLE);
                     status.get(i).setId(i);
                     timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
+                    RelativeLayout.LayoutParams currentLayoutParams = (RelativeLayout.LayoutParams) status.get(i).getLayoutParams();
+                    currentLayoutParams.addRule(RelativeLayout.BELOW, timeStamp.get(i).getId());
                     status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                     likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                     commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
