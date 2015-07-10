@@ -49,7 +49,7 @@ public class FacebookResponse {
             DateFormat militaryTime = new SimpleDateFormat("HH:mm:ss"); //HH for hour of the day (0 - 23)
             try {
                 Date time = militaryTime.parse(createdTime);
-                DateFormat date = new SimpleDateFormat("h:mma", Locale.US);
+                DateFormat date = new SimpleDateFormat("h:mma");
                 createdTime = date.format(time);
             } catch (ParseException e) {
                 e.printStackTrace();

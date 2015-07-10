@@ -26,10 +26,16 @@
             android:id="@+id/time_post_1"
             style="@style/timeText" />
 
+        <TextView
+            android:id="@+id/status_1"
+            style="@style/timeText"
+            android:layout_below="@+id/image_container"
+            android:text="AAAAAAAAAAAA" />
+
         <ImageView
             android:id="@+id/likes"
             style="@style/images_numbers"
-            android:layout_below="@+id/image_container"
+            android:layout_below="@+id/status_1"
             tools:text="Likes" />
 
         <TextView
@@ -43,7 +49,7 @@
         <ImageView
             android:id="@+id/comments"
             style="@style/images_numbers"
-            android:layout_below="@+id/image_container"
+            android:layout_below="@+id/status_1"
             android:layout_toEndOf="@+id/likes_cnt"
             android:layout_toRightOf="@+id/likes_cnt"
             tools:text="Comments" />
@@ -78,10 +84,16 @@
             android:id="@+id/time_post_2"
             style="@style/timeText" />
 
+        <TextView
+            android:id="@+id/status_2"
+            style="@style/timeText"
+            android:layout_below="@+id/image_container_2"
+            android:text="AAAAAAAAAAAA" />
+
         <ImageView
             android:id="@+id/likes_2"
             style="@style/images_numbers"
-            android:layout_below="@+id/image_container_2"
+            android:layout_below="@+id/status_2"
             tools:text="Likes" />
 
         <TextView
@@ -95,7 +107,7 @@
         <ImageView
             android:id="@+id/comments_2"
             style="@style/images_numbers"
-            android:layout_below="@+id/image_container_2"
+            android:layout_below="@+id/status_2"
             android:layout_toEndOf="@+id/likes_cnt_2"
             android:layout_toRightOf="@+id/likes_cnt_2"
             tools:text="Comments" />
@@ -129,10 +141,16 @@
             android:id="@+id/time_post_3"
             style="@style/timeText" />
 
+        <TextView
+            android:id="@+id/status_3"
+            style="@style/timeText"
+            android:layout_below="@+id/image_container_3"
+            android:text="AAAAAAAAAAAA" />
+
         <ImageView
             android:id="@+id/likes_3"
             style="@style/images_numbers"
-            android:layout_below="@+id/image_container_3"
+            android:layout_below="@+id/status_3"
             tools:text="Likes" />
 
         <TextView
@@ -146,7 +164,7 @@
         <ImageView
             android:id="@+id/comments_3"
             style="@style/images_numbers"
-            android:layout_below="@+id/image_container_3"
+            android:layout_below="@+id/status_3"
             android:layout_toEndOf="@+id/likes_cnt_3"
             android:layout_toRightOf="@+id/likes_cnt_3"
             tools:text="Comments" />
@@ -155,10 +173,10 @@
             android:id="@+id/comments_cnt_3"
             style="@style/numbers"
             android:layout_alignBottom="@+id/likes_3"
-            android:layout_toRightOf="@+id/comments_3"
-            android:layout_toEndOf="@+id/comments_3" />
+            android:layout_toEndOf="@+id/comments_3"
+            android:layout_toRightOf="@+id/comments_3" />
 
-        
+
     </RelativeLayout>
 
 </LinearLayout>

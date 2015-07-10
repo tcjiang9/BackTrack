@@ -43,6 +43,8 @@ public class FacebookPostsFragment extends Fragment {
     List<TextView> likesCount;
     @InjectViews({R.id.comments_cnt, R.id.comments_cnt_2, R.id.comments_cnt_3})
     List<TextView> commentsCount;
+    @InjectViews({R.id.status_1, R.id.status_2, R.id.status_3})
+    List<TextView> status;
     @InjectViews({R.id.time_post_1, R.id.time_post_2, R.id.time_post_3})
     List<TextView> timeStamp;
     @InjectViews({R.id.post_1, R.id.post_2, R.id.post_3})
@@ -93,14 +95,14 @@ public class FacebookPostsFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
+    @OnClick({R.id.status_1, R.id.status_2, R.id.status_3})
     void statusUpdate(View view) {
-        if (view.getId() == likesCount.get(0).getId()) {
-            openPhotoDetails(likesCount.get(0).getId());
-        } else if (view.getId() == likesCount.get(1).getId()) {
-            openPhotoDetails(likesCount.get(1).getId());
-        } else if (view.getId() == likesCount.get(2).getId()) {
-            openPhotoDetails(likesCount.get(2).getId());
+        if (view.getId() == status.get(0).getId()) {
+            openPhotoDetails(status.get(0).getId());
+        } else if (view.getId() == status.get(1).getId()) {
+            openPhotoDetails(status.get(1).getId());
+        } else if (view.getId() == status.get(2).getId()) {
+            openPhotoDetails(status.get(2).getId());
         }
     }
 
@@ -154,9 +156,11 @@ public class FacebookPostsFragment extends Fragment {
                     loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
                 } else {
                     postLayout.get(i).setVisibility(View.VISIBLE);
+                    status.get(i).setId(i);
                     timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
-                    likesCount.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
-                    likesCount.get(i).setId(i);
+                    status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
+                    likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
+                    commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
 
                 }
             }
