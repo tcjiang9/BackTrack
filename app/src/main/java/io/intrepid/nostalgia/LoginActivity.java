@@ -34,38 +34,31 @@ public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
     public static boolean isFacebook;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.inject(this);
-        setupFacebook();
-    }
+    public final String PERMIT = "public_profile";
 
     @OnClick(R.id.skip_facebook)
     void onSkipFb() {
         isFacebook = false;
         saveDataInPreferences();
         startMainActivity();
-
     }
 
-    private void setupFacebook() {
-        LinearLayout facebookLogin = (LinearLayout) findViewById(R.id.login_button);
-        facebookLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFacebookLogin();
-            }
-        });
+    @OnClick(R.id.login_button) void onLoginClick() {
+        onFacebookLogin();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.inject(this);
     }
 
     private void onFacebookLogin() {
         callbackManager = CallbackManager.Factory.create();
-        ArrayList<String> permission = new ArrayList<>();
-        permission.add("public_profile");
-        LoginManager.getInstance().logInWithReadPermissions(this, permission);
+        ArrayList<String> permissions = new ArrayList<>();
+        permissions.add(PERMIT);
+        LoginManager.getInstance().logInWithReadPermissions(this, permissions);
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -83,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
                 profileTracker.startTracking();
-
             }
 
             @Override
