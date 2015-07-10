@@ -9,4 +9,5 @@
     <color name="skip_facebook_grey">#ACB7BA</color>
     <color name="login_background">#DFF1F0</color>
     <color name="facebook_text">#3A5695</color>
+    <color name="travel_back_text">#f0805a</color>
 </resources>
