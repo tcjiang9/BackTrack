@@ -9,4 +9,19 @@
     <dimen name="circular_progress">150dp</dimen>
     <dimen name="full_img_height">300dp</dimen>
     <dimen name="image_main_screen">150dp</dimen>
+
+    //login screen
+    <dimen name="skip_facebook">15pt</dimen>
+    <dimen name="facebook_sign_in_height">55dp</dimen>
+    <dimen name="facebook_icon">20dp</dimen>
+    <dimen name="facebook_icon_left_dist">78dp</dimen>
+    <dimen name="sign_in_text">18sp</dimen>
+    <dimen name="facebook_icon_text_dist">6dp</dimen>
+    <dimen name="skip_facebook_bottom_margin">32dp</dimen>
+    <dimen name="skip_facebook_top_margin">20dp</dimen>
+    <dimen name="skip_facebook_text_size">15sp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="travel_back_text_size">19sp</dimen>
+    <dimen name="dont_worry_left_margin">125dp</dimen>
+    <dimen name="dont_worry_text_size">12.5sp</dimen>
 </resources>

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -15,8 +17,14 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,26 +34,32 @@ public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
     public static boolean isFacebook;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.inject(this);
-        setupFacebook();
-    }
+    public final String PERMIT = "public_profile";
 
     @OnClick(R.id.skip_facebook)
     void onSkipFb() {
         isFacebook = false;
         saveDataInPreferences();
         startMainActivity();
-
     }
 
-    private void setupFacebook() {
+    @OnClick(R.id.login_button) void onLoginClick() {
+        onFacebookLogin();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.inject(this);
+    }
+
+    private void onFacebookLogin() {
         callbackManager = CallbackManager.Factory.create();
-        facebookCallback = new FacebookCallback<LoginResult>() {
+        ArrayList<String> permissions = new ArrayList<>();
+        permissions.add(PERMIT);
+        LoginManager.getInstance().logInWithReadPermissions(this, permissions);
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 AccessToken accessToken = loginResult.getAccessToken();
@@ -73,10 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onError(FacebookException e) {
 
             }
-        };
-        LoginButton facebookLogin = (LoginButton) findViewById(R.id.login_button);
-        facebookLogin.setReadPermissions("public_profile");
-        facebookLogin.registerCallback(callbackManager, facebookCallback);
+        });
     }
 
     private void verifyFbProfile(Profile profile) {

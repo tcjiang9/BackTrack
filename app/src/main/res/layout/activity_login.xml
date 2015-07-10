@@ -4,19 +4,90 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero_dp"
+        android:layout_weight="@integer/one"
+        android:background="@drawable/background_login"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/skip_facebook"
-        android:text="@string/skip_facebook"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <View
+            android:layout_width="match_parent"
+            android:id="@+id/placeholder_view_1"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_weight="0.36"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/zero_dp"
+            android:text="@string/travel_back"
+            android:id="@+id/textView"
+            android:layout_gravity="center"
+            android:textColor="@color/travel_back_text"
+            android:textSize="@dimen/travel_back_text_size"
+            android:layout_weight=".07"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_weight="0.07"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_weight=".07"
+            android:textSize="@dimen/dont_worry_text_size"
+            android:text="@string/dont_worry_facebook_login"
+            android:layout_marginLeft="@dimen/dont_worry_left_margin"
+            android:textColor="@color/dont_worry_text_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_weight="0.03"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_button"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/facebook_sign_in_height"
+        android:gravity="center"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="@dimen/facebook_icon"
+            android:layout_height="@dimen/facebook_icon"
+            android:background="@drawable/facebook_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/facebook_icon_text_dist"
+            android:text="@string/facebook_sign_in"
+            android:textColor="@color/facebook_text"
+            android:textSize="@dimen/sign_in_text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/login_background"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/skip_facebook"
+            android:text="@string/skip_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/skip_facebook_bottom_margin"
+            android:textColor="@color/skip_facebook_grey"
+            android:layout_marginTop="@dimen/skip_facebook_top_margin"
+            android:textSize="@dimen/skip_facebook_text_size"
+            android:background="@color/login_background" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

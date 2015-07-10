@@ -3,6 +3,12 @@
     <color name="main">#999999</color>
     <color name="blue">#ff161499</color>
     <color name="light_blue">#ff3b7eff</color>
-
     <color name="white">#fff</color>
+
+    //login screen
+    <color name="skip_facebook_grey">#ACB7BA</color>
+    <color name="login_background">#DFF1F0</color>
+    <color name="facebook_text">#3A5695</color>
+    <color name="travel_back_text">#f0805a</color>
+    <color name="dont_worry_text_color">#84b8ba</color>
 </resources>
