@@ -2,4 +2,5 @@
 <resources>
     <integer name="max_progress">100</integer>
     <integer name="current_progress">35</integer>
+    <integer name="one">1</integer>
 </resources>

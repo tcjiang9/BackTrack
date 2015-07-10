@@ -10,4 +10,5 @@
     <color name="login_background">#DFF1F0</color>
     <color name="facebook_text">#3A5695</color>
     <color name="travel_back_text">#f0805a</color>
+    <color name="dont_worry_text_color">#84b8ba</color>
 </resources>

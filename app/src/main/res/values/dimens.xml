@@ -20,4 +20,8 @@
     <dimen name="skip_facebook_bottom_margin">32dp</dimen>
     <dimen name="skip_facebook_top_margin">20dp</dimen>
     <dimen name="skip_facebook_text_size">15sp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="travel_back_text_size">19sp</dimen>
+    <dimen name="dont_worry_left_margin">125dp</dimen>
+    <dimen name="dont_worry_text_size">12.5sp</dimen>
 </resources>
