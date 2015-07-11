@@ -1,6 +1,4 @@
-package io.intrepid.nostalgia.nytmodels;
-
-import com.google.gson.annotations.Expose;
+package io.intrepid.nostalgia.models.nytmodels;
 
 public class NyTimesReturn {
 

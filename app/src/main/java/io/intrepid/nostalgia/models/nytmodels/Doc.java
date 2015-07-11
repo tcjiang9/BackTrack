@@ -1,10 +1,6 @@
-package io.intrepid.nostalgia.nytmodels;
+package io.intrepid.nostalgia.models.nytmodels;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Doc {
 
@@ -39,5 +35,4 @@ public class Doc {
     public Byline getByline() {
         return byline;
     }
-
 }
