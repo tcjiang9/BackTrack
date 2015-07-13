@@ -29,8 +29,7 @@
         <TextView
             android:id="@+id/status_1"
             style="@style/timeText"
-            android:layout_below="@+id/image_container"
-            android:text="AAAAAAAAAAAA" />
+            android:layout_below="@+id/image_container" />
 
         <ImageView
             android:id="@+id/likes"
@@ -87,8 +86,7 @@
         <TextView
             android:id="@+id/status_2"
             style="@style/timeText"
-            android:layout_below="@+id/image_container_2"
-            android:text="AAAAAAAAAAAA" />
+            android:layout_below="@+id/image_container_2" />
 
         <ImageView
             android:id="@+id/likes_2"
@@ -144,8 +142,7 @@
         <TextView
             android:id="@+id/status_3"
             style="@style/timeText"
-            android:layout_below="@+id/image_container_3"
-            android:text="AAAAAAAAAAAA" />
+            android:layout_below="@+id/image_container_3" />
 
         <ImageView
             android:id="@+id/likes_3"
