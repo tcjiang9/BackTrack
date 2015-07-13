@@ -10,7 +10,6 @@
     <dimen name="full_img_height">300dp</dimen>
     <dimen name="image_main_screen">150dp</dimen>
 
-    <!--login screen-->
     <dimen name="skip_facebook">15pt</dimen>
     <dimen name="facebook_sign_in_height">55dp</dimen>
     <dimen name="facebook_icon">20dp</dimen>
@@ -24,6 +23,26 @@
     <dimen name="travel_back_text_size">19sp</dimen>
     <dimen name="dont_worry_left_margin">125dp</dimen>
     <dimen name="dont_worry_text_size">12.5sp</dimen>
+    <dimen name="times_left_margin">17.1dp</dimen>
+    <dimen name="times_logo_dimen">52.5dp</dimen>
+    <dimen name="times_top_margin">11dp</dimen>
+    <dimen name="news_header_left_margin">83dp</dimen>
+    <dimen name="news_top_margin">19dp</dimen>
+    <dimen name="news_header_text">20sp</dimen>
+    <dimen name="news_layout_dist">33dp</dimen>
+    <dimen name="times_box_width">330dp</dimen>
+    <dimen name="news_headline_top_margin">46.2dp</dimen>
+    <dimen name="news_headline_text">20sp</dimen>
+    <dimen name="byline_top_margin">6.2dp</dimen>
+    <dimen name="byline_text">13sp</dimen>
+    <dimen name="news_body_text">16sp</dimen>
+    <dimen name="read_more_text">14sp</dimen>
+    <dimen name="share_dimens">24dp</dimen>
+    <dimen name="share_left_margin">288dp</dimen>
+    <dimen name="ribbon_top_margin">7dp</dimen>
+    <dimen name="ribbon_left_margin">11dp</dimen>
+    <dimen name="ribbon_text_top_margin">8dp</dimen>
+    <dimen name="ribbon_text_left_margin">15dp</dimen>
 
     <!--facebook main screen-->
 

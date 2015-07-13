@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/facebookbg" />
+
+        <ImageView
+            android:layout_width="@dimen/times_logo_dimen"
+            android:layout_height="@dimen/times_logo_dimen"
+            android:layout_marginLeft="@dimen/times_left_margin"
+            android:layout_marginTop="@dimen/times_top_margin"
+            android:background="@drawable/news_label" />
+
+        <TextView
+            android:id="@+id/news_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="@dimen/news_header_left_margin"
+            android:layout_marginTop="@dimen/news_top_margin"
+            android:text="@string/news_tab"
+            android:textColor="@color/white"
+            android:textSize="@dimen/news_header_text" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/news_layout_dist">
+
+        <LinearLayout
+            android:layout_width="@dimen/times_box_width"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/news_headline"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/news_headline_top_margin"
+                android:textSize="@dimen/news_headline_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/byline_top_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:id="@+id/news_byline"
+                android:textSize="@dimen/byline_text"
+                android:textColor="@color/byline_grey"/>
+
+            <TextView
+                android:id="@+id/news_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:textSize="@dimen/news_body_text"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/read_more_nyt"
+                android:textColor="@color/byline_grey"
+                android:id="@+id/read_more_nyt"
+                android:textSize="@dimen/read_more_text"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+            
+            <ImageView
+                android:layout_width="@dimen/share_dimens"
+                android:layout_height="@dimen/share_dimens"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/share_left_margin"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:background="@drawable/share"
+                android:id="@+id/share_button"/>
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ribbon"
+            android:layout_marginTop="@dimen/ribbon_top_margin"
+            android:layout_marginLeft="@dimen/ribbon_left_margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ribbon_date"
+            android:layout_marginTop="@dimen/ribbon_text_top_margin"
+            android:layout_marginLeft="@dimen/ribbon_text_left_margin"
+            android:textColor="@color/white"
+            android:textAllCaps="true"/>
+
+    </FrameLayout>
+
+
+</LinearLayout>
