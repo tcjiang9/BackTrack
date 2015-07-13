@@ -84,26 +84,12 @@ public class FacebookPostsFragment extends Fragment {
 
     @OnClick({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     void openScreenForActivity(View view) {
-        if (view.getId() == loadImages.get(0).getId()) {
-            openPhotoDetails(loadImages.get(0).getId());
-        }
-        if (view.getId() == loadImages.get(1).getId()) {
-            openPhotoDetails(loadImages.get(1).getId());
-        }
-        if (view.getId() == loadImages.get(2).getId()) {
-            openPhotoDetails(loadImages.get(2).getId());
-        }
+      openPhotoDetails(view.getId());
     }
 
     @OnClick({R.id.status_1, R.id.status_2, R.id.status_3})
     void statusUpdate(View view) {
-        if (view.getId() == status.get(0).getId()) {
-            openPhotoDetails(status.get(0).getId());
-        } else if (view.getId() == status.get(1).getId()) {
-            openPhotoDetails(status.get(1).getId());
-        } else if (view.getId() == status.get(2).getId()) {
-            openPhotoDetails(status.get(2).getId());
-        }
+        openPhotoDetails(view.getId());
     }
 
     private void openPhotoDetails(int viewType) {
