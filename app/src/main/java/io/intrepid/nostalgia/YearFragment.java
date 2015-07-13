@@ -55,12 +55,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @InjectView(R.id.no_facebook_account)
     TextView noFacebook;
 
-    @InjectView(R.id.news_headline)
-    TextView newsHeadline;
-
-    @InjectView(R.id.news_body)
-    TextView newsBody;
-
     @InjectView(R.id.date_text)
     TextView dateText;
 
@@ -127,8 +121,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 .add(R.id.facebook_view, FacebookPostsFragment.getInstance(currentYear))
                 .commit();
 
-        RelativeLayout placeHolder = (RelativeLayout) rootView.findViewById(R.id.news_view);
-        inflater.inflate(R.layout.fragment_news, placeHolder);
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.news_view, NewsFragment.getInstance(currentYear))
+                .commit();
 
         Button prevYearButton = (Button) rootView.findViewById(R.id.previous_year_button);
         prevYearButton.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +140,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
         dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
 
-        sendNytGetRequest(Integer.toString(currentYear));
         return rootView;
     }
 
@@ -180,33 +174,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         playMusicButton.setText(R.string.button_text_play);
         Log.i(TAG, "Button text set, resetting player");
         mediaPlayer.reset();
-    }
-
-    private void sendNytGetRequest(String currentYear) {
-        String date = DateFormatter.makeNytDate(currentYear);
-        Log.d(TAG, date);
-
-        NytServiceAdapter.getNytServiceInstance()
-                .getNytArticle(date, date, new Callback<NyTimesReturn>() {
-                    @Override
-                    public void success(NyTimesReturn timesReturn, Response response) {
-                        Doc docs = timesReturn.getResponse().getDocs().get(0);
-                        String webUrl = docs.getWebUrl();
-                        String headline = docs.getHeadline().getMain();
-                        String snippet = docs.getSnippet();
-                        String pubDate = docs.getPubDate();
-
-                        newsHeadline.setText(headline);
-                        newsBody.setText(snippet);
-                        Log.d(TAG, pubDate + webUrl + headline + snippet);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(TAG, error.toString());
-                    }
-                });
-
     }
 
     @Override

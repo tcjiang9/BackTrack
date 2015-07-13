@@ -15,6 +15,8 @@ public class Doc {
 
     private Headline headline;
 
+    private Byline byline;
+
     @SerializedName("pub_date")
     private String pubDate;
 
@@ -32,6 +34,10 @@ public class Doc {
 
     public String getPubDate() {
         return pubDate;
+    }
+
+    public Byline getByline() {
+        return byline;
     }
 
 }
