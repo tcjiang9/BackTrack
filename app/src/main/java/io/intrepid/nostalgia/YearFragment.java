@@ -98,7 +98,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         try {
             Cursor c = myDbHelper.getData(String.valueOf(currentYear));
             Random random = new Random();
-            int index = random.nextInt(c.getCount() + 1);
+            int index = random.nextInt(c.getCount());
             songDetails = getRandomSongFromDb(c, index);
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -255,6 +255,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @Override
     public void onPauseFragment() {
+        if (mediaPlayer == null) {
+            mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
+        }
         Log.i(TAG, String.valueOf(currentYear) + "This has pausedfragment");
         isPreparing = false;
         stopMusic();

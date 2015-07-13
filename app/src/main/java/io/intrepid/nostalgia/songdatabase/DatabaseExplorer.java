@@ -47,7 +47,7 @@ public class DatabaseExplorer extends AppCompatActivity {
         try {
             Cursor c = myDbHelper.getData(year);
             Random random = new Random();
-            int index = random.nextInt(c.getCount() + 1);
+            int index = random.nextInt(c.getCount());
             getRandomSongFromDb(c, index);
         } catch (SQLException sqle) {
             sqle.printStackTrace();
