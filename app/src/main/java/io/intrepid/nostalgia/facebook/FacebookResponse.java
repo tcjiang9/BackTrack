@@ -1,14 +1,14 @@
 package io.intrepid.nostalgia.facebook;
 
-import android.util.Log;
-import android.util.Pair;
-import android.view.View;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class FacebookResponse {
@@ -23,7 +23,7 @@ public class FacebookResponse {
     private String status;
     private String createdTime;
     private String name;
-    ArrayList<Comments> data = new ArrayList<>();
+    ArrayList<Comment> data = new ArrayList<>();
 
 
     public String getName() {
@@ -40,6 +40,16 @@ public class FacebookResponse {
     public String getCreatedTime() {
         try {
             createdTime = parseJson.getString(FacebookConstants.CREATED_TIME);
+            createdTime = createdTime.substring(createdTime.indexOf("T")+1, createdTime.lastIndexOf("+"));
+            DateFormat militaryTime = new SimpleDateFormat("HH:mm:ss"); //HH for hour of the day (0 - 23)
+            try {
+                Date time = militaryTime.parse(createdTime);
+                DateFormat date = new SimpleDateFormat("h:mma");
+                createdTime = date.format(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -80,7 +90,7 @@ public class FacebookResponse {
     }
 
     public String getLikeNames() {
-        String result = "\n\n";
+        String result = "";
         try {
             for (int i = 0; i < getLikeCount(); i++) {
                 likeNames.add(i, likesData.getJSONObject(i).getString(FacebookConstants.NAME));
@@ -90,9 +100,9 @@ public class FacebookResponse {
         }
 
         for (String likeName : likeNames) {
-            result += likeName + "\n";
+            result += likeName + ", ";
         }
-        return result;
+        return result.substring(0,result.lastIndexOf(","));
     }
 
     public String getPictureUrl() {
@@ -112,15 +122,15 @@ public class FacebookResponse {
 
 
     public String getCommentData() {
-        String stringBuilder = "\n\n";
+        String stringBuilder = "";
         try {
             for (int i = 0; i < getCommentCount(); i++) {
                 JSONObject temp = (JSONObject) commentData.getJSONObject(i).get(FacebookConstants.FROM);
-                data.add(i, new Comments(temp.getString(FacebookConstants.NAME),
+                data.add(i, new Comment(temp.getString(FacebookConstants.NAME),
                         commentData.getJSONObject(i).getString(FacebookConstants.MESSAGE)));
             }
             for (int i = 0; i < data.size(); i++) {
-                stringBuilder += (data.get(i).name + " " + data.get(i).comment + "\n");
+                stringBuilder += (data.get(i).name + ": " + data.get(i).comment + "\n");
 
             }
         } catch (JSONException e) {

@@ -6,6 +6,7 @@ public class FacebookConstants {
     public static final String MESSAGE = "message";
     public static final String NAME = "name";
     public static final String PICTURE = "picture";
+    public static final String OBJECT_ID = "object_id";
     public static final String ME_POSTS = "/me/posts/";
     public static final String STORY = "story";
     public static final String STATUS = "status";
@@ -16,4 +17,6 @@ public class FacebookConstants {
     public static final String SINCE = "since";
     public static final String UNTIL = "until";
     public static final String LIMIT = "limit";
+    public static final String IMAGES = "images";
+    public static final String SOURCE = "source";
 }

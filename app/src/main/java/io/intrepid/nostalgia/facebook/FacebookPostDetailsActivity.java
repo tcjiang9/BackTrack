@@ -20,8 +20,7 @@ import io.intrepid.nostalgia.R;
 public class FacebookPostDetailsActivity extends AppCompatActivity {
 
 
-    @InjectView(R.id.name)
-    TextView name;
+
     @InjectView(R.id.fb_status)
     TextView status;
     @InjectView(R.id.full_picture)
@@ -30,7 +29,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     TextView likes;
     @InjectView(R.id.comments)
     TextView comments;
-
+    String url;
     JSONObject onePostFromResponse;
 
     @Override
@@ -40,6 +39,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         Intent intent = getIntent();
         try {
+            url = intent.getExtras().getString(FacebookPostsFragment.IMAGE_URL);
             onePostFromResponse = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
             processFacebookResponse();
         } catch (JSONException e) {
@@ -50,11 +50,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     private void processFacebookResponse() {
         try {
             FacebookResponse facebookResponse = new FacebookResponse(onePostFromResponse);
-            if (onePostFromResponse.length() == 0) {
-                name.setText(getString(R.string.no_activity_msg));
-                status.setVisibility(View.GONE);
-            } else {
-                name.setText(facebookResponse.getName());
+
                 String response = onePostFromResponse.toString();
                 if (response.contains(FacebookConstants.MESSAGE)) {
                     status.setText(facebookResponse.getStatus());
@@ -72,7 +68,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
                 if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
                     getComments(facebookResponse);
                 }
-            }
+
 
 
         } catch (JSONException e) {
@@ -90,10 +86,9 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     }
 
     private void loadImageFromPost(FacebookResponse facebookResponse) throws JSONException {
-        String imageUrl = facebookResponse.getPictureUrl();
         fbImage.setVisibility(View.VISIBLE);
         Picasso.with(this).
-                load(imageUrl).fit().into(fbImage);
+                load(url).fit().into(fbImage);
     }
 
 

@@ -1,6 +1,6 @@
 package io.intrepid.nostalgia.facebook;
 
-public class Comments {
+public class Comment {
     String name;
     String comment;
     public String getName() {
@@ -11,7 +11,7 @@ public class Comments {
         return comment;
     }
 
-    public Comments (String name, String comment){
+    public Comment(String name, String comment){
         this.name = name;
         this.comment = comment;
     }
