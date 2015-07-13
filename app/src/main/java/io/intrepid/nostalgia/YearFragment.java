@@ -47,8 +47,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private PrevYearButtonListener prevYearButtonListener;
     private MediaPlayer mediaPlayer;
     private boolean isPreparing = false;
-    private String iTunesUrl;
     private String[] songDetails = new String[2];
+    private String songUrl;
 
     @InjectView(R.id.play_music_button)
     Button playMusicButton;
@@ -112,9 +112,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
         String songTitle = songDetails[0];
         String songArtist = songDetails[1];
+        String searchTerm = songTitle + " " + songArtist;
         Log.i(TAG, "Song " + songTitle);
         Log.i(TAG, "Artist " + songArtist);
-        iTunesUrl = fetchPreviewUrl(songTitle, songArtist);
+        Log.i(TAG, searchTerm);
+        fetchPreviewUrl(searchTerm);
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
@@ -131,7 +133,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     Log.i(TAG, "it thinks we're preparing");
                     return;
                 } else if (!mediaPlayer.isPlaying()) {
-                    playMusic(mediaPlayer, iTunesUrl);
+                    playMusic(mediaPlayer, songUrl);
                 } else {
                     Log.i(TAG, "You stopped the media player");
                     stopMusic();
@@ -176,22 +178,28 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         return artistAndSong;
     }
 
-    private String fetchPreviewUrl(String songTitle, final String songArtist) {
+    /**
+     * Modifies songUrl to contain the iTunes preview url of the song found via the search term
+     * @param searchTerm the "term=" query in our http request, the artist name and song name concatanated with a space
+     *                   in between
+     **/
+    private void fetchPreviewUrl(String searchTerm) {
         ItunesService itunesService = ItunesServiceAdapter.getItunesServiceInstance();
+        String limit = "2";
         itunesService.listSongInfo(
-                songTitle,
+                searchTerm,
                 Constants.COUNTRY,
                 Constants.SONG,
+                limit,
                 new Callback<ItunesResults>() {
                     @Override
                     public void success(ItunesResults itunesResults, Response response) {
                         List<ItunesSong> itunesSongs = itunesResults.getResults();
-                        for (ItunesSong s : itunesSongs) {
-                            if (s.getArtistName().equals(songArtist)) {
-                                iTunesUrl = s.getPreviewUrl();
-                                Log.i(TAG, iTunesUrl);
-                                break;
-                            }
+                        if (itunesSongs.size() > 0) {
+                            Log.i(TAG, itunesSongs.toString());
+                            songUrl = itunesSongs.get(0).getPreviewUrl();
+                        } else {
+                            return;
                         }
                     }
 
@@ -199,7 +207,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     public void failure(RetrofitError error) {
                     }
                 });
-        return null;
     }
 
     private void playMusic(final MediaPlayer mediaPlayer, String songUrl) {
