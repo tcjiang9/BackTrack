@@ -45,14 +45,14 @@
     <dimen name="ribbon_text_left_margin">15dp</dimen>
 
     <!--facebook display-->
+    <dimen name="facebook_image_container_height">186dp</dimen>
     <dimen name="facebook_image_height">220dp</dimen>
-    <dimen name="facebook_image_width">330dp</dimen>
+    <dimen name="facebook_status_container_height">134dp</dimen>
+    <dimen name="facebook_image_width">328dp</dimen>
     <dimen name="facebook_time_padding">10dp</dimen>
-    <dimen name="facebook_padding">15dp</dimen>
-    <dimen name="facebook_status_height">110dp</dimen>
-
-    <!--facebook main screen-->
-
-    <dimen name="facebook_main_screen">200dp</dimen>
-    <dimen name="facebook_image_padding">10dp</dimen>
+    <dimen name="facebook_padding">16dp</dimen>
+    <dimen name="facebook_status_height">60dp</dimen>
+    <dimen name="status_left">16dp</dimen>
+    <dimen name="status_top">10dp</dimen>
+    <dimen name="status_right">34dp</dimen>
 </resources>

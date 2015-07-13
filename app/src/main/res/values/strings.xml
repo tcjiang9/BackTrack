@@ -24,7 +24,7 @@
     <string name="status">Story</string>
     <string name="comments"> %s</string>
     <string name="title_activity_facebook_second">FacebookSecondActivity</string>
-    <string name="status_alternative">Shared a photo</string>
+    <string name="status_alternative">Uploaded a photo</string>
     <string name="autoplay_switch_text">Autoplay Music</string>
     <string name="facebook_connection">Connect to Facebook</string>
     <string name="feedback">Feedback</string>
@@ -34,5 +34,6 @@
     <string name="button_text_stop">Stop</string>
     <string name="travel_back">Travel back in time with rock\n music, Facebook and news</string>
     <string name="dont_worry_facebook_login">Don\'t worry!\nWe never post on Facebook\nwithout your permission.</string>
+    <string name="facebook_activity">Facebook Activities</string>
     <string name="read_more_nyt">Read more in The New York Times</string>
 </resources>

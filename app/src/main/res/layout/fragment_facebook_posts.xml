@@ -6,6 +6,30 @@
 
     tools:context="io.intrepid.nostalgia.facebook.FacebookPostsFragment">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/facebookbg">
+
+        <TextView
+            android:layout_width="236dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="83dp"
+            android:layout_marginTop="19dp"
+            android:text="@string/facebook_activity"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-75dp"
+        android:src="@drawable/facebook_logo" />
+
     <RelativeLayout
         android:id="@+id/post_1"
         style="@style/post_container"
@@ -14,7 +38,7 @@
 
         <FrameLayout
             android:id="@+id/image_container"
-            style="@style/image_container"
+            style="@style/image_container_style"
             tools:visibility="visible">
 
             <ImageView
@@ -25,53 +49,57 @@
         <TextView
             android:id="@+id/time_post_1"
             style="@style/timeText" />
+
         <RelativeLayout
-            style="@style/image_container"></RelativeLayout>
-        <TextView
-            android:id="@+id/status_1"
-            style="@style/timeText"
-            android:layout_below="@+id/image_container" />
+            style="@style/status_container"
+            android:layout_below="@+id/image_container">
 
-        <ImageView
-            android:id="@+id/likes"
-            style="@style/likes_img"
-            android:layout_below="@+id/status_1"
-            tools:text="Likes" />
+            <TextView
+                android:id="@+id/status_1"
+                style="@style/status_text" />
 
-        <TextView
-            android:id="@+id/likes_cnt"
-            style="@style/numbers"
-            android:layout_alignBottom="@+id/likes"
-            android:layout_toEndOf="@+id/likes"
-            android:layout_toRightOf="@+id/likes"
-            android:text="@string/likes" />
+            <ImageView
+                android:id="@+id/likes"
+                style="@style/likes_img"
+                android:layout_below="@+id/status_1" />
 
-        <ImageView
-            android:id="@+id/comments"
-            style="@style/comments_img"
-            android:layout_below="@+id/status_1"
-            android:layout_toEndOf="@+id/likes_cnt"
-            android:layout_toRightOf="@+id/likes_cnt"
-            tools:text="Comments" />
+            <TextView
+                android:id="@+id/likes_cnt"
+                style="@style/numbers"
+                android:layout_alignBottom="@+id/likes"
+                android:layout_toEndOf="@+id/likes"
+                android:layout_toRightOf="@+id/likes"
+                android:text="@string/likes" />
 
-        <TextView
-            android:id="@+id/comments_cnt"
-            style="@style/numbers"
-            android:layout_alignBottom="@+id/comments"
-            android:layout_toEndOf="@+id/comments"
-            android:layout_toRightOf="@+id/comments"
-            android:text="@string/comments" />
+            <ImageView
+                android:id="@+id/comments"
+                style="@style/comments_img"
+                android:layout_alignBottom="@+id/likes"
+                android:layout_below="@+id/status_1"
+                tools:text="Comments" />
+
+            <TextView
+                android:id="@+id/comments_cnt"
+                style="@style/numbers"
+
+                android:layout_alignBottom="@+id/comments"
+                android:layout_toEndOf="@+id/comments"
+                android:layout_toRightOf="@+id/comments"
+                android:text="@string/comments" />
+        </RelativeLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/post_2"
         style="@style/post_container"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <FrameLayout
             android:id="@+id/image_container_2"
-            style="@style/image_container">
+            style="@style/image_container_style"
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/image_shared_2"
@@ -82,50 +110,55 @@
             android:id="@+id/time_post_2"
             style="@style/timeText" />
 
-        <TextView
-            android:id="@+id/status_2"
-            style="@style/timeText"
-            android:layout_below="@+id/image_container_2" />
+        <RelativeLayout
+            style="@style/status_container"
+            android:layout_below="@+id/image_container_2">
 
-        <ImageView
-            android:id="@+id/likes_2"
-            style="@style/likes_img"
-            android:layout_below="@+id/status_2"
-            tools:text="Likes" />
+            <TextView
+                android:id="@+id/status_2"
+                style="@style/status_text" />
 
-        <TextView
-            android:id="@+id/likes_cnt_2"
-            style="@style/numbers"
-            android:layout_alignBottom="@+id/likes_2"
-            android:layout_toEndOf="@+id/likes_2"
-            android:layout_toRightOf="@+id/likes_2"
-            android:text="@string/likes" />
+            <ImageView
+                android:id="@+id/likes_2"
+                style="@style/likes_img"
+                android:layout_below="@+id/status_2" />
 
-        <ImageView
-            android:id="@+id/comments_2"
-            style="@style/comments_img"
-            android:layout_below="@+id/status_2"
-            android:layout_toEndOf="@+id/likes_cnt_2"
-            android:layout_toRightOf="@+id/likes_cnt_2"
-            tools:text="Comments" />
+            <TextView
+                android:id="@+id/likes_cnt_2"
+                style="@style/numbers"
+                android:layout_alignBottom="@+id/likes_2"
+                android:layout_toEndOf="@+id/likes_2"
+                android:layout_toRightOf="@+id/likes_2"
+                android:text="@string/likes" />
 
-        <TextView
-            android:id="@+id/comments_cnt_2"
-            style="@style/numbers"
-            android:layout_alignBottom="@+id/likes_2"
-            android:layout_toEndOf="@+id/comments_2"
-            android:layout_toRightOf="@+id/comments_2"
-            android:text="@string/likes" />
+            <ImageView
+                android:id="@+id/comments_2"
+                style="@style/comments_img"
+                android:layout_alignBottom="@+id/likes_2"
+                android:layout_below="@+id/status_2"
+                tools:text="Comments" />
+
+            <TextView
+                android:id="@+id/comments_cnt_2"
+                style="@style/numbers"
+                android:layout_alignBottom="@+id/comments_2"
+                android:layout_toEndOf="@+id/comments_2"
+                android:layout_toRightOf="@+id/comments_2"
+                android:text="@string/comments" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/post_3"
         style="@style/post_container"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <FrameLayout
             android:id="@+id/image_container_3"
-            style="@style/image_container">
+            style="@style/image_container_style"
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/image_shared_3"
@@ -136,41 +169,42 @@
             android:id="@+id/time_post_3"
             style="@style/timeText" />
 
-        <TextView
-            android:id="@+id/status_3"
-            style="@style/timeText"
-            android:layout_below="@+id/image_container_3" />
+        <RelativeLayout
+            style="@style/status_container"
+            android:layout_below="@+id/image_container_3">
 
-        <ImageView
-            android:id="@+id/likes_3"
-            style="@style/likes_img"
-            android:layout_below="@+id/status_3"
-            tools:text="Likes" />
+            <TextView
+                android:id="@+id/status_3"
+                style="@style/status_text" />
 
-        <TextView
-            android:id="@+id/likes_cnt_3"
-            style="@style/numbers"
-            android:layout_alignBottom="@+id/likes_3"
-            android:layout_toEndOf="@+id/likes_3"
-            android:layout_toRightOf="@+id/likes_3"
-            android:text="@string/likes" />
+            <ImageView
+                android:id="@+id/likes_3"
+                style="@style/likes_img"
+                android:layout_below="@+id/status_3" />
 
-        <ImageView
-            android:id="@+id/comments_3"
-            style="@style/comments_img"
-            android:layout_below="@+id/status_3"
-            android:layout_toEndOf="@+id/likes_cnt_3"
-            android:layout_toRightOf="@+id/likes_cnt_3"
-            tools:text="Comments" />
+            <TextView
+                android:id="@+id/likes_cnt_3"
+                style="@style/numbers"
+                android:layout_alignBottom="@+id/likes_3"
+                android:layout_toEndOf="@+id/likes_3"
+                android:layout_toRightOf="@+id/likes_3"
+                android:text="@string/likes" />
 
-        <TextView
-            android:id="@+id/comments_cnt_3"
-            style="@style/numbers"
-            android:layout_alignBottom="@+id/likes_3"
-            android:layout_toEndOf="@+id/comments_3"
-            android:layout_toRightOf="@+id/comments_3" />
+            <ImageView
+                android:id="@+id/comments_3"
+                style="@style/comments_img"
+                android:layout_alignBottom="@+id/likes_3"
+                android:layout_below="@+id/status_3"
+                tools:text="Comments" />
 
+            <TextView
+                android:id="@+id/comments_cnt_3"
+                style="@style/numbers"
+                android:layout_alignBottom="@+id/comments_3"
+                android:layout_toEndOf="@+id/comments_3"
+                android:layout_toRightOf="@+id/comments_3"
+                android:text="@string/comments" />
+        </RelativeLayout>
 
     </RelativeLayout>
-
 </LinearLayout>
