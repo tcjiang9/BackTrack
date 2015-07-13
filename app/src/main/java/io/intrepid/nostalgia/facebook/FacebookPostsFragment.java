@@ -83,7 +83,7 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     @OnClick({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
-    void openScreenForActivity3(View view) {
+    void openScreenForActivity(View view) {
         if (view.getId() == loadImages.get(0).getId()) {
             openPhotoDetails(loadImages.get(0).getId());
         }
@@ -147,7 +147,6 @@ public class FacebookPostsFragment extends Fragment {
                     likesCount.get(i).setText(getString(R.string.no_activity_msg));
                 }
                 if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
-                    String imageUrl = specificData.getJSONObject(i).get(FacebookConstants.PICTURE).toString();
                     postLayout.get(i).setVisibility(View.VISIBLE);
                     imageLayout.get(i).setVisibility(View.VISIBLE);
                     timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
@@ -190,7 +189,6 @@ public class FacebookPostsFragment extends Fragment {
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         JSONObject arr = response.getJSONObject();
-
                         try {
                             JSONArray jsonArr = arr.getJSONArray(FacebookConstants.IMAGES);
                             imageUrl[imageId] = jsonArr.getJSONObject(0).get(FacebookConstants.SOURCE).toString();
@@ -198,8 +196,6 @@ public class FacebookPostsFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 }
         ).executeAsync();

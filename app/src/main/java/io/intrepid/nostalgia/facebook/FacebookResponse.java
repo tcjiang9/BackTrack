@@ -1,9 +1,5 @@
 package io.intrepid.nostalgia.facebook;
 
-import android.util.Log;
-import android.util.Pair;
-import android.view.View;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 
 public class FacebookResponse {
@@ -28,7 +23,7 @@ public class FacebookResponse {
     private String status;
     private String createdTime;
     private String name;
-    ArrayList<Comments> data = new ArrayList<>();
+    ArrayList<Comment> data = new ArrayList<>();
 
 
     public String getName() {
@@ -131,7 +126,7 @@ public class FacebookResponse {
         try {
             for (int i = 0; i < getCommentCount(); i++) {
                 JSONObject temp = (JSONObject) commentData.getJSONObject(i).get(FacebookConstants.FROM);
-                data.add(i, new Comments(temp.getString(FacebookConstants.NAME),
+                data.add(i, new Comment(temp.getString(FacebookConstants.NAME),
                         commentData.getJSONObject(i).getString(FacebookConstants.MESSAGE)));
             }
             for (int i = 0; i < data.size(); i++) {
