@@ -68,9 +68,9 @@ public class NewsFragment extends Fragment {
     }
 
     public void sendNytGetRequest() {
-        final String currentYear = Integer.toString(getArguments().getInt(YEAR));
-        String date = DateFormatter.makeNytDate(currentYear);
-        Log.d(TAG, "@@@@@@@@@@@@@@@@@@@@@@@" + currentYear);
+        final String CURRENT_YEAR = Integer.toString(getArguments().getInt(YEAR));
+        String date = DateFormatter.makeNytDate(CURRENT_YEAR);
+        Log.d(TAG, "@@@@@@@@@@@@@@@@@@@@@@@" + CURRENT_YEAR);
 
         NytServiceAdapter.getNytServiceInstance()
                 .getNytArticle(date, date, new Callback<NyTimesReturn>() {
