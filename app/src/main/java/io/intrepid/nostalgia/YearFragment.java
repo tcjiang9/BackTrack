@@ -43,9 +43,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     public static final String KEY = "year";
     public int currentYear;
 
-    private boolean autoPlay = true;
     private PrevYearButtonListener prevYearButtonListener;
     private MediaPlayer mediaPlayer;
+    private boolean autoPlay = true;
     private boolean isPreparing = false;
     private String[] songDetails = new String[2];
     private String songUrl;
@@ -81,12 +81,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //the current year, for future use.
         currentYear = getArguments().getInt(YEAR);
@@ -113,8 +107,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         String songTitle = songDetails[0];
         String songArtist = songDetails[1];
         String searchTerm = songTitle + " " + songArtist;
-        Log.i(TAG, "Song " + songTitle);
-        Log.i(TAG, "Artist " + songArtist);
         Log.i(TAG, searchTerm);
         fetchPreviewUrl(searchTerm);
 
@@ -180,9 +172,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     /**
      * Modifies songUrl to contain the iTunes preview url of the song found via the search term
+     *
      * @param searchTerm the "term=" query in our http request, the artist name and song name concatanated with a space
      *                   in between
-     **/
+     */
     private void fetchPreviewUrl(String searchTerm) {
         ItunesService itunesService = ItunesServiceAdapter.getItunesServiceInstance();
         String limit = "2";
