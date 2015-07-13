@@ -1,19 +1,7 @@
-/**package io.intrepid.nostalgia.models.itunesmodels;
-
-public class ItunesSong {
-    String wrapperType;
-    String kind;
-    Long artistId;
-    Long collectionId;
-
-}**/
-
 package io.intrepid.nostalgia.models.itunesmodels;
 
-//import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 
-//@Generated("org.jsonschema2pojo")
 public class ItunesSong {
 
     @Expose

@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -49,7 +48,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private MediaPlayer mediaPlayer;
     private boolean isPreparing = false;
     private String iTunesUrl;
-    private String previewUrl = "http://a1654.phobos.apple.com/us/r1000/022/Music/v4/06/a1/0c/06a10c8b-e358-4bc0-c443-a120a775d3df/mzaf_1439207983024487820.plus.aac.p.m4a";
     private String[] songDetails = new String[2];
 
     @InjectView(R.id.play_music_button)
@@ -94,7 +92,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         currentYear = getArguments().getInt(YEAR);
         DatabaseHelper myDbHelper = new DatabaseHelper(getActivity());
 
-// initialize db
+        // initialize db
         try {
 
             myDbHelper.createDataBase();
@@ -112,10 +110,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             sqle.printStackTrace();
         }
 
-        String songTitle = songDetails[0]; //fetch from DB later
+        String songTitle = songDetails[0];
         String songArtist = songDetails[1];
-        Log.i(TAG, songTitle);
-        Log.i(TAG, songArtist);
+        Log.i(TAG, "Song " + songTitle);
+        Log.i(TAG, "Artist " + songArtist);
         iTunesUrl = fetchPreviewUrl(songTitle, songArtist);
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
@@ -133,14 +131,13 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     Log.i(TAG, "it thinks we're preparing");
                     return;
                 } else if (!mediaPlayer.isPlaying()) {
-                    playMusic(mediaPlayer, iTunesUrl); //Todo: modify this method param to take a JSON string as well when the time comes
+                    playMusic(mediaPlayer, iTunesUrl);
                 } else {
                     Log.i(TAG, "You stopped the media player");
                     stopMusic();
                 }
             }
         });
-
 
         yearTemp.setText(String.valueOf(currentYear));
         getChildFragmentManager().beginTransaction()
@@ -168,6 +165,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
         return rootView;
     }
+
     private String[] getRandomSongFromDb(Cursor c, int index) {
         String[] artistAndSong = new String[2];
         c.moveToPosition(index);
@@ -180,22 +178,27 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     private String fetchPreviewUrl(String songTitle, final String songArtist) {
         ItunesService itunesService = ItunesServiceAdapter.getItunesServiceInstance();
-        itunesService.listSongInfo(songTitle, Constants.COUNTRY, Constants.SONG, new Callback<ItunesResults>() {
-            @Override
-            public void success(ItunesResults itunesResults, Response response) {
-                List<ItunesSong> itunesSongs = itunesResults.getResults();
-                for (ItunesSong s : itunesSongs) {
-                    if (s.getArtistName().equals(songArtist)){
-                        iTunesUrl = s.getPreviewUrl();
-                        Log.i(TAG, iTunesUrl);
-                        break;
+        itunesService.listSongInfo(
+                songTitle,
+                Constants.COUNTRY,
+                Constants.SONG,
+                new Callback<ItunesResults>() {
+                    @Override
+                    public void success(ItunesResults itunesResults, Response response) {
+                        List<ItunesSong> itunesSongs = itunesResults.getResults();
+                        for (ItunesSong s : itunesSongs) {
+                            if (s.getArtistName().equals(songArtist)) {
+                                iTunesUrl = s.getPreviewUrl();
+                                Log.i(TAG, iTunesUrl);
+                                break;
+                            }
+                        }
                     }
-                }
-            }
-            @Override
-            public void failure(RetrofitError error) {
-            }
-        });
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                    }
+                });
         return null;
     }
 
@@ -231,7 +234,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             isPreparing = true;
         } catch (IOException e) {
             Log.e(TAG, e.toString());
-            Log.i(TAG, "!!!!!TRACK NOT FOUND!!!!!!!");
             return;
         }
     }
