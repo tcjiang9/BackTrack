@@ -55,4 +55,19 @@
     <dimen name="status_left">16dp</dimen>
     <dimen name="status_top">10dp</dimen>
     <dimen name="status_right">34dp</dimen>
+    <dimen name="fblogo_width">65dp</dimen>
+    <dimen name="fblogo_height">65dp</dimen>
+    <dimen name="fblogo_margin_left">10dp</dimen>
+    <dimen name="fblogo_margin_top">-75dp</dimen>
+    <dimen name="fb_title_size">20sp</dimen>
+    <dimen name="fb_title_margin_top">19dp</dimen>
+    <dimen name="fb_title_margin_left">83dp</dimen>
+    <dimen name="fb_title_height">24dp</dimen>
+    <dimen name="fb_title_width">236dp</dimen>
+    <dimen name="fb_title_container_margin">35dp</dimen>
+    <dimen name="fb_title_container_height">51dp</dimen>
+    <dimen name="share_btn_width">24dp</dimen>
+    <dimen name="share_btn_height">24dp</dimen>
+    <dimen name="share_btn_margin_left">290dp</dimen>
+    <dimen name="share_btn_margin_right">19dp</dimen>
 </resources>

@@ -8,26 +8,25 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:layout_marginBottom="35dp"
+        android:layout_height="@dimen/fb_title_container_height"
+        android:layout_marginBottom="@dimen/fb_title_container_margin"
         android:background="@drawable/facebookbg">
 
         <TextView
-            android:layout_width="236dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="83dp"
-            android:layout_marginTop="19dp"
+            android:layout_width="@dimen/fb_title_width"
+            android:layout_height="@dimen/fb_title_height"
+            android:layout_marginLeft="@dimen/fb_title_margin_left"
+            android:layout_marginTop="@dimen/fb_title_margin_top"
             android:text="@string/facebook_activity"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
+            android:textSize="@dimen/fb_title_size" />
     </FrameLayout>
 
     <ImageView
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="-75dp"
+        android:layout_width="@dimen/fblogo_width"
+        android:layout_height="@dimen/fblogo_height"
+        android:layout_marginLeft="@dimen/fblogo_margin_left"
+        android:layout_marginTop="@dimen/fblogo_margin_top"
         android:src="@drawable/facebook_logo" />
 
     <RelativeLayout
@@ -81,11 +80,22 @@
             <TextView
                 android:id="@+id/comments_cnt"
                 style="@style/numbers"
-
                 android:layout_alignBottom="@+id/comments"
                 android:layout_toEndOf="@+id/comments"
                 android:layout_toRightOf="@+id/comments"
                 android:text="@string/comments" />
+
+            <ImageButton
+                android:id="@+id/share_post_1"
+                android:layout_width="@dimen/share_btn_width"
+                android:layout_height="@dimen/share_btn_height"
+                android:layout_alignBottom="@+id/likes"
+                android:layout_marginEnd="@dimen/share_btn_margin_right"
+                android:layout_marginLeft="@dimen/share_btn_margin_left"
+                android:layout_marginRight="@dimen/share_btn_margin_right"
+                android:layout_marginStart="@dimen/share_btn_margin_left"
+                android:background="#FFFFFF"
+                android:src="@drawable/share" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -145,6 +155,18 @@
                 android:layout_toEndOf="@+id/comments_2"
                 android:layout_toRightOf="@+id/comments_2"
                 android:text="@string/comments" />
+
+            <ImageButton
+                android:id="@+id/share_post_2"
+                android:layout_width="@dimen/share_btn_width"
+                android:layout_height="@dimen/share_btn_height"
+                android:layout_alignBottom="@+id/likes_2"
+                android:layout_marginEnd="@dimen/share_btn_margin_right"
+                android:layout_marginLeft="@dimen/share_btn_margin_left"
+                android:layout_marginRight="@dimen/share_btn_margin_right"
+                android:layout_marginStart="@dimen/share_btn_margin_left"
+                android:background="#FFFFFF"
+                android:src="@drawable/share" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -204,6 +226,18 @@
                 android:layout_toEndOf="@+id/comments_3"
                 android:layout_toRightOf="@+id/comments_3"
                 android:text="@string/comments" />
+
+            <ImageButton
+                android:id="@+id/share_post_3"
+                android:layout_width="@dimen/share_btn_width"
+                android:layout_height="@dimen/share_btn_height"
+                android:layout_alignBottom="@+id/likes_3"
+                android:layout_marginEnd="@dimen/share_btn_margin_right"
+                android:layout_marginLeft="@dimen/share_btn_margin_left"
+                android:layout_marginRight="@dimen/share_btn_margin_right"
+                android:layout_marginStart="@dimen/share_btn_margin_left"
+                android:background="#FFFFFF"
+                android:src="@drawable/share" />
         </RelativeLayout>
 
     </RelativeLayout>
