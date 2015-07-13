@@ -22,8 +22,8 @@
 
     <style name="timeText">
         <item name="android:text">9:00 AM</item>
-        <item name="android:background">@color/time_backgroud</item>
-        <item name="android:paddingRight">@dimen/facebook_image_padding</item>
+        <item name="android:background">@color/facebook_background</item>
+        <item name="android:paddingRight">@dimen/facebook_time_padding</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_alignParentLeft">true</item>
