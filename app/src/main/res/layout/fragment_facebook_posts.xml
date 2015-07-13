@@ -9,13 +9,13 @@
     <RelativeLayout
         android:id="@+id/post_1"
         style="@style/post_container"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <FrameLayout
             android:id="@+id/image_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
+            style="@style/image_container"
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/image_shared"
@@ -25,7 +25,8 @@
         <TextView
             android:id="@+id/time_post_1"
             style="@style/timeText" />
-
+        <RelativeLayout
+            style="@style/image_container"></RelativeLayout>
         <TextView
             android:id="@+id/status_1"
             style="@style/timeText"
@@ -33,7 +34,7 @@
 
         <ImageView
             android:id="@+id/likes"
-            style="@style/images_numbers"
+            style="@style/likes_img"
             android:layout_below="@+id/status_1"
             tools:text="Likes" />
 
@@ -47,7 +48,7 @@
 
         <ImageView
             android:id="@+id/comments"
-            style="@style/images_numbers"
+            style="@style/comments_img"
             android:layout_below="@+id/status_1"
             android:layout_toEndOf="@+id/likes_cnt"
             android:layout_toRightOf="@+id/likes_cnt"
@@ -70,9 +71,7 @@
 
         <FrameLayout
             android:id="@+id/image_container_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
+            style="@style/image_container">
 
             <ImageView
                 android:id="@+id/image_shared_2"
@@ -90,7 +89,7 @@
 
         <ImageView
             android:id="@+id/likes_2"
-            style="@style/images_numbers"
+            style="@style/likes_img"
             android:layout_below="@+id/status_2"
             tools:text="Likes" />
 
@@ -104,7 +103,7 @@
 
         <ImageView
             android:id="@+id/comments_2"
-            style="@style/images_numbers"
+            style="@style/comments_img"
             android:layout_below="@+id/status_2"
             android:layout_toEndOf="@+id/likes_cnt_2"
             android:layout_toRightOf="@+id/likes_cnt_2"
@@ -126,9 +125,7 @@
 
         <FrameLayout
             android:id="@+id/image_container_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
+            style="@style/image_container">
 
             <ImageView
                 android:id="@+id/image_shared_3"
@@ -146,7 +143,7 @@
 
         <ImageView
             android:id="@+id/likes_3"
-            style="@style/images_numbers"
+            style="@style/likes_img"
             android:layout_below="@+id/status_3"
             tools:text="Likes" />
 
@@ -160,7 +157,7 @@
 
         <ImageView
             android:id="@+id/comments_3"
-            style="@style/images_numbers"
+            style="@style/comments_img"
             android:layout_below="@+id/status_3"
             android:layout_toEndOf="@+id/likes_cnt_3"
             android:layout_toRightOf="@+id/likes_cnt_3"

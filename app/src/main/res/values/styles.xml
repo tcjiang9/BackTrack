@@ -12,8 +12,8 @@
     </style>
 
     <style name="imageViewStyle">
-        <item name="android:layout_height">@dimen/facebook_main_screen</item>
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/facebook_image_height</item>
+        <item name="android:layout_width">@dimen/facebook_image_width</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:contentDescription">Facebook Activity</item>
         <item name="android:src">@drawable/river</item>
@@ -21,7 +21,6 @@
     </style>
 
     <style name="timeText">
-        <item name="android:text">9:00 AM</item>
         <item name="android:background">@color/facebook_background</item>
         <item name="android:paddingRight">@dimen/facebook_time_padding</item>
         <item name="android:layout_height">wrap_content</item>
@@ -34,14 +33,33 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="images_numbers">
+    <style name="likes_img">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:src">@drawable/heart</item>
+    </style>
+
+    <style name="comments_img">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/comment</item>
     </style>
 
     <style name="post_container">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
+
+    <style name="image_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/facebook_padding</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="status_container">
+        <item name="android:layout_width">@dimen/facebook_image_width</item>
+    </style>
+
+
 </resources>
