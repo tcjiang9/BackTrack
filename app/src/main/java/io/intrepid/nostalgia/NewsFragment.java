@@ -1,5 +1,7 @@
 package io.intrepid.nostalgia;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,7 +12,9 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import io.intrepid.nostalgia.facebook.FacebookPostsFragment;
+import io.intrepid.nostalgia.nytmodels.Byline;
 import io.intrepid.nostalgia.nytmodels.Doc;
 import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
 import retrofit.Callback;
@@ -20,6 +24,8 @@ import retrofit.client.Response;
 public class NewsFragment extends Fragment {
     public static final String TAG = NewsFragment.class.getSimpleName();
     public static final String YEAR = "Display Year";
+
+    public String url;
 
     @InjectView(R.id.news_headline)
     TextView newsHeadline;
@@ -32,6 +38,17 @@ public class NewsFragment extends Fragment {
 
     @InjectView(R.id.ribbon_date)
     TextView ribbonDate;
+
+    @OnClick(R.id.share_button)
+    void shareNews() {
+        //TODO: share pieces of post for any given day
+    }
+
+    @OnClick(R.id.read_more_nyt)
+    void onReadMore() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,12 +81,14 @@ public class NewsFragment extends Fragment {
                         String headline = docs.getHeadline().getMain();
                         String snippet = docs.getSnippet();
                         String pubDate = docs.getPubDate();
-                        String byline = docs.getByline().getOriginal();
+                        Byline byline = docs.getByline();
 
+                        url = webUrl;
+                        String by = (byline == null) ? " " : byline.getOriginal();
                         newsHeadline.setText(headline);
-                        newsByline.setText(byline);
+                        newsByline.setText(by);
                         newsBody.setText(snippet);
-                        ribbonDate.setText(DateFormatter.makeDateText(currentYear));
+                        ribbonDate.setText(DateFormatter.makeRibbonDateText());
                         Log.d(TAG,"!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + pubDate + webUrl + headline + snippet);
                     }
 

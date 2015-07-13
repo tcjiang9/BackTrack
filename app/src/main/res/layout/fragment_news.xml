@@ -76,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:text="Read more in The New York Times"
                 android:textColor="@color/byline_grey"
+                android:id="@+id/read_more_nyt"
                 android:textSize="16sp"
                 android:layout_marginLeft="16dp"/>
             
@@ -85,7 +86,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginLeft="288dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/share" />
+                android:background="@drawable/share"
+                android:id="@+id/share_button"/>
 
         </LinearLayout>
 
@@ -102,10 +104,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ribbon_date"
-            android:text="JAN 23"
             android:layout_marginTop="9dp"
             android:layout_marginLeft="15dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textAllCaps="true"/>
 
     </FrameLayout>
 

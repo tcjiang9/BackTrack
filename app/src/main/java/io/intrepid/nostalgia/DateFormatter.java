@@ -24,6 +24,10 @@ public class DateFormatter {
         return date + ", " + year;
     }
 
+    public static String makeRibbonDateText() {
+        return new SimpleDateFormat("MMM d").format(new Date());
+    }
+
     public static Bundle makeFacebookDate(int year) {
         Bundle parameters = new Bundle();
         Calendar cal = Calendar.getInstance();
