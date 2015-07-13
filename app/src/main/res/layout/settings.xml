@@ -1,22 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:background="@color/settings_background">
 
-    <Switch
-        android:text="@string/facebook_connection"
-        android:id="@+id/facebook_switch"
-        style="@style/settings_style" />
+    <LinearLayout
+        android:layout_marginTop="39dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:background="@color/white">
 
-    <Switch
-        android:text="@string/autoplay_switch_text"
-        android:id="@+id/autoplay_switch"
-        style="@style/settings_style" />
+        <Switch
+            android:id="@+id/facebook_switch"
+            style="@style/settings_style"
+            android:text="@string/facebook_connection" />
 
-    <TextView
-        android:text="@string/feedback"
-        android:id="@+id/feedback_setting"
-        style="@style/settings_style" />
+        <ImageView
+            android:layout_width="329dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/line_spacer" />
 
-</LinearLayout>
+        <Switch
+            android:id="@+id/autoplay_switch"
+            style="@style/settings_style"
+            android:text="@string/autoplay_switch_text" />
+
+        <ImageView
+            android:layout_width="329dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/line_spacer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/feedback_setting"
+                style="@style/settings_style"
+                android:text="@string/feedback" />
+            
+            <ImageView
+                android:layout_width=""
+                android:layout_height="" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:background="@drawable/plane_and_path" />
+
+</FrameLayout>

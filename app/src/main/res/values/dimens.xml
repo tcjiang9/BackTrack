@@ -70,4 +70,9 @@
     <dimen name="share_btn_height">24dp</dimen>
     <dimen name="share_btn_margin_left">290dp</dimen>
     <dimen name="share_btn_margin_right">19dp</dimen>
+    <!--facebook main screen-->
+
+    <dimen name="facebook_main_screen">200dp</dimen>
+    <dimen name="facebook_image_padding">10dp</dimen>
+    <dimen name="post_radius">2dp</dimen>
 </resources>

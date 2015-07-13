@@ -18,4 +18,9 @@
 
     <!--facebook padding-->
     <color name="time_backgroud">#CCFFFF</color>
+
+    <!--settings screen-->
+    <color name="line_spacer">#85deda</color>
+    <color name="settings_background">#e5edef</color>
 </resources>
+
