@@ -47,7 +47,7 @@ public class DatabaseExplorer extends AppCompatActivity {
         try {
             Cursor c = myDbHelper.getData(year);
             Random random = new Random();
-            int index = random.nextInt(c.getCount() + 1);
+            int index = random.nextInt(c.getCount());
             getRandomSongFromDb(c, index);
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -55,11 +55,15 @@ public class DatabaseExplorer extends AppCompatActivity {
 
     }
 
-    private void getRandomSongFromDb(Cursor c, int index) {
+    private String[] getRandomSongFromDb(Cursor c, int index) {
+        String[] artistAndSong = new String[2];
         c.moveToPosition(index);
+        artistAndSong[0] = c.getString(0);
+        artistAndSong[1] = c.getString(1);
         artist.setText(c.getString(0));
         songName.setText(c.getString(1));
         c.close();
+        return artistAndSong;
     }
 
 }

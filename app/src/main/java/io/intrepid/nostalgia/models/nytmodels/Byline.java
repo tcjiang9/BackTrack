@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia.nytmodels;
+package io.intrepid.nostalgia.models.nytmodels;
 
 
     public class Byline {

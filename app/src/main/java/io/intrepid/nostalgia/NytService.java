@@ -1,6 +1,6 @@
 package io.intrepid.nostalgia;
 
-import io.intrepid.nostalgia.nytmodels.NyTimesReturn;
+import io.intrepid.nostalgia.models.nytmodels.NyTimesReturn;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
