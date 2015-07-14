@@ -100,5 +100,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TabTextAppearance" >
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/tabview_selector_color</item>
+    </style>
+    
+    <style name="TabTextSelected">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

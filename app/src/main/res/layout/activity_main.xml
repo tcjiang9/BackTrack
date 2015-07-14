@@ -8,18 +8,32 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.astuetz.PagerSlidingTabStrip
-            android:id="@+id/tabs"
+        <!--<com.astuetz.PagerSlidingTabStrip-->
+            <!--android:id="@+id/tabs"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:textSize="15sp"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:background="#85deda"-->
+            <!--app:pstsDividerColor="#85deda"-->
+            <!--app:pstsIndicatorColor="#85deda"-->
+            <!--app:pstsUnderlineColor="#85deda"-->
+
+
+            <!--/>-->
+        <View
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textSize="20sp"
-            app:pstsTabBackground="@drawable/selector_tab_view"
-            app:pstsDividerColor="#85deda"
-            app:pstsIndicatorColor="#85deda"
-            app:pstsUnderlineColor="#85deda"
+            android:layout_height="24dp"
+            android:background="@color/line_spacer"/>
 
-
-            />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:tabBackground="@drawable/selector_tab_view"
+            app:tabMode="scrollable"
+            app:tabIndicatorHeight="0dp"
+            app:tabTextAppearance="@style/TabTextAppearance"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
