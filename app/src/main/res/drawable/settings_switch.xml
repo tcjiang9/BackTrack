@@ -3,7 +3,6 @@
 
 
     <!--TODO: add correct assets when received from designers-->
-    <item android:drawable="@drawable/switch_on" android:state_checked="true"/>
-    <item android:drawable="@drawable/switch_on" android:state_checked="true"/>
-
+    <item android:drawable="@drawable/knob" android:state_checked="true"/>
+    <item android:drawable="@drawable/knob_off" android:state_checked="false"/>
 </selector>
