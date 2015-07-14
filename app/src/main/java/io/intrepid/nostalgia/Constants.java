@@ -15,4 +15,6 @@ public class Constants {
     public static final String COUNTRY = "US";
     public static final String SONG = "song";
 
+    public static final String IMAGE_WIDTH = "600";
+    public static final String IMAGE_HEIGHT = "600";
 }
