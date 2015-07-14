@@ -68,7 +68,7 @@
 
     <ImageView
         android:layout_below="@+id/settings_top"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="@dimen/plane_top_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
