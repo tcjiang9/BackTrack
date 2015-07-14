@@ -35,4 +35,5 @@
     <string name="travel_back">Travel back in time with rock\n music, Facebook and news</string>
     <string name="dont_worry_facebook_login">Don\'t worry!\nWe never post on Facebook\nwithout your permission.</string>
     <string name="read_more_nyt">Read more in The New York Times</string>
+    <string name="button_text_loading">Loading</string>
 </resources>
