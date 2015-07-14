@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -199,7 +199,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                             Log.i(TAG, itunesSongs.toString());
                             songUrl = itunesSongs.get(0).getPreviewUrl();
                             imageUrl = itunesSongs.get(0).getArtworkUrl100();
-                            Ion.with(musicImage).load(imageUrl);
+                            Picasso.with(getActivity()).load(imageUrl).into(musicImage);
                             Log.i(TAG, imageUrl);
                         } else {
                             return;
