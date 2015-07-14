@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.login_button) void onLoginClick() {
-        onFacebookLogin();
+        onFacebookLogin(false);
     }
 
     @Override
@@ -52,9 +52,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
+
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra("settings", false)) {
+            onFacebookLogin(true);
+        }
     }
 
-    private void onFacebookLogin() {
+    public void onFacebookLogin(final boolean skipMain) {
         callbackManager = CallbackManager.Factory.create();
         ArrayList<String> permissions = new ArrayList<>();
         permissions.add(PERMIT);
@@ -76,11 +81,12 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
                 profileTracker.startTracking();
+                checkIntent(skipMain);
             }
 
             @Override
             public void onCancel() {
-
+                checkIntent(skipMain);
             }
 
             @Override
@@ -88,6 +94,13 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void checkIntent(boolean skipMain) {
+        if (skipMain) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void verifyFbProfile(Profile profile) {
