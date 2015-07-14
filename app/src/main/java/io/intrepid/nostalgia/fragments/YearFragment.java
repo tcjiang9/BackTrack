@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -81,6 +82,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         void onPrevYearButtonClicked();
     }
 
+    private enum Actions {
+        starting, stopping
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -140,7 +145,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 } else { //music is currently playing
                     Log.i(TAG, "You stopped the media player");
                     mediaPlayer.pause();
-                    playMusicButton.setText(R.string.button_text_play);
+                    updateUi(Actions.stopping);
                     isPaused = true;
                 }
             }
@@ -229,7 +234,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             @Override
             public void onCompletion(MediaPlayer mp) {
                 isPaused = true;
-                playMusicButton.setText(R.string.button_text_play);
+                updateUi(Actions.stopping);
                 isPreparing = false;
                 Log.i(TAG, "Music completed");
             }
@@ -237,7 +242,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         if (isPaused) {
             mediaPlayer.start();
             isPaused = false;
-            playMusicButton.setText(R.string.button_text_pause);
+            updateUi(Actions.starting);
         } else {
             try {
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -249,10 +254,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     @Override
                     public void onPrepared(MediaPlayer mp) {
                         mediaPlayer.start();
-                        playMusicButton.setText(R.string.button_text_pause);
                         Log.i(TAG, "this has prepared");
                         isPreparing = false;
-                        playMusicButton.setText(R.string.button_text_pause);
+                        updateUi(Actions.starting);
                     }
                 });
                 mediaPlayer.prepareAsync();
@@ -273,13 +277,22 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         //  getActivity().runOnUiThread(new Runnable() {
         //    @Override
         //    public void run() {
-        playMusicButton.setText(R.string.button_text_play);
+        updateUi(Actions.stopping);
         Log.i(TAG, "Button text set, resetting player");
         //  }
         //});
         mediaPlayer.reset();
     }
 
+    public void updateUi(Actions action) {
+        if (action == Actions.stopping) {
+            playMusicButton.setText(R.string.button_text_play);
+            musicImage.clearAnimation();
+        } else if (action == Actions.starting) {
+            playMusicButton.setText(R.string.button_text_pause);
+            musicImage.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.spinner_clockwise));
+        }
+    }
     @Override
     public void onPauseFragment() {
         if (mediaPlayer == null) {
@@ -298,7 +311,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     public void onResumeFragment() {
-        playMusicButton.setText(R.string.button_text_play);
+        updateUi(Actions.stopping);
         initPlayer();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         //if (sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true)) {
