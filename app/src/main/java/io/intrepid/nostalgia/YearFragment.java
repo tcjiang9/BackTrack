@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,8 +28,6 @@ import butterknife.OnClick;
 import io.intrepid.nostalgia.facebook.FacebookPostsFragment;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesResults;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesSong;
-import io.intrepid.nostalgia.models.nytmodels.Doc;
-import io.intrepid.nostalgia.models.nytmodels.NyTimesReturn;
 import io.intrepid.nostalgia.songdatabase.DatabaseExplorer;
 import io.intrepid.nostalgia.songdatabase.DatabaseHelper;
 import retrofit.Callback;
@@ -47,6 +44,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private MediaPlayer mediaPlayer;
     private boolean autoPlay = true;
     private boolean isPreparing = false;
+    private boolean isPaused = false;
     private String[] songDetails = new String[2];
     private String songUrl;
 
@@ -114,7 +112,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         ButterKnife.inject(this, rootView);
 
         playMusicButton.setText(mediaPlayer != null && mediaPlayer.isPlaying()
-                ? R.string.button_text_stop
+                ? R.string.button_text_pause
                 : R.string.button_text_play);
 
         playMusicButton.setOnClickListener(new View.OnClickListener() {
@@ -126,9 +124,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     return;
                 } else if (!mediaPlayer.isPlaying()) {
                     playMusic(mediaPlayer, songUrl);
-                } else {
+                } else { //music is currently playing
                     Log.i(TAG, "You stopped the media player");
-                    stopMusic();
+                    mediaPlayer.pause();
+                    playMusicButton.setText(R.string.button_text_play);
+                    isPaused = true;
                 }
             }
         });
@@ -207,49 +207,57 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             Log.i(TAG, "!!!!!TRACK NOT FOUND!!!!!!!");
             return;
         }
-        try {
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            Log.i(TAG, "Right before data source");
-            Log.i(TAG, songUrl);
-            mediaPlayer.setDataSource(songUrl);
-            Log.i(TAG, "!!!!!!!!About to prepare async!!!!!!!!!!!");
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediaPlayer.start();
-                    playMusicButton.setText(R.string.button_text_stop);
-                    Log.i(TAG, "this has prepared");
-                    isPreparing = false;
-                }
-            });
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    stopMusic();
-                    isPreparing = false;
-                    Log.i(TAG, "Music completed");
-                }
-            });
-            mediaPlayer.prepareAsync();
-            isPreparing = true;
-        } catch (IOException e) {
-            Log.e(TAG, e.toString());
-            return;
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                isPaused = true;
+                playMusicButton.setText(R.string.button_text_play);
+                isPreparing = false;
+                Log.i(TAG, "Music completed");
+            }
+        });
+        if (isPaused) {
+            mediaPlayer.start();
+            isPaused = false;
+            playMusicButton.setText(R.string.button_text_pause);
+        } else {
+            try {
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                Log.i(TAG, "Right before data source");
+                Log.i(TAG, songUrl);
+                mediaPlayer.setDataSource(songUrl);
+                Log.i(TAG, "!!!!!!!!About to prepare async!!!!!!!!!!!");
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mediaPlayer.start();
+                        playMusicButton.setText(R.string.button_text_pause);
+                        Log.i(TAG, "this has prepared");
+                        isPreparing = false;
+                        playMusicButton.setText(R.string.button_text_pause);
+                    }
+                });
+                mediaPlayer.prepareAsync();
+                isPreparing = true;
+                playMusicButton.setText(R.string.button_text_loading);
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+                return;
+            }
         }
     }
-
     private void stopMusic() {
         if (mediaPlayer.isPlaying()) {
             Log.i(TAG, "Stopping mediaPlayer via stopMusic()");
             mediaPlayer.stop();
         }
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+      //  getActivity().runOnUiThread(new Runnable() {
+        //    @Override
+        //    public void run() {
                 playMusicButton.setText(R.string.button_text_play);
                 Log.i(TAG, "Button text set, resetting player");
-            }
-        });
+          //  }
+        //});
         mediaPlayer.reset();
     }
 
@@ -258,9 +266,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         if (mediaPlayer == null) {
             mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
         }
-        Log.i(TAG, String.valueOf(currentYear) + "This has pausedfragment");
-        isPreparing = false;
+        Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
         stopMusic();
+        initPlayer();
         /**
          Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
          Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
@@ -272,10 +280,16 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     public void onResumeFragment() {
         playMusicButton.setText(R.string.button_text_play);
-        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
+        initPlayer();
         //if (autoPlay) {
         //   playMusic(mediaPlayer);
         //      }
+    }
+
+    private void initPlayer() {
+        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
+        isPreparing = false;
+        isPaused = false;
     }
 
     @OnClick(R.id.date_text)
