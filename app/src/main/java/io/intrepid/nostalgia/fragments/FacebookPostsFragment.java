@@ -96,6 +96,15 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     @OnClick({R.id.share_post_1, R.id.share_post_2, R.id.share_post_3})
+    void onClickShareStatus (View view){
+        shareFbPosts(view.getId());
+    }
+
+    private void shareFbPosts(int viewId) {
+
+    }
+
+    @OnClick({R.id.share_post_1, R.id.share_post_2, R.id.share_post_3})
     void onClickShareStatus(View view) {
         shareFbPosts(view.getId());
     }
