@@ -124,7 +124,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     return;
                 } else if (!mediaPlayer.isPlaying()) {
                     playMusic(mediaPlayer, songUrl);
-                } else {
+                } else { //music is currently playing
                     Log.i(TAG, "You stopped the media player");
                     mediaPlayer.pause();
                     playMusicButton.setText(R.string.button_text_play);
@@ -206,7 +206,17 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         if (songUrl == null) {
             Log.i(TAG, "!!!!!TRACK NOT FOUND!!!!!!!");
             return;
-        } else if (isPaused) {
+        }
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                isPaused = true;
+                playMusicButton.setText(R.string.button_text_play);
+                isPreparing = false;
+                Log.i(TAG, "Music completed");
+            }
+        });
+        if (isPaused) {
             mediaPlayer.start();
             isPaused = false;
             playMusicButton.setText(R.string.button_text_pause);
@@ -225,14 +235,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                         Log.i(TAG, "this has prepared");
                         isPreparing = false;
                         playMusicButton.setText(R.string.button_text_pause);
-                    }
-                });
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        stopMusic();
-                        isPreparing = false;
-                        Log.i(TAG, "Music completed");
                     }
                 });
                 mediaPlayer.prepareAsync();
@@ -264,9 +266,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         if (mediaPlayer == null) {
             mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
         }
-        Log.i(TAG, String.valueOf(currentYear) + "This has pausedfragment");
-        isPreparing = false;
+        Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
         stopMusic();
+        initPlayer();
         /**
          Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
          Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
@@ -278,11 +280,16 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     public void onResumeFragment() {
         playMusicButton.setText(R.string.button_text_play);
-        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
-
+        initPlayer();
         //if (autoPlay) {
         //   playMusic(mediaPlayer);
         //      }
+    }
+
+    private void initPlayer() {
+        mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
+        isPreparing = false;
+        isPaused = false;
     }
 
     @OnClick(R.id.date_text)
