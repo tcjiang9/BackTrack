@@ -93,7 +93,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
         // initialize db
         try {
-
             myDbHelper.createDataBase();
         } catch (IOException ioe) {
             throw new Error("Unable to create database");
@@ -180,6 +179,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     /**
      * Modifies songUrl to contain the iTunes preview url of the song found via the search term
      * Modifies imageUrl to contain the iTunes url for the artist image
+     *
      * @param searchTerm the "term=" query in our http request, the artist name and song name concatanated with a space
      *                   in between
      */
@@ -198,7 +198,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                         if (itunesSongs.size() > 0) {
                             Log.i(TAG, itunesSongs.toString());
                             songUrl = itunesSongs.get(0).getPreviewUrl();
-                            imageUrl = itunesSongs.get(0).getArtworkUrl100();
+                            imageUrl = itunesSongs.get(0).getArtworkUrl100()
+                                    .replaceAll("100x100", Constants.IMAGE_WIDTH + "x" + Constants.IMAGE_HEIGHT);
                             Picasso.with(getActivity()).load(imageUrl).into(musicImage);
                             Log.i(TAG, imageUrl);
                         } else {
@@ -256,17 +257,18 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             }
         }
     }
+
     private void stopMusic() {
         if (mediaPlayer.isPlaying()) {
             Log.i(TAG, "Stopping mediaPlayer via stopMusic()");
             mediaPlayer.stop();
         }
-      //  getActivity().runOnUiThread(new Runnable() {
+        //  getActivity().runOnUiThread(new Runnable() {
         //    @Override
         //    public void run() {
-                playMusicButton.setText(R.string.button_text_play);
-                Log.i(TAG, "Button text set, resetting player");
-          //  }
+        playMusicButton.setText(R.string.button_text_play);
+        Log.i(TAG, "Button text set, resetting player");
+        //  }
         //});
         mediaPlayer.reset();
     }
