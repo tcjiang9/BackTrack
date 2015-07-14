@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
 
         PagerSlidingTabStrip tabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabLayout.setViewPager(viewPager);
-        tabLayout.setTextColorResource(R.color.tabview_selector_color);
+       // tabLayout.setTextColor(getResources().getColorStateList(R.color.tabview_selector_color));
         tabLayout.setOnPageChangeListener(viewPageListener);
     }
 
