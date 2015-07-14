@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/music_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="@dimen/music_image_width"
+            android:layout_height="@dimen/music_image_height" />
 
         <Button
             android:id="@+id/play_music_button"
