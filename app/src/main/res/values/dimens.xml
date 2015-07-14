@@ -89,4 +89,5 @@
     <dimen name="feedback_left_margin">-16dp</dimen>
     <dimen name="feedback_arrow_top">10dp</dimen>
     <dimen name="plane_top_margin">34dp</dimen>
+    <dimen name="news_backsplash">51dp</dimen>
 </resources>
