@@ -42,7 +42,7 @@
         <LinearLayout
             android:layout_width="@dimen/times_box_width"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/post_background"
             android:orientation="vertical"
             android:layout_gravity="center_horizontal">
 
