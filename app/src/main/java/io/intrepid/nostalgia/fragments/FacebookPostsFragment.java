@@ -121,7 +121,10 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void getUserPosts() {
-        if (AccessToken.getCurrentAccessToken() != null) {
+        if (AccessToken.getCurrentAccessToken() == null){
+
+        }
+        else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
                     FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {

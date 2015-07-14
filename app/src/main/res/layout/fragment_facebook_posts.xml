@@ -28,6 +28,15 @@
         android:layout_marginLeft="@dimen/fblogo_margin_left"
         android:layout_marginTop="@dimen/fblogo_margin_top"
         android:src="@drawable/facebook_logo" />
+    <TextView
+        android:layout_width="328dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#ffffff"
+        android:text="@string/no_facebook_content"
+        android:textSize="18sp"/>
 
     <RelativeLayout
         android:id="@+id/post_1"
