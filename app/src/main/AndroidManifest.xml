@@ -14,7 +14,7 @@
             android:value="@string/key_id" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/app_name" >
         </activity>
 
@@ -33,12 +33,12 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".facebook.FacebookPostDetailsActivity"
+            android:name=".activities.FacebookPostDetailsActivity"
             android:label="@string/title_activity_facebook_details" >
 
         </activity>
         <activity
-            android:name=".LauncherActivity">
+            android:name=".activities.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/action_settings"/>
         <activity
             android:name=".songdatabase.DatabaseExplorer"

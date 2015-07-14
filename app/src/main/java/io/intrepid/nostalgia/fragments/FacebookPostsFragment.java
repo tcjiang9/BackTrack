@@ -1,9 +1,8 @@
-package io.intrepid.nostalgia.facebook;
+package io.intrepid.nostalgia.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,11 @@ import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -31,6 +28,9 @@ import butterknife.InjectViews;
 import butterknife.OnClick;
 import io.intrepid.nostalgia.DateFormatter;
 import io.intrepid.nostalgia.R;
+import io.intrepid.nostalgia.activities.FacebookPostDetailsActivity;
+import io.intrepid.nostalgia.constants.FacebookConstants;
+import io.intrepid.nostalgia.models.facebook.FacebookResponse;
 
 
 public class FacebookPostsFragment extends Fragment {

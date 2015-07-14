@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import io.intrepid.nostalgia.facebook.FacebookConstants;
+import io.intrepid.nostalgia.constants.FacebookConstants;
 
 public class DateFormatter {
 

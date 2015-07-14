@@ -1,8 +1,9 @@
-package io.intrepid.nostalgia;
+package io.intrepid.nostalgia.adapters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import io.intrepid.nostalgia.services.NytService;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 

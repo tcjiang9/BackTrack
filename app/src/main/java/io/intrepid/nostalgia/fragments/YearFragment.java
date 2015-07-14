@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia;
+package io.intrepid.nostalgia.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,9 +29,15 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import io.intrepid.nostalgia.facebook.FacebookPostsFragment;
+import io.intrepid.nostalgia.DateFormatter;
+import io.intrepid.nostalgia.adapters.ItunesServiceAdapter;
+import io.intrepid.nostalgia.R;
+import io.intrepid.nostalgia.SinglePlayer;
+import io.intrepid.nostalgia.ViewPagerFragmentLifeCycle;
+import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesResults;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesSong;
+import io.intrepid.nostalgia.services.ItunesService;
 import io.intrepid.nostalgia.songdatabase.DatabaseExplorer;
 import io.intrepid.nostalgia.songdatabase.DatabaseHelper;
 import retrofit.Callback;

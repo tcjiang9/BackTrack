@@ -1,20 +1,18 @@
-package io.intrepid.nostalgia;
+package io.intrepid.nostalgia.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnTouch;
+import io.intrepid.nostalgia.R;
+import io.intrepid.nostalgia.activities.LoginActivity;
 
 public class SettingsActivity extends AppCompatActivity{
 

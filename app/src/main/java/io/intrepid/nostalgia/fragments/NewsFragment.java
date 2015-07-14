@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia;
+package io.intrepid.nostalgia.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import io.intrepid.nostalgia.DateFormatter;
+import io.intrepid.nostalgia.adapters.NytServiceAdapter;
+import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.models.nytmodels.Byline;
 import io.intrepid.nostalgia.models.nytmodels.Doc;
 import io.intrepid.nostalgia.models.nytmodels.NyTimesReturn;

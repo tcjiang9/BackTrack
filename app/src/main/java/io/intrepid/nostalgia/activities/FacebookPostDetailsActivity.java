@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia.facebook;
+package io.intrepid.nostalgia.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import org.json.JSONObject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import io.intrepid.nostalgia.R;
+import io.intrepid.nostalgia.constants.FacebookConstants;
+import io.intrepid.nostalgia.fragments.FacebookPostsFragment;
+import io.intrepid.nostalgia.models.facebook.FacebookResponse;
 
 
 public class FacebookPostDetailsActivity extends AppCompatActivity {
