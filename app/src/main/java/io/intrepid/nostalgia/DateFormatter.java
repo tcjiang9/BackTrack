@@ -1,6 +1,7 @@
 package io.intrepid.nostalgia;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,10 +33,16 @@ public class DateFormatter {
         Bundle parameters = new Bundle();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
+        //cal.set(Calendar.DATE, cal.get(Calendar.DATE)-1);
+        cal.set(Calendar.DATE, 7);
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        cal.set(Calendar.MINUTE, 0);
         long initialTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
         parameters.putString(FacebookConstants.SINCE, "" + initialTime);
-        cal.set(Calendar.HOUR_OF_DAY, 23);
+        Log.e("time", ""+initialTime);
+        //cal.set(Calendar.DATE, cal.get(Calendar.DATE)+1);
+        cal.set(Calendar.DATE, 9);
+        cal.set(Calendar.HOUR_OF_DAY, 20);
         long limitTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
         parameters.putString(FacebookConstants.UNTIL, "" + limitTime);
         parameters.putString(FacebookConstants.LIMIT, "3");

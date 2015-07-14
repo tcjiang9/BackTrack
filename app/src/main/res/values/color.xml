@@ -13,6 +13,9 @@
     <color name="travel_back_text">#f0805a</color>
     <color name="dont_worry_text_color">#84b8ba</color>
 
+    <!--facebook main screen-->
+    <color name="facebook_background">#CCFFFF</color>
+
     <!--facebook padding-->
     <color name="time_backgroud">#CCFFFF</color>
 </resources>

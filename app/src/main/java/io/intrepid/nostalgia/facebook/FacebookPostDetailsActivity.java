@@ -20,7 +20,6 @@ import io.intrepid.nostalgia.R;
 public class FacebookPostDetailsActivity extends AppCompatActivity {
 
 
-
     @InjectView(R.id.fb_status)
     TextView status;
     @InjectView(R.id.full_picture)
@@ -51,24 +50,23 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         try {
             FacebookResponse facebookResponse = new FacebookResponse(onePostFromResponse);
 
-                String response = onePostFromResponse.toString();
-                if (response.contains(FacebookConstants.MESSAGE)) {
-                    status.setText(facebookResponse.getStatus());
-                } else {
-                    status.setText(getString(R.string.status_alternative));
-                }
-                if (response.contains(FacebookConstants.PICTURE)) {
-                    loadImageFromPost(facebookResponse);
-                } else {
-                    fbImage.setVisibility(View.GONE);
-                }
-                if (response.contains(FacebookConstants.LIKES)) {
-                    getLikesCount(facebookResponse);
-                }
-                if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
-                    getComments(facebookResponse);
-                }
-
+            String response = onePostFromResponse.toString();
+            if (response.contains(FacebookConstants.MESSAGE)) {
+                status.setText(facebookResponse.getStatus());
+            } else {
+                status.setText(getString(R.string.status_alternative));
+            }
+            if (response.contains(FacebookConstants.PICTURE)) {
+                loadImageFromPost(facebookResponse);
+            } else {
+                fbImage.setVisibility(View.GONE);
+            }
+            if (response.contains(FacebookConstants.LIKES)) {
+                getLikesCount(facebookResponse);
+            }
+            if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
+                getComments(facebookResponse);
+            }
 
 
         } catch (JSONException e) {
@@ -86,9 +84,11 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     }
 
     private void loadImageFromPost(FacebookResponse facebookResponse) throws JSONException {
-        fbImage.setVisibility(View.VISIBLE);
-        Picasso.with(this).
-                load(url).fit().into(fbImage);
+        if (url != null) {
+            fbImage.setVisibility(View.VISIBLE);
+            Picasso.with(this).
+                    load(url).fit().into(fbImage);
+        }
     }
 
 
