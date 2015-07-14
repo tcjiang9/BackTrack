@@ -98,8 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkIntent(boolean skipMain) {
         if (skipMain) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            finish();
         }
     }
 

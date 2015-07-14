@@ -65,10 +65,19 @@ public class SettingsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         ButterKnife.inject(this);
+        setSwitches();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setSwitches();
+    }
+
+    public void setSwitches() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = sharedPreferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
         facebookSwitch.setChecked(token != null);
         autoplaySwitch.setChecked(sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true));
-
     }
 }
