@@ -16,4 +16,15 @@
         </shape>
     </item>
 
+        />
+    <corners
+        android:radius="400dp" />
+    <padding
+        android:left="10dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:bottom="10dp" />
+    <size
+        android:height="36dp"
+        android:width="111dp" />
 </layer-list>
