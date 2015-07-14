@@ -15,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.koushikdutta.ion.Ion;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,6 +50,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private boolean isPaused = false;
     private String[] songDetails = new String[2];
     private String songUrl;
+    private String imageUrl;
 
     @InjectView(R.id.play_music_button)
     Button playMusicButton;
@@ -62,6 +66,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @InjectView(R.id.date_text)
     TextView dateText;
+
+    @InjectView(R.id.music_image)
+    ImageView musicImage;
 
     public interface PrevYearButtonListener {
         void onPrevYearButtonClicked();
@@ -105,8 +112,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         String songTitle = songDetails[0];
         String songArtist = songDetails[1];
         String searchTerm = songTitle + " " + songArtist;
-        Log.i(TAG, searchTerm);
-        fetchPreviewUrl(searchTerm);
+
+        fetchMusicJson(searchTerm);
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
@@ -172,11 +179,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     /**
      * Modifies songUrl to contain the iTunes preview url of the song found via the search term
-     *
+     * Modifies imageUrl to contain the iTunes url for the artist image
      * @param searchTerm the "term=" query in our http request, the artist name and song name concatanated with a space
      *                   in between
      */
-    private void fetchPreviewUrl(String searchTerm) {
+    private void fetchMusicJson(String searchTerm) {
         ItunesService itunesService = ItunesServiceAdapter.getItunesServiceInstance();
         String limit = "2";
         itunesService.listSongInfo(
@@ -191,6 +198,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                         if (itunesSongs.size() > 0) {
                             Log.i(TAG, itunesSongs.toString());
                             songUrl = itunesSongs.get(0).getPreviewUrl();
+                            imageUrl = itunesSongs.get(0).getArtworkUrl100();
+                            Ion.with(musicImage).load(imageUrl);
+                            Log.i(TAG, imageUrl);
                         } else {
                             return;
                         }
