@@ -70,6 +70,7 @@
     <dimen name="share_btn_height">24dp</dimen>
     <dimen name="share_btn_margin_left">290dp</dimen>
     <dimen name="share_btn_margin_right">19dp</dimen>
+    <dimen name="news_title_height">51dp</dimen>
     <!--facebook main screen-->
 
     <dimen name="facebook_main_screen">200dp</dimen>

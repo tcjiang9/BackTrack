@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.astuetz.PagerSlidingTabStrip;
+
 import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.SinglePlayer;
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        ViewPager.OnPageChangeListener viewPageListener ;
+        viewPager.addOnPageChangeListener(viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -57,8 +60,10 @@ public class MainActivity extends AppCompatActivity
         // YearFragment startFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1)
         // startFragment.playMusic(SinglePlayer.getInstance().getMediaPlayer());
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        PagerSlidingTabStrip tabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabLayout.setViewPager(viewPager);
+        tabLayout.setTextColorResource(R.color.tabview_selector_color);
+        tabLayout.setOnPageChangeListener(viewPageListener);
     }
 
 
