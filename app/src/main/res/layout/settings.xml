@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/settings_background">
@@ -11,12 +11,15 @@
         android:orientation="vertical"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:id="@+id/settings_top">
 
         <Switch
             android:id="@+id/facebook_switch"
             style="@style/settings_style"
-            android:text="@string/facebook_connection" />
+            android:textSize="16sp"
+            android:textColor="@color/settings_text"
+            android:text="@string/facebook_connection"/>
 
         <ImageView
             android:layout_width="329dp"
@@ -27,6 +30,8 @@
         <Switch
             android:id="@+id/autoplay_switch"
             style="@style/settings_style"
+            android:textSize="16sp"
+            android:textColor="@color/settings_text"
             android:text="@string/autoplay_switch_text" />
 
         <ImageView
@@ -37,26 +42,36 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/feedback_setting"
+                android:textSize="16sp"
                 style="@style/settings_style"
-                android:text="@string/feedback" />
+                android:text="@string/feedback"
+                android:textColor="@color/settings_text"
+                android:layout_marginTop="10dp"/>
             
             <ImageView
-                android:layout_width=""
-                android:layout_height="" />
+                android:layout_width="13dp"
+                android:layout_height="21dp"
+                android:background="@drawable/feedback_arrow"
+                android:layout_marginLeft="-16dp"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
+
+
 
     </LinearLayout>
 
     <ImageView
+        android:layout_below="@+id/settings_top"
+        android:layout_marginTop="34dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:background="@drawable/plane_and_path" />
 
-</FrameLayout>
+</RelativeLayout>
