@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,8 +28,6 @@ import butterknife.OnClick;
 import io.intrepid.nostalgia.facebook.FacebookPostsFragment;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesResults;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesSong;
-import io.intrepid.nostalgia.models.nytmodels.Doc;
-import io.intrepid.nostalgia.models.nytmodels.NyTimesReturn;
 import io.intrepid.nostalgia.songdatabase.DatabaseExplorer;
 import io.intrepid.nostalgia.songdatabase.DatabaseHelper;
 import retrofit.Callback;
@@ -47,6 +44,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private MediaPlayer mediaPlayer;
     private boolean autoPlay = true;
     private boolean isPreparing = false;
+    private boolean isPaused = false;
     private String[] songDetails = new String[2];
     private String songUrl;
 
@@ -114,7 +112,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         ButterKnife.inject(this, rootView);
 
         playMusicButton.setText(mediaPlayer != null && mediaPlayer.isPlaying()
-                ? R.string.button_text_stop
+                ? R.string.button_text_pause
                 : R.string.button_text_play);
 
         playMusicButton.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +126,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     playMusic(mediaPlayer, songUrl);
                 } else {
                     Log.i(TAG, "You stopped the media player");
-                    stopMusic();
+                    mediaPlayer.pause();
+                    playMusicButton.setText(R.string.button_text_play);
+                    isPaused = true;
                 }
             }
         });
@@ -206,38 +206,42 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         if (songUrl == null) {
             Log.i(TAG, "!!!!!TRACK NOT FOUND!!!!!!!");
             return;
-        }
-        try {
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            Log.i(TAG, "Right before data source");
-            Log.i(TAG, songUrl);
-            mediaPlayer.setDataSource(songUrl);
-            Log.i(TAG, "!!!!!!!!About to prepare async!!!!!!!!!!!");
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediaPlayer.start();
-                    playMusicButton.setText(R.string.button_text_stop);
-                    Log.i(TAG, "this has prepared");
-                    isPreparing = false;
-                }
-            });
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    stopMusic();
-                    isPreparing = false;
-                    Log.i(TAG, "Music completed");
-                }
-            });
-            mediaPlayer.prepareAsync();
-            isPreparing = true;
-        } catch (IOException e) {
-            Log.e(TAG, e.toString());
-            return;
+        } else if (isPaused) {
+            mediaPlayer.start();
+            isPaused = false;
+            playMusicButton.setText(R.string.button_text_pause);
+        } else {
+            try {
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                Log.i(TAG, "Right before data source");
+                Log.i(TAG, songUrl);
+                mediaPlayer.setDataSource(songUrl);
+                Log.i(TAG, "!!!!!!!!About to prepare async!!!!!!!!!!!");
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mediaPlayer.start();
+                        playMusicButton.setText(R.string.button_text_pause);
+                        Log.i(TAG, "this has prepared");
+                        isPreparing = false;
+                    }
+                });
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        stopMusic();
+                        isPreparing = false;
+                        Log.i(TAG, "Music completed");
+                    }
+                });
+                mediaPlayer.prepareAsync();
+                isPreparing = true;
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+                return;
+            }
         }
     }
-
     private void stopMusic() {
         if (mediaPlayer.isPlaying()) {
             Log.i(TAG, "Stopping mediaPlayer via stopMusic()");
