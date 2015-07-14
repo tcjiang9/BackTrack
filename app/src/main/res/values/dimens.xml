@@ -90,6 +90,6 @@
     <dimen name="feedback_arrow_top">10dp</dimen>
     <dimen name="plane_top_margin">34dp</dimen>
     <dimen name="news_backsplash">51dp</dimen>
-    <dimen name="music_image_width">600dp</dimen>
-    <dimen name="music_image_height">600dp</dimen>
+    <dimen name="music_image_width">244dp</dimen>
+    <dimen name="music_image_height">244dp</dimen>
 </resources>
