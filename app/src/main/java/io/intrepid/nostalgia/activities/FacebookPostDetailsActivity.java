@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +15,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -40,6 +38,7 @@ public class  FacebookPostDetailsActivity extends AppCompatActivity {
     ListView comments;
     RelativeLayout headerListView;
     JSONObject onePostFromResponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -92,13 +91,14 @@ public class  FacebookPostDetailsActivity extends AppCompatActivity {
     private void getLikesCount(FacebookResponse responsePojo) throws JSONException {
         String likeNames = responsePojo.getLikeNames();
         if (responsePojo.getLikeCount() > 0) {
+            likes.setVisibility(View.VISIBLE);
             likes.setText(getString(R.string.likes, likeNames));
         }
 
     }
 
     private void getComments(FacebookResponse facebookResponse) throws JSONException {
-        
+
         List<Comment> commentData = facebookResponse.getCommentData();
         if (commentData != null) {
             CustomListAdapter listAdapter = new CustomListAdapter(this, commentData);
