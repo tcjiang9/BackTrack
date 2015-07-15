@@ -93,18 +93,21 @@ public class FacebookResponse {
 
     public String getLikeNames() {
         String result = "";
-        try {
-            for (int i = 0; i < getLikeCount(); i++) {
-                likeNames.add(i, likesData.getJSONObject(i).getString(FacebookConstants.NAME));
+        if (likeCount != 0) {
+            try {
+                for (int i = 0; i < getLikeCount(); i++) {
+                    likeNames.add(i, likesData.getJSONObject(i).getString(FacebookConstants.NAME));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        for (String likeName : likeNames) {
-            result += likeName + ", ";
+            for (String likeName : likeNames) {
+                result += likeName + ", ";
+            }
+            return result.substring(0, result.lastIndexOf(","));
         }
-        return result.substring(0,result.lastIndexOf(","));
+        return null;
     }
 
     public String getPictureUrl() {
