@@ -20,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity{
     public static final String EMAIL = "hayley@intrepid.io";
     public static final String SUBJECT_LINE = "Nostalgia App Feedback";
 
+    private boolean initialState;
 
     @InjectView(R.id.facebook_switch)
     Switch facebookSwitch;
@@ -29,21 +30,25 @@ public class SettingsActivity extends AppCompatActivity{
 
     //TODO: add functionality to switches
     @OnCheckedChanged(R.id.facebook_switch) void onFacebookSwitchChanged(boolean isChecked) {
-        if (isChecked) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.putExtra("settings", true);
-            startActivity(intent);
-        } else {
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-            editor.putString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
-            editor.apply();
+        if (!initialState) {
+            if (isChecked) {
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.putExtra("settings", true);
+                startActivity(intent);
+            } else {
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+                editor.putString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
+                editor.apply();
+            }
         }
     }
 
     @OnCheckedChanged(R.id.autoplay_switch) void onAutoplaySwitchChanged(boolean isChecked) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-        editor.putBoolean(Constants.SHARED_PREFS_AUTOPLAY, isChecked);
-        editor.apply();
+        if (!initialState) {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+            editor.putBoolean(Constants.SHARED_PREFS_AUTOPLAY, isChecked);
+            editor.apply();
+        }
     }
 
     @OnTouch(R.id.feedback_setting) boolean onFeedbackSettingTouched() {
@@ -69,9 +74,11 @@ public class SettingsActivity extends AppCompatActivity{
     }
 
     public void setSwitches() {
+        initialState = true;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = sharedPreferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
         facebookSwitch.setChecked(token != null);
         autoplaySwitch.setChecked(sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true));
+        initialState = false;
     }
 }
