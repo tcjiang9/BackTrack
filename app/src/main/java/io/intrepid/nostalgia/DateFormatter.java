@@ -32,7 +32,8 @@ public class DateFormatter {
     public static Bundle makeFacebookDate(int year) {
         Bundle parameters = new Bundle();
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, year);
+        //cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.YEAR, 2015);
         //cal.set(Calendar.DATE, cal.get(Calendar.DATE)-1);
         cal.set(Calendar.DATE, 7);
         cal.set(Calendar.HOUR_OF_DAY, 20);
