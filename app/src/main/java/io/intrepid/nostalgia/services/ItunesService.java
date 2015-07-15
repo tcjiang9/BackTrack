@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia;
+package io.intrepid.nostalgia.services;
 
 import io.intrepid.nostalgia.models.itunesmodels.ItunesResults;
 import retrofit.http.GET;

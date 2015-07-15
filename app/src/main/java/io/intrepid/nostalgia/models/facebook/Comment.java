@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia.facebook;
+package io.intrepid.nostalgia.models.facebook;
 
 public class Comment {
     String name;

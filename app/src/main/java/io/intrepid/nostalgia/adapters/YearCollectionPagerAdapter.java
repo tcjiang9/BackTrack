@@ -1,9 +1,12 @@
-package io.intrepid.nostalgia;
+package io.intrepid.nostalgia.adapters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import io.intrepid.nostalgia.constants.Constants;
+import io.intrepid.nostalgia.fragments.YearFragment;
 
 public class YearCollectionPagerAdapter extends FragmentStatePagerAdapter {
 

@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia.facebook;
+package io.intrepid.nostalgia.models.facebook;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import io.intrepid.nostalgia.constants.FacebookConstants;
 
 
 public class FacebookResponse {

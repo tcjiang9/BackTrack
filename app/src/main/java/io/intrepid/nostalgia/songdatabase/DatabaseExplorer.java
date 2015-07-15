@@ -3,23 +3,17 @@ package io.intrepid.nostalgia.songdatabase;
 import java.io.IOException;
 import java.util.Random;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import io.intrepid.nostalgia.R;
-import io.intrepid.nostalgia.YearFragment;
+import io.intrepid.nostalgia.fragments.YearFragment;
 
 public class DatabaseExplorer extends AppCompatActivity {
 

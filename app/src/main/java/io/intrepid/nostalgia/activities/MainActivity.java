@@ -1,7 +1,6 @@
-package io.intrepid.nostalgia;
+package io.intrepid.nostalgia.activities;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -9,6 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import io.intrepid.nostalgia.constants.Constants;
+import io.intrepid.nostalgia.R;
+import io.intrepid.nostalgia.SinglePlayer;
+import io.intrepid.nostalgia.ViewPagerFragmentLifeCycle;
+import io.intrepid.nostalgia.adapters.YearCollectionPagerAdapter;
+import io.intrepid.nostalgia.fragments.YearFragment;
 
 
 public class MainActivity extends AppCompatActivity
