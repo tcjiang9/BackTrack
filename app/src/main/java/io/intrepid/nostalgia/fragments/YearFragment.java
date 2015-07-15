@@ -114,7 +114,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         try {
             Cursor c = myDbHelper.getData(String.valueOf(currentYear));
             Random random = new Random();
-            int index = random.nextInt(c.getCount()+1);
+            int index = random.nextInt(c.getCount()-1);
             songDetails = getRandomSongFromDb(c, index);
         } catch (SQLException sqle) {
             sqle.printStackTrace();

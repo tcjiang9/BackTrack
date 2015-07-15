@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.astuetz.PagerSlidingTabStrip;
 
 import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.R;
@@ -56,14 +55,7 @@ public class MainActivity extends AppCompatActivity
 
                 ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
                 fragmentToResume.onResumeFragment();
-
-                setTabSelected(newPosition);
-                if (!(currentPosition == newPosition)) {
-                    setTabDeselected(currentPosition);
-                }
-                currentPosition = newPosition;
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
             }
@@ -98,16 +90,5 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPrevYearButtonClicked() {
         viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-    }
-
-    private void setTabSelected(int position) {
-//       TabLayout.Tab textView= tabLayout.getTabAt(position);
-//       TextView tv = (TextView) tabLayout.getChildAt(0).se;
-//        tv.setTextAppearance(this, R.style.TabTextSelected);
-    }
-
-    private void setTabDeselected(int position) {
-        TextView textView= (TextView) tabLayout.getChildAt(position);
-      //  textView.setTextAppearance(this, R.style.TabTextAppearance);
     }
 }

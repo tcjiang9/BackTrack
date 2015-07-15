@@ -96,7 +96,7 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     @OnClick({R.id.share_post_1, R.id.share_post_2, R.id.share_post_3})
-    void onClickShareStatus (View view){
+    void onClickShareStatus(View view) {
         shareFbPosts(view.getId());
     }
 
@@ -121,10 +121,9 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void getUserPosts() {
-        if (AccessToken.getCurrentAccessToken() == null){
+        if (AccessToken.getCurrentAccessToken() == null) {
 
-        }
-        else {
+        } else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
                     FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {
