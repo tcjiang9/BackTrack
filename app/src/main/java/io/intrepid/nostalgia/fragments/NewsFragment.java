@@ -43,7 +43,11 @@ public class NewsFragment extends Fragment {
 
     @OnClick(R.id.share_button)
     void shareNews() {
-        //TODO: share pieces of post for any given day
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_SUBJECT, "This day in " + Integer.toString(getArguments().getInt(YEAR)));
+        i.putExtra(Intent.EXTRA_TEXT, url);
+        startActivity(Intent.createChooser(i, "Share URL"));
     }
 
     @OnClick(R.id.read_more_nyt)
