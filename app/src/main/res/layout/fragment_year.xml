@@ -17,15 +17,29 @@
             android:background="#85deda"
             android:src="@drawable/city_illustration" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/music_image"
-            android:layout_width="@dimen/music_image_width"
-            android:layout_height="@dimen/music_image_height" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/music_image"
+                android:layout_width="@dimen/music_image_width"
+                android:layout_height="@dimen/music_image_height" />
 
-        <Button
-            android:id="@+id/play_music_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/handle_v2"/>
+
+            <Button
+                android:id="@+id/play_music_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+
+
 
         <TextView
             android:id="@+id/date_text"
@@ -45,18 +59,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/song_artist" />
-
-        <ProgressBar
-            android:id="@+id/circular_progressbar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="@dimen/circular_progress"
-            android:layout_height="@dimen/circular_progress"
-            android:indeterminate="false"
-            android:max="@integer/max_progress"
-            android:progress="@integer/current_progress"
-            android:progressDrawable="@drawable/circular"
-            android:secondaryProgress="@integer/max_progress" />
-
 
         <RelativeLayout
             android:id="@+id/facebook_view"
