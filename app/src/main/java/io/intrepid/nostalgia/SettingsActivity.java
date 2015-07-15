@@ -1,7 +1,9 @@
 package io.intrepid.nostalgia;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,21 +25,26 @@ public class SettingsActivity extends AppCompatActivity{
     @InjectView(R.id.facebook_switch)
     Switch facebookSwitch;
 
+    @InjectView(R.id.autoplay_switch)
+    Switch autoplaySwitch;
+
     //TODO: add functionality to switches
     @OnCheckedChanged(R.id.facebook_switch) void onFacebookSwitchChanged(boolean isChecked) {
         if (isChecked) {
-            //login to facebook
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra("settings", true);
+            startActivity(intent);
         } else {
-            //logout of facebook
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+            editor.putString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
+            editor.apply();
         }
     }
 
     @OnCheckedChanged(R.id.autoplay_switch) void onAutoplaySwitchChanged(boolean isChecked) {
-        if (isChecked) {
-            //autoplay on
-        } else {
-            //autoplay off
-        }
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.putBoolean(Constants.SHARED_PREFS_AUTOPLAY, isChecked);
+        editor.apply();
     }
 
     @OnTouch(R.id.feedback_setting) boolean onFeedbackSettingTouched() {
@@ -54,6 +61,18 @@ public class SettingsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         ButterKnife.inject(this);
-        facebookSwitch.setChecked(LoginActivity.isFacebook);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setSwitches();
+    }
+
+    public void setSwitches() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = sharedPreferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
+        facebookSwitch.setChecked(token != null);
+        autoplaySwitch.setChecked(sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true));
     }
 }

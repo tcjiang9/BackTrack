@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -293,7 +294,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     public void onResumeFragment() {
         playMusicButton.setText(R.string.button_text_play);
         initPlayer();
-        //if (autoPlay) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+        //if (sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true)) {
         //   playMusic(mediaPlayer);
         //      }
     }

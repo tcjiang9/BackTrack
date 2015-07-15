@@ -6,6 +6,7 @@ public class Constants {
     // name of token can be accessed from other classes for SharedPrefs
     public static final String SHARED_PREFS_ACCESS_TOKEN = "accessToken";
     public static final String SHARED_PREFS_LOGIN = "activity_executed";
+    public static final String SHARED_PREFS_AUTOPLAY = "autoPlay";
 
     public static final int MIN_YEAR = 1979;
     /**
