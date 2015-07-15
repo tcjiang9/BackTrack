@@ -4,8 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -13,35 +14,39 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import io.intrepid.nostalgia.CustomListAdapter;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.constants.FacebookConstants;
 import io.intrepid.nostalgia.fragments.FacebookPostsFragment;
+import io.intrepid.nostalgia.models.facebook.Comment;
 import io.intrepid.nostalgia.models.facebook.FacebookResponse;
 
 
 public class FacebookPostDetailsActivity extends AppCompatActivity {
 
 
-    @InjectView(R.id.fb_status)
     TextView status;
-    @InjectView(R.id.full_picture)
     ImageView fbImage;
-    @InjectView(R.id.likes_details)
     TextView likes;
-    @InjectView(R.id.comments)
-    TextView comments;
     String url;
+    @InjectView(R.id.display_comments)
+    ListView comments;
     JSONObject onePostFromResponse;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_facebook_details_post);
         ButterKnife.inject(this);
+        View header = getLayoutInflater().inflate(R.layout.header_listview, comments, false);
+        status = (TextView) header.findViewById(R.id.fb_status);
+        fbImage = (ImageView) header.findViewById(R.id.full_picture);
+        likes = (TextView) header.findViewById(R.id.likes_details);
+        comments.addHeaderView(header);
         Intent intent = getIntent();
         try {
             url = intent.getExtras().getString(FacebookPostsFragment.IMAGE_URL);
@@ -81,12 +86,20 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     }
 
     private void getLikesCount(FacebookResponse responsePojo) throws JSONException {
-        likes.setText(getString(R.string.likes, responsePojo.getLikeNames()));
+        String likeNames = responsePojo.getLikeNames();
+        if (responsePojo.getLikeCount() > 0) {
+            likes.setText(getString(R.string.likes, likeNames));
+        }
 
     }
 
     private void getComments(FacebookResponse facebookResponse) throws JSONException {
-        comments.setText(getString(R.string.comments, facebookResponse.getCommentData()));
+        
+        List<Comment> commentData = facebookResponse.getCommentData();
+        if (commentData != null) {
+            CustomListAdapter listAdapter = new CustomListAdapter(this, commentData);
+            comments.setAdapter(listAdapter);
+        }
     }
 
     private void loadImageFromPost(FacebookResponse facebookResponse) throws JSONException {
