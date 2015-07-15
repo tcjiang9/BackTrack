@@ -16,13 +16,15 @@
     <TextView
         android:id="@+id/fb_status"
         style="@style/detailsFbStyle"
+        android:visibility="gone"
+        android:layout_marginBottom="32dp"
         tools:text="@string/status" />
 
     <TextView
         android:id="@+id/likes_details"
         style="@style/detailsFbStyle"
         android:textStyle="bold"
-        android:text="fffffffffffffffffffffffffffffffffffffff"
+        android:visibility="gone"
         android:layout_marginBottom="30dp"/>
 
 </LinearLayout>

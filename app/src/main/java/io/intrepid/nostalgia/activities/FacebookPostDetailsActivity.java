@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -37,6 +35,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     @InjectView(R.id.display_comments)
     ListView comments;
     JSONObject onePostFromResponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +62,10 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
 
             String response = onePostFromResponse.toString();
             if (response.contains(FacebookConstants.MESSAGE)) {
+                status.setVisibility(View.VISIBLE);
                 status.setText(facebookResponse.getStatus());
             } else {
+                status.setVisibility(View.VISIBLE);
                 status.setText(getString(R.string.status_alternative));
             }
             if (response.contains(FacebookConstants.PICTURE)) {
@@ -73,6 +74,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
                 fbImage.setVisibility(View.GONE);
             }
             if (response.contains(FacebookConstants.LIKES)) {
+
                 getLikesCount(facebookResponse);
             }
             if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
@@ -88,13 +90,14 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     private void getLikesCount(FacebookResponse responsePojo) throws JSONException {
         String likeNames = responsePojo.getLikeNames();
         if (responsePojo.getLikeCount() > 0) {
+            likes.setVisibility(View.VISIBLE);
             likes.setText(getString(R.string.likes, likeNames));
         }
 
     }
 
     private void getComments(FacebookResponse facebookResponse) throws JSONException {
-        
+
         List<Comment> commentData = facebookResponse.getCommentData();
         if (commentData != null) {
             CustomListAdapter listAdapter = new CustomListAdapter(this, commentData);

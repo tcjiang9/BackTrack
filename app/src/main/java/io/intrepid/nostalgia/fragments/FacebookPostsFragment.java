@@ -22,7 +22,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -143,7 +142,7 @@ public class FacebookPostsFragment extends Fragment {
 
     private void processFacebookResponse(GraphResponse graphResponse) {
         completeDataFromFb = graphResponse.getJSONObject();
-        if (completeDataFromFb.length() == 1){
+        if (completeDataFromFb.length() == 1) {
             noFbMessage.setVisibility(View.VISIBLE);
             noFbMessage.setText(getString(R.string.no_activity_msg));
         }
@@ -173,11 +172,8 @@ public class FacebookPostsFragment extends Fragment {
                     status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                     likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                     commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
-
                 }
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
