@@ -60,12 +60,12 @@ public class MainActivity extends AppCompatActivity
 
                 ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
                 fragmentToResume.onResumeFragment();
-//
-//                setTabSelected(newPosition);
-//                if (!(currentPosition == newPosition)) {
-//                    setTabDeselected(currentPosition);
-//                }
-//                currentPosition = newPosition;
+
+                setTabSelected(newPosition);
+                if (!(currentPosition == newPosition)) {
+                    setTabDeselected(currentPosition);
+                }
+                currentPosition = newPosition;
             }
 
             @Override
@@ -111,12 +111,15 @@ public class MainActivity extends AppCompatActivity
     public void onPrevYearButtonClicked() {
         viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
     }
-//
-//    private void setTabSelected(int position) {
-//        tabLayout.getChildAt(position);
-//    }
-//
-//    private void setTabDeselected(int position) {
-//
-//    }
+
+    private void setTabSelected(int position) {
+//       TabLayout.Tab textView= tabLayout.getTabAt(position);
+//       TextView tv = (TextView) tabLayout.getChildAt(0).se;
+//        tv.setTextAppearance(this, R.style.TabTextSelected);
+    }
+
+    private void setTabDeselected(int position) {
+        TextView textView= (TextView) tabLayout.getChildAt(position);
+      //  textView.setTextAppearance(this, R.style.TabTextAppearance);
+    }
 }
