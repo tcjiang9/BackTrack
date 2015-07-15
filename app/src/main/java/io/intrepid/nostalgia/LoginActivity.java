@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
     public static boolean isFacebook;
+    public static String intentExtra = "settings";
     public final String PERMIT = "public_profile";
 
     @OnClick(R.id.skip_facebook)
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.inject(this);
 
         Intent intent = getIntent();
-        if (intent.getBooleanExtra("settings", false)) {
+        if (intent.getBooleanExtra(intentExtra, false)) {
             onFacebookLogin(true);
         }
     }

@@ -43,11 +43,7 @@ public class SettingsActivity extends AppCompatActivity{
 
     @OnCheckedChanged(R.id.autoplay_switch) void onAutoplaySwitchChanged(boolean isChecked) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-        if (isChecked) {
-            editor.putBoolean(Constants.SHARED_PREFS_AUTOPLAY, true);
-        } else {
-            editor.putBoolean(Constants.SHARED_PREFS_AUTOPLAY, false);
-        }
+        editor.putBoolean(Constants.SHARED_PREFS_AUTOPLAY, isChecked);
         editor.apply();
     }
 
