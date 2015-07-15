@@ -13,6 +13,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnTouch;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.activities.LoginActivity;
+import io.intrepid.nostalgia.constants.Constants;
 
 public class SettingsActivity extends AppCompatActivity{
 
