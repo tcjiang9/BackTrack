@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,6 +54,8 @@ public class FacebookPostsFragment extends Fragment {
     List<FrameLayout> imageLayout;
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     List<ImageView> loadImages;
+    @InjectViews({R.id.share_post_1, R.id.share_post_2, R.id.share_post_3})
+    List<ImageButton> sharePosts;
 
     CallbackManager callbackManager;
     private int currentYear;
@@ -84,12 +87,21 @@ public class FacebookPostsFragment extends Fragment {
 
     @OnClick({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     void openScreenForActivity(View view) {
-      openPhotoDetails(view.getId());
+        openPhotoDetails(view.getId());
     }
 
     @OnClick({R.id.status_1, R.id.status_2, R.id.status_3})
     void statusUpdate(View view) {
         openPhotoDetails(view.getId());
+    }
+
+    @OnClick({R.id.share_post_1, R.id.share_post_2, R.id.share_post_3})
+    void onClickShareStatus(View view) {
+        shareFbPosts(view.getId());
+    }
+
+    private void shareFbPosts(int viewId) {
+
     }
 
     private void openPhotoDetails(int viewType) {
@@ -109,7 +121,9 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void getUserPosts() {
-        if (AccessToken.getCurrentAccessToken() != null) {
+        if (AccessToken.getCurrentAccessToken() == null) {
+
+        } else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
                     FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {

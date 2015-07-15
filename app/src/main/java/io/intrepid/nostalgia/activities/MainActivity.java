@@ -1,6 +1,7 @@
 package io.intrepid.nostalgia.activities;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 
 import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.R;
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
+    private TabLayout tabLayout;
     private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
 
     @Override
@@ -34,7 +40,10 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setTabTextColors(getResources().getColorStateList(R.color.tabview_selector_color));
+        tabLayout.setupWithViewPager(viewPager);
+        ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -46,21 +55,13 @@ public class MainActivity extends AppCompatActivity
 
                 ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
                 fragmentToResume.onResumeFragment();
-                currentPosition = newPosition;
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
             }
-        });
-
-        // YearFragment startFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1)
-        // startFragment.playMusic(SinglePlayer.getInstance().getMediaPlayer());
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        };
+        viewPager.addOnPageChangeListener(viewPageListener);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
