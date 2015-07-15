@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
     private TabLayout tabLayout;
-//    private PagerSlidingTabStrip tabStrip;
-//    private LinearLayout tabLinearLayout;
     private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
 
     @Override
@@ -43,10 +41,8 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
-//        tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-//        tabLinearLayout = (LinearLayout) tabStrip.getChildAt(0);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.setTabTextColors( getResources().getColorStateList(R.color.tabview_selector_color));
+        tabLayout.setTabTextColors(getResources().getColorStateList(R.color.tabview_selector_color));
         tabLayout.setupWithViewPager(viewPager);
         ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
@@ -73,15 +69,7 @@ public class MainActivity extends AppCompatActivity
             }
         };
         viewPager.addOnPageChangeListener(viewPageListener);
-
-        // YearFragment startFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1)
-        // startFragment.playMusic(SinglePlayer.getInstance().getMediaPlayer());
-
-//        tabStrip.setViewPager(viewPager);
-        // tabStrip.setTextColor(getResources().getColorStateList(R.color.tabview_selector_color));
-//        tabStrip.setOnPageChangeListener(viewPageListener);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

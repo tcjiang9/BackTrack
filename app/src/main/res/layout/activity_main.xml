@@ -8,19 +8,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<com.astuetz.PagerSlidingTabStrip-->
-            <!--android:id="@+id/tabs"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:textSize="15sp"-->
-            <!--android:textColor="#ffffff"-->
-            <!--android:background="#85deda"-->
-            <!--app:pstsDividerColor="#85deda"-->
-            <!--app:pstsIndicatorColor="#85deda"-->
-            <!--app:pstsUnderlineColor="#85deda"-->
-
-
-            <!--/>-->
         <View
             android:layout_width="match_parent"
             android:layout_height="24dp"
