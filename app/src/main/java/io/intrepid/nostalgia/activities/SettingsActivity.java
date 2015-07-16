@@ -12,7 +12,6 @@ import butterknife.InjectView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnTouch;
 import io.intrepid.nostalgia.R;
-import io.intrepid.nostalgia.activities.LoginActivity;
 import io.intrepid.nostalgia.constants.Constants;
 
 public class SettingsActivity extends AppCompatActivity{
@@ -20,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity{
     public static final String EMAIL = "hayley@intrepid.io";
     public static final String SUBJECT_LINE = "Nostalgia App Feedback";
 
-    private boolean initialState;
+    private boolean isOpening;
 
     @InjectView(R.id.facebook_switch)
     Switch facebookSwitch;
@@ -30,7 +29,7 @@ public class SettingsActivity extends AppCompatActivity{
 
     //TODO: add functionality to switches
     @OnCheckedChanged(R.id.facebook_switch) void onFacebookSwitchChanged(boolean isChecked) {
-        if (!initialState) {
+        if (!isOpening) {
             if (isChecked) {
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.putExtra("settings", true);
@@ -44,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity{
     }
 
     @OnCheckedChanged(R.id.autoplay_switch) void onAutoplaySwitchChanged(boolean isChecked) {
-        if (!initialState) {
+        if (!isOpening) {
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
             editor.putBoolean(Constants.SHARED_PREFS_AUTOPLAY, isChecked);
             editor.apply();
@@ -74,11 +73,11 @@ public class SettingsActivity extends AppCompatActivity{
     }
 
     public void setSwitches() {
-        initialState = true;
+        isOpening = true;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = sharedPreferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
         facebookSwitch.setChecked(token != null);
         autoplaySwitch.setChecked(sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true));
-        initialState = false;
+        isOpening = false;
     }
 }
