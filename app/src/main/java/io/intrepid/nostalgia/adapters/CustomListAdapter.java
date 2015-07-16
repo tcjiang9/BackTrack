@@ -1,4 +1,4 @@
-package io.intrepid.nostalgia;
+package io.intrepid.nostalgia.adapters;
 
 
 import android.content.Context;
@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.models.facebook.Comment;
+import io.intrepid.nostalgia.models.facebook.ViewHolder;
 
 
 public class CustomListAdapter extends BaseAdapter {
@@ -25,10 +27,12 @@ public class CustomListAdapter extends BaseAdapter {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
     }
+
     @Override
     public int getCount() {
         return commentList.size();
     }
+
     @Override
     public Comment getItem(int position) {
         return commentList.get(position);
@@ -52,8 +56,6 @@ public class CustomListAdapter extends BaseAdapter {
                     .findViewById(R.id.comment_name);
             holder.commentData = (TextView) convertView
                     .findViewById(R.id.comment_data);
-
-
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -64,12 +66,6 @@ public class CustomListAdapter extends BaseAdapter {
         holder.commentData.setText(comment.getComment());
 
         return convertView;
-    }
-
-    private class ViewHolder {
-        TextView commentName;
-        TextView commentData;
-
     }
 }
 

@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="328dp"
+    android:layout_width="@dimen/facebook_image_width"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/full_picture"
         android:layout_width="match_parent"
         android:layout_height="@dimen/full_img_height"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/image_margin_bottom"
         android:contentDescription="@string/facebook_tab"
         tools:src="@drawable/ic_launcher" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/fb_status"
         style="@style/detailsFbStyle"
         android:visibility="gone"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/margin_header_listview"
         tools:text="@string/status" />
 
     <TextView
@@ -25,6 +25,6 @@
         style="@style/detailsFbStyle"
         android:textStyle="bold"
         android:visibility="gone"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="@dimen/margin_header_lv"/>
 
 </LinearLayout>

@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/details_post"
-    android:layout_width="328dp"
+    android:layout_width="@dimen/settings_line_width"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"

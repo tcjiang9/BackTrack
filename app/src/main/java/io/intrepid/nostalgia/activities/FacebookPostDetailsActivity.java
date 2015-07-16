@@ -17,7 +17,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import io.intrepid.nostalgia.CustomListAdapter;
+import io.intrepid.nostalgia.adapters.CustomListAdapter;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.constants.FacebookConstants;
 import io.intrepid.nostalgia.fragments.FacebookPostsFragment;

@@ -16,7 +16,7 @@
         <TextView
             android:id="@+id/comment_data"
             style="@style/detailsFbStyle"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/comment_margin"
             tools:text="5 comments" />
 
 
