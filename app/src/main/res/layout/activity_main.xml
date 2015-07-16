@@ -1,8 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/dot_line">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,16 +11,16 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:background="@color/line_spacer"/>
+            android:background="@color/line_spacer" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:tabBackground="@drawable/selector_tab_view"
-            app:tabMode="scrollable"
             app:tabIndicatorHeight="0dp"
-            app:tabTextAppearance="@style/TabTextAppearance"/>
+            app:tabMode="scrollable"
+            app:tabTextAppearance="@style/TabTextAppearance" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"

@@ -35,11 +35,16 @@
             android:textAppearance="@style/regular"/>
 
     </FrameLayout>
+    <View android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginRight="180dp"
+        android:background="@drawable/line_news1"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/news_layout_dist">
+        >
 
         <LinearLayout
             android:layout_width="@dimen/times_box_width"
@@ -113,6 +118,14 @@
             android:textAppearance="@style/regular"/>
 
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/ufo_image_transition"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ufo"
+        android:layout_marginLeft="186dp"
+        android:layout_marginRight="130dp"/>
 
 
 </LinearLayout>

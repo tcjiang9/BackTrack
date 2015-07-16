@@ -9,7 +9,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/fb_title_container_height"
-        android:layout_marginBottom="@dimen/fb_title_container_margin"
         android:background="@drawable/facebookbg">
 
         <TextView
@@ -22,6 +21,11 @@
             android:textSize="@dimen/fb_title_size"
             android:textAppearance="@style/regular"/>
     </FrameLayout>
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="@dimen/fb_title_container_margin"
+        android:layout_marginLeft="220dp"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/line_fb1"/>
 
     <ImageView
         android:layout_width="@dimen/fblogo_width"
@@ -29,6 +33,7 @@
         android:layout_marginLeft="@dimen/fblogo_margin_left"
         android:layout_marginTop="@dimen/fblogo_margin_top"
         android:src="@drawable/facebook_logo" />
+
     <TextView
         android:layout_width="@dimen/facebook_image_width"
         android:id="@+id/no_facebook_content"
@@ -63,7 +68,8 @@
 
         <RelativeLayout
             style="@style/status_container"
-            android:layout_below="@+id/image_container">
+            android:layout_below="@+id/image_container"
+            android:id="@+id/status_container">
 
             <TextView
                 android:id="@+id/status_1"
@@ -117,6 +123,11 @@
         style="@style/post_container"
         android:visibility="gone"
         tools:visibility="visible">
+        <ImageView android:layout_width="wrap_content"
+            android:layout_height="@dimen/fb_title_container_margin"
+            android:layout_marginLeft="220dp"
+            android:layout_marginRight="100dp"
+            android:src="@drawable/line_fb2"/>
 
         <FrameLayout
             android:id="@+id/image_container_2"
@@ -133,6 +144,7 @@
             style="@style/timeText" />
 
         <RelativeLayout
+            android:id="@+id/status_container_2"
             style="@style/status_container"
             android:layout_below="@+id/image_container_2">
 
@@ -180,6 +192,12 @@
                 android:background="#FFFFFF"
                 android:src="@drawable/share" />
         </RelativeLayout>
+        <ImageView android:layout_width="wrap_content"
+            android:layout_below="@+id/status_container_2"
+            android:layout_height="16dp"
+            android:layout_marginLeft="220dp"
+            android:layout_marginRight="100dp"
+            android:src="@drawable/line_fb3"/>
 
     </RelativeLayout>
 
@@ -253,4 +271,9 @@
         </RelativeLayout>
 
     </RelativeLayout>
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/line_fb4"/>
 </LinearLayout>
