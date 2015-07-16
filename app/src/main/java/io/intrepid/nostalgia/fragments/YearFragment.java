@@ -20,12 +20,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,7 +37,6 @@ import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesResults;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesSong;
 import io.intrepid.nostalgia.services.ItunesService;
-import io.intrepid.nostalgia.songdatabase.DatabaseExplorer;
 import io.intrepid.nostalgia.songdatabase.DatabaseHelper;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -113,8 +110,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         //call for song title and artist name
         try {
             Cursor c = myDbHelper.getData(String.valueOf(currentYear));
-            Random random = new Random();
-            int index = random.nextInt(c.getCount()-1);
+            int i = DateFormatter.getDay();
+            int index = c.getCount() % i;
             songDetails = getRandomSongFromDb(c, index);
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -325,12 +322,5 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         isPaused = false;
     }
 
-    @OnClick(R.id.date_text)
-    void dbConnect() {
-        Intent intent = new Intent(getActivity(), DatabaseExplorer.class);
-        Bundle addYear = new Bundle();
-        addYear.putString(KEY, Integer.toString(currentYear));
-        intent.putExtras(addYear);
-        startActivity(intent);
-    }
+
 }
