@@ -21,11 +21,12 @@
             android:textColor="@color/white"
             android:textSize="@dimen/fb_title_size" />
     </FrameLayout>
-    <ImageView android:layout_width="wrap_content"
+
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/fb_title_container_margin"
-        android:layout_marginLeft="220dp"
-        android:layout_marginRight="100dp"
-        android:src="@drawable/line_fb1"/>
+        android:layout_marginLeft="248dp"
+        android:src="@drawable/line_fb1" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -39,18 +40,7 @@
         android:layout_marginLeft="@dimen/fblogo_margin_left"
         android:layout_marginTop="@dimen/fblogo_margin_top"
         android:src="@drawable/facebook_logo" />
-    <TextView
-        android:layout_width="@dimen/facebook_image_width"
-        android:id="@+id/no_facebook_content"
-        android:layout_height="@dimen/fb_title_container_height"
-        android:layout_marginRight="@dimen/facebook_padding"
-        android:layout_marginLeft="@dimen/facebook_padding"
-        android:layout_marginBottom="@dimen/facebook_padding"
-        android:background="#ffffff"
-        android:text="@string/no_facebook_content"
-        android:textSize="@dimen/no_activity_size"
-        android:visibility="gone"/>
-
+    
     <LinearLayout
         android:id="@+id/no_fb_message"
         android:layout_width="wrap_content"
@@ -72,6 +62,7 @@
             android:textSize="@dimen/no_activity_size" />
     </LinearLayout>
 
+
     <RelativeLayout
         android:id="@+id/post_1"
         style="@style/post_container"
@@ -92,9 +83,9 @@
             style="@style/timeText" />
 
         <RelativeLayout
+            android:id="@+id/status_container"
             style="@style/status_container"
-            android:layout_below="@+id/image_container"
-            android:id="@+id/status_container">
+            android:layout_below="@+id/image_container">
 
             <TextView
                 android:id="@+id/status_1"
@@ -222,12 +213,6 @@
                 android:background="@color/white"
                 android:src="@drawable/share" />
         </RelativeLayout>
-        <ImageView android:layout_width="wrap_content"
-            android:layout_below="@+id/status_container_2"
-            android:layout_height="16dp"
-            android:layout_marginLeft="220dp"
-            android:layout_marginRight="100dp"
-            android:src="@drawable/line_fb3"/>
 
 
     </RelativeLayout>
