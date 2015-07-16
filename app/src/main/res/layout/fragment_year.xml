@@ -1,68 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+    android:layout_height="match_parent">    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:scaleType="fitXY"
-            android:background="#85deda"
-            android:src="@drawable/city_illustration" />
+            android:layout_height="@dimen/city_illustration_height">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="#85deda"
+                android:scaleType="fitXY"
+                android:src="@drawable/city_illustration" />
+
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/date_text" />
+
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/music_image"
-                android:layout_width="@dimen/music_image_width"
-                android:layout_height="@dimen/music_image_height"
-                android:layout_marginLeft="57.8dp"
-                android:layout_marginTop="26dp"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/vinyl_frame_marginTop">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/music_image"
+                    android:layout_width="@dimen/music_image_width"
+                    android:layout_height="@dimen/music_image_height"
+                    android:src="@drawable/default_record"/>
+
+                <ImageButton
+                    android:id="@+id/play_music_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null" />
+
+            </FrameLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/handle_v2"
-                android:layout_marginLeft="260dp"
-                android:layout_marginTop="31dp"/>
-
-            <Button
-                android:id="@+id/play_music_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_marginLeft="@dimen/handle_marginLeft"
+                android:layout_marginTop="@dimen/handle_marginTop"
+                android:src="@drawable/handle_v2" />
 
         </FrameLayout>
-
-
-
-
-        <TextView
-            android:id="@+id/date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/date_text" />
 
         <TextView
             android:id="@+id/song_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/song_title" />
+            />
 
         <TextView
             android:id="@+id/song_artist_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/song_artist" />
+            />
 
         <RelativeLayout
             android:id="@+id/facebook_view"
@@ -79,9 +90,9 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/news_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/news_view">
+            android:layout_height="wrap_content">
 
         </RelativeLayout>
 

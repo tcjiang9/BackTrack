@@ -92,6 +92,10 @@
     <dimen name="news_backsplash">51dp</dimen>
     <dimen name="music_image_width">244dp</dimen>
     <dimen name="music_image_height">244dp</dimen>
+    <dimen name="vinyl_frame_marginTop">31dp</dimen>
+    <dimen name="handle_marginLeft">260dp</dimen>
+    <dimen name="handle_marginTop">31dp</dimen>
+    <dimen name="city_illustration_height">56dp</dimen>
     <dimen name="comment_margin">5dp</dimen>
     <dimen name="image_margin_bottom">10dp</dimen>
     <dimen name="margin_header_lv">30dp</dimen>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,10 +59,13 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private String imageUrl;
 
     @InjectView(R.id.play_music_button)
-    Button playMusicButton;
+    ImageButton playMusicButton;
+
+    @InjectView(R.id.song_title_text)
+    TextView songTitleView;
 
     @InjectView(R.id.song_artist_text)
-    TextView yearTemp;
+    TextView songArtistView;
 
     @InjectView(R.id.facebook_view)
     RelativeLayout facebookView;
@@ -80,7 +84,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     private enum Actions {
-        starting, stopping
+        starting, stopping, loading
     }
 
     @Override
@@ -126,9 +130,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
-        playMusicButton.setText(mediaPlayer != null && mediaPlayer.isPlaying()
-                ? R.string.button_text_pause
-                : R.string.button_text_play);
+        dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
+
+        playMusicButton.setImageResource(mediaPlayer != null && mediaPlayer.isPlaying()
+                ? R.drawable.pause_circle_button
+                : R.drawable.play_circle_button);
 
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +154,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             }
         });
 
-        yearTemp.setText(String.valueOf(currentYear));
+        songTitleView.setText(songTitle);
+        songArtistView.setText(songArtist);
+
         getChildFragmentManager().beginTransaction()
                 .add(R.id.facebook_view, FacebookPostsFragment.getInstance(currentYear))
                 .commit();
@@ -169,8 +177,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         if (preferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null) == null) {
             noFacebook.setVisibility(View.VISIBLE);
         }
-
-        dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
 
         return rootView;
     }
@@ -209,7 +215,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                             songUrl = itunesSongs.get(0).getPreviewUrl();
                             imageUrl = itunesSongs.get(0).getArtworkUrl100()
                                     .replaceAll("100x100", Constants.IMAGE_WIDTH + "x" + Constants.IMAGE_HEIGHT);
-                            Picasso.with(getActivity()).load(imageUrl).into(musicImage);
+                            Picasso.with(getActivity())
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.default_record)
+                                    .into(musicImage);
                             Log.i(TAG, imageUrl);
                         } else {
                             return;
@@ -258,7 +267,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 });
                 mediaPlayer.prepareAsync();
                 isPreparing = true;
-                playMusicButton.setText(R.string.button_text_loading);
+                updateUi(Actions.loading);
             } catch (IOException e) {
                 Log.e(TAG, e.toString());
                 return;
@@ -281,15 +290,18 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         mediaPlayer.reset();
     }
 
-    public void updateUi(Actions action) {
+    private void updateUi(Actions action) {
         if (action == Actions.stopping) {
-            playMusicButton.setText(R.string.button_text_play);
+            playMusicButton.setImageResource(R.drawable.play_circle_button);
             musicImage.clearAnimation();
         } else if (action == Actions.starting) {
-            playMusicButton.setText(R.string.button_text_pause);
+            playMusicButton.setImageResource(R.drawable.pause_circle_button);
             musicImage.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.spinner_clockwise));
+        } else if (action == Actions.loading) {
+            playMusicButton.setImageResource(R.drawable.music_loading_circle);
         }
     }
+
     @Override
     public void onPauseFragment() {
         if (mediaPlayer == null) {
