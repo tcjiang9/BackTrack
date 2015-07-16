@@ -24,12 +24,16 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/music_image"
                 android:layout_width="@dimen/music_image_width"
-                android:layout_height="@dimen/music_image_height" />
+                android:layout_height="@dimen/music_image_height"
+                android:layout_marginLeft="57.8dp"
+                android:layout_marginTop="26dp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/handle_v2"/>
+                android:src="@drawable/handle_v2"
+                android:layout_marginLeft="260dp"
+                android:layout_marginTop="31dp"/>
 
             <Button
                 android:id="@+id/play_music_button"
