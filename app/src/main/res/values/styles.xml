@@ -126,5 +126,50 @@
 </style>
 
 
+    <!--fonts-->
+
+    <style name="black">
+        <item name="fontPath">fonts/ProximaNova-Black copy.otf</item>
+    </style>
+
+    <style name="bold">
+        <item name="fontPath">fonts/ProximaNova-Bold.otf</item>
+    </style>
+    
+    <style name="bold_lt">
+        <item name="fontPath">fonts/ProximaNova-Boldlt.otf</item>
+    </style>
+
+    <style name="extra_bold" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-Extrabold.otf</item>
+    </style>
+
+    <style name="light" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-Light.otf</item>
+    </style>
+
+    <style name="light_italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-LightItalic.otf</item>
+    </style>
+
+    <style name="reg_italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-RegItalic.otf</item>
+    </style>
+
+    <style name="regular" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-Regular.otf</item>
+    </style>
+
+    <style name="regular_italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-RegularItalic.otf</item>
+    </style>
+
+    <style name="semi_bold" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-Semibold.otf</item>
+    </style>
+
+    <style name="semi_bold_italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-SemiboldItalic.otf</item>
+    </style>
 
 </resources>

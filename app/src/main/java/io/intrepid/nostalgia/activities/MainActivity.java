@@ -1,5 +1,6 @@
 package io.intrepid.nostalgia.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import io.intrepid.nostalgia.SinglePlayer;
 import io.intrepid.nostalgia.ViewPagerFragmentLifeCycle;
 import io.intrepid.nostalgia.adapters.YearCollectionPagerAdapter;
 import io.intrepid.nostalgia.fragments.YearFragment;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class MainActivity extends AppCompatActivity
@@ -33,6 +36,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/ProximaNova-Regular.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
         SinglePlayer.getInstance();
         final YearCollectionPagerAdapter pagerAdapter = new YearCollectionPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -53,12 +61,19 @@ public class MainActivity extends AppCompatActivity
 
                 ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
                 fragmentToResume.onResumeFragment();
+                currentPosition = newPosition;
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
             }
         };
         viewPager.addOnPageChangeListener(viewPageListener);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

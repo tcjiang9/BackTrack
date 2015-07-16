@@ -1,5 +1,6 @@
 package io.intrepid.nostalgia.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnTouch;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.constants.Constants;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SettingsActivity extends AppCompatActivity{
 
@@ -64,6 +67,16 @@ public class SettingsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         ButterKnife.inject(this);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/ProximaNova-Regular.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
