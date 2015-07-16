@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.InjectViews;
 import butterknife.OnClick;
 import io.intrepid.nostalgia.DateFormatter;
@@ -48,6 +49,10 @@ public class FacebookPostsFragment extends Fragment {
     public static final String YEAR_KEY = "YEAR_KEY";
     public static final int MILLISECOND_PER_SECOND = 1000;
     public static final String IMAGE_URL = "image_url";
+    public static final String SHARE_TEXT = "Share text";
+    public static final String SHARE_VIA = "Share via";
+    public static final String TEXT_PLAIN = "text/plain";
+
 
     @InjectViews({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     List<TextView> likesCount;
@@ -100,12 +105,12 @@ public class FacebookPostsFragment extends Fragment {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("image/*");
             share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(cachePath));
-            startActivity(Intent.createChooser(share, "Share via"));
+            startActivity(Intent.createChooser(share, SHARE_VIA));
         } else {
             Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("text/plain");
+            i.setType(TEXT_PLAIN);
             i.putExtra(Intent.EXTRA_TEXT, status.get(order).toString());
-            startActivity(Intent.createChooser(i, "Share text"));
+            startActivity(Intent.createChooser(i, SHARE_TEXT));
         }
 
     }

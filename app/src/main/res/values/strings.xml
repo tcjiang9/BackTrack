@@ -37,4 +37,8 @@
     <string name="facebook_activity">Facebook Activities</string>
     <string name="read_more_nyt">Read more in The New York Times</string>
     <string name="button_text_loading">Loading</string>
+    <string name="share_text">Share text</string>
+    <string name="share_via">Share via</string>
+    <string name="share_url">Share URL</string>
+    <string name="text_plain">text/plain</string>
 </resources>
