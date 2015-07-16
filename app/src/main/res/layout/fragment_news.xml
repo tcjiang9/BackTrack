@@ -40,21 +40,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/news_header_text" />
 
-            <ImageView
-
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/news_backsplash"
-                android:background="@drawable/facebookbg" />
-
-            <ImageView
-                android:layout_width="@dimen/times_logo_dimen"
-                android:layout_height="@dimen/times_logo_dimen"
-                android:layout_marginLeft="@dimen/times_left_margin"
-                android:layout_marginTop="@dimen/times_top_margin"
-                android:background="@drawable/news_label" />
-
         </FrameLayout>
-
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -135,16 +121,21 @@
                 android:textColor="@color/white" />
 
 
+            <ImageView
+                android:id="@+id/ufo_image_transition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ribbon_left_margin"
+                android:layout_marginTop="@dimen/ribbon_top_margin"
+                android:background="@drawable/ribbon" />
+
+
         </FrameLayout>
-
-
         <ImageView
-            android:id="@+id/ufo_image_transition"
             android:layout_width="@dimen/ufo_width"
             android:layout_height="@dimen/ufo_height"
             android:layout_marginLeft="@dimen/ufo_margin_left"
-            android:layout_marginRight="@dimen/ufo_margin_right"
-            android:src="@drawable/ufo" />
+            android:src="@drawable/ufo"/>
 
 
     </LinearLayout>
