@@ -18,8 +18,9 @@
             android:layout_marginLeft="@dimen/fb_title_margin_left"
             android:layout_marginTop="@dimen/fb_title_margin_top"
             android:text="@string/facebook_activity"
-            android:textColor="#FFFFFF"
-            android:textSize="@dimen/fb_title_size" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/fb_title_size"
+            android:textAppearance="@style/regular"/>
     </FrameLayout>
 
     <ImageView

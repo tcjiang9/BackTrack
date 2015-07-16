@@ -19,7 +19,8 @@
             style="@style/settings_style"
             android:textSize="@dimen/settings_text"
             android:textColor="@color/settings_text"
-            android:text="@string/facebook_connection"/>
+            android:text="@string/facebook_connection"
+            android:textAppearance="@style/regular"/>
 
         <ImageView
             android:layout_width="@dimen/settings_line_width"
@@ -32,7 +33,8 @@
             style="@style/settings_style"
             android:textSize="@dimen/settings_text"
             android:textColor="@color/settings_text"
-            android:text="@string/autoplay_switch_text" />
+            android:text="@string/autoplay_switch_text"
+            android:textAppearance="@style/regular"/>
 
         <ImageView
             android:layout_width="@dimen/settings_line_width"
@@ -51,7 +53,8 @@
                 style="@style/settings_style"
                 android:text="@string/feedback"
                 android:textColor="@color/settings_text"
-                android:layout_marginTop="@dimen/feedback_top_margin"/>
+                android:layout_marginTop="@dimen/feedback_top_margin"
+                android:textAppearance="@style/regular"/>
             
             <ImageView
                 android:layout_width="@dimen/feedback_arrow_width"
