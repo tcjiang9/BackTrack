@@ -8,8 +8,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -64,6 +68,12 @@ public class MainActivity extends AppCompatActivity
             }
         };
         viewPager.addOnPageChangeListener(viewPageListener);
+
+        ViewGroup viewGroup = (ViewGroup) tabLayout.getChildAt(0);
+        View view = viewGroup.getChildAt(viewPager.getCurrentItem());
+        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, getResources().getDisplayMetrics());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT);
+        view.setLayoutParams(layoutParams);
     }
 
     @Override
