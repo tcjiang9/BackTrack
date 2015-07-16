@@ -29,6 +29,11 @@ public class DateFormatter {
         return new SimpleDateFormat("MMM d").format(new Date());
     }
 
+    public static int getDay() {
+        String date = new SimpleDateFormat("d").format(new Date());
+        return Integer.parseInt(date);
+    }
+
     public static Bundle makeFacebookDate(int year) {
         Bundle parameters = new Bundle();
         Calendar cal = Calendar.getInstance();

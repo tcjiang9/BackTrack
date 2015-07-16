@@ -50,9 +50,6 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/action_settings"/>
-        <activity
-            android:name=".songdatabase.DatabaseExplorer"
-            android:label="@string/db_explorer" />
     </application>
 
 </manifest>
