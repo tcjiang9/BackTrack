@@ -67,11 +67,6 @@ public class SettingsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         ButterKnife.inject(this);
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/ProximaNova-Regular.otf")
-                        .setFontAttrId(R.attr.fontPath)
-                        .build()
-        );
     }
 
     @Override
