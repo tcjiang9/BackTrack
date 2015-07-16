@@ -180,7 +180,8 @@ public class FacebookPostsFragment extends Fragment {
 
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() == null){
-
+            noFbMessage.setVisibility(View.VISIBLE);
+            noFbMessage.setText(getString(R.string.no_activity_msg));
         }
         else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),

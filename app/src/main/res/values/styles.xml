@@ -1,9 +1,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:tabWidgetStyle">@style/TabTextAppearance</item>
+        <item name="android:windowActionBar">false</item>
     </style>
 
     <style name="settings_style">
@@ -107,8 +108,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="DialogNoTitleBar" parent="Theme.AppCompat.Dialog">
+    <style name="DialogNoTitleBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">true</item>
