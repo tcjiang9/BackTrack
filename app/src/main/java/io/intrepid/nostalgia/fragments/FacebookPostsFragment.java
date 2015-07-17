@@ -97,20 +97,23 @@ public class FacebookPostsFragment extends Fragment {
         return rootView;
     }
 
-    @OnClick(R.id.share_post_1) void onShareOne() {
+    @OnClick(R.id.share_post_1)
+    void onShareOne() {
         shareFacebookPost(0);
     }
 
-    @OnClick(R.id.share_post_2) void onShareTwo() {
+    @OnClick(R.id.share_post_2)
+    void onShareTwo() {
         shareFacebookPost(1);
     }
 
-    @OnClick(R.id.share_post_3) void onShareThree() {
+    @OnClick(R.id.share_post_3)
+    void onShareThree() {
         shareFacebookPost(2);
     }
 
     @OnClick({R.id.post_1, R.id.post_2, R.id.post_3})
-    void onClickLayout(View view){
+    void onClickLayout(View view) {
         Log.e("on click on layuout", "" + view.getId());
         openPhotoDetails(view.getId());
 
@@ -176,11 +179,10 @@ public class FacebookPostsFragment extends Fragment {
     private void getUserPosts() {
         SharedPreferences editor = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         String access = editor.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
-        if (access == null){
+        if (access == null) {
             noFb.setVisibility(View.VISIBLE);
             noFbMessage.setText(getString(R.string.no_facebook_content));
-        }
-        else {
+        } else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
                     FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {
@@ -194,9 +196,9 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void processFacebookResponse(GraphResponse graphResponse) {
+        completeDataFromFb = graphResponse.getJSONObject();
         if (isAdded()) {
-            completeDataFromFb = graphResponse.getJSONObject();
-            if (completeDataFromFb.length() == 1 || completeDataFromFb.toString() == null) {
+            if (completeDataFromFb == null || completeDataFromFb.length() == 1) {
                 noFb.setVisibility(View.VISIBLE);
                 noFbMessage.setText(getString(R.string.no_activity_msg));
             } else {

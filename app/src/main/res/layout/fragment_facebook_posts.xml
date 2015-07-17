@@ -29,24 +29,18 @@
         android:src="@drawable/line_fb1" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/fb_title_container_margin"
-        android:layout_marginLeft="@dimen/line_1_margin"
-        android:src="@drawable/line_fb1" />
-
-    <ImageView
         android:layout_width="@dimen/fblogo_width"
         android:layout_height="@dimen/fblogo_height"
         android:layout_marginLeft="@dimen/fblogo_margin_left"
         android:layout_marginTop="@dimen/fblogo_margin_top"
         android:src="@drawable/facebook_logo" />
-    
+
     <LinearLayout
         android:id="@+id/no_fb_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/no_facebook_content"
@@ -295,6 +289,7 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/line_4_height"
