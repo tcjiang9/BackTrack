@@ -28,11 +28,6 @@
         android:layout_marginLeft="248dp"
         android:src="@drawable/line_fb1" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/fb_title_container_margin"
-        android:layout_marginLeft="@dimen/line_1_margin"
-        android:src="@drawable/line_fb1" />
 
     <ImageView
         android:layout_width="@dimen/fblogo_width"
@@ -58,6 +53,7 @@
         android:textSize="@dimen/no_activity_size"
         android:visibility="gone"/>
 </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/post_1"
@@ -135,13 +131,8 @@
     <RelativeLayout
         android:id="@+id/post_2"
         style="@style/post_container"
-        android:visibility="gone"
-        tools:visibility="visible">
-        <ImageView android:layout_width="wrap_content"
-            android:layout_height="@dimen/fb_title_container_margin"
-            android:layout_marginLeft="220dp"
-            android:layout_marginRight="100dp"
-            android:src="@drawable/line_fb2"/>
+        tools:visibility="gone"
+        >
 
         <FrameLayout
             android:layout_below="@+id/fb_line_2"
@@ -156,7 +147,8 @@
 
         <TextView
             android:id="@+id/time_post_2"
-            style="@style/timeText" />
+            style="@style/timeText"
+            android:layout_marginTop="25dp"/>
 
         <RelativeLayout
             android:id="@+id/status_container_2"
@@ -230,7 +222,8 @@
 
         <TextView
             android:id="@+id/time_post_3"
-            style="@style/timeText" />
+            style="@style/timeText"
+            android:layout_marginTop="40dp"/>
 
         <RelativeLayout
             style="@style/status_container"

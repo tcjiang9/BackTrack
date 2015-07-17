@@ -233,7 +233,7 @@ public class FacebookPostsFragment extends Fragment {
                         commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                     }
                 }
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
