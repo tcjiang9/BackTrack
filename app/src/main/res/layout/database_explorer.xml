@@ -17,5 +17,4 @@
         android:id="@+id/song_artist"
         android:layout_gravity="center_horizontal" />
 
-
 </LinearLayout>
