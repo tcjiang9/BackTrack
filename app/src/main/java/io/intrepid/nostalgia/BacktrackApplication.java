@@ -5,7 +5,7 @@ import android.app.Application;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class BacktrackApplication extends Application{
-    public static final String DEFAULT = "fonts/ProximaNova-Regular.otf";
+    public static final String DEFAULT = "fonts/ProximaNova-Semibold.otf";
 
     @Override
     public void onCreate() {
