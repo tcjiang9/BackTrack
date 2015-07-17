@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,13 +82,19 @@ public class FacebookPostsFragment extends Fragment {
     private int currentYear;
     JSONObject completeDataFromFb;
     String[] imageUrl = new String[3];
-
     @OnClick(R.id.share_post_1) void onShareOne() {
         shareFacebookPost(0);
     }
 
     @OnClick(R.id.share_post_2) void onShareTwo() {
         shareFacebookPost(1);
+    }
+
+    @OnClick({R.id.post_1, R.id.post_2, R.id.post_3})
+    void onClickLayout(View view){
+        Log.e("on click on layuout",""+view.getId());
+        openPhotoDetails(view.getId());
+
     }
 
     @OnClick(R.id.share_post_3) void onShareThree() {
@@ -144,16 +151,6 @@ public class FacebookPostsFragment extends Fragment {
         callbackManager = CallbackManager.Factory.create();
         getUserPosts();
         return rootView;
-    }
-
-    @OnClick({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
-    void openScreenForActivity(View view) {
-        openPhotoDetails(view.getId());
-    }
-
-    @OnClick({R.id.status_1, R.id.status_2, R.id.status_3})
-    void statusUpdate(View view) {
-        openPhotoDetails(view.getId());
     }
 
     @OnClick({R.id.share_post_1, R.id.share_post_2, R.id.share_post_3})
@@ -270,6 +267,7 @@ public class FacebookPostsFragment extends Fragment {
 
     private void loadImage(int imageId, ImageView image) {
         image.setVisibility(View.VISIBLE);
+        postLayout.get(imageId).setId(imageId);
         image.setId(imageId);
         if (imageUrl[0] != null) {
             Picasso.with(getActivity()).
