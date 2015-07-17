@@ -196,7 +196,7 @@ public class FacebookPostsFragment extends Fragment {
 
     private void processFacebookResponse(GraphResponse graphResponse) {
         completeDataFromFb = graphResponse.getJSONObject();
-        if (completeDataFromFb == null || completeDataFromFb.length() == 1) {
+        if (completeDataFromFb.length() == 1 || completeDataFromFb.toString() == null) {
             noFb.setVisibility(View.VISIBLE);
             noFbMessage.setText(getString(R.string.no_activity_msg));
         } else {

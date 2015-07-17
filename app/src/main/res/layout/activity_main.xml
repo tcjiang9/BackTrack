@@ -14,7 +14,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="24dp"
+            android:layout_height="@dimen/bg_line_height"
             android:background="@color/line_spacer"/>
     </RelativeLayout>
 

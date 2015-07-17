@@ -116,7 +116,7 @@
     <dimen name="tab_layout_height">40dp</dimen>
     <dimen name="header_height">24dp</dimen>
     <dimen name="line_1_margin">248dp</dimen>
-    <dimen name="news_margin_height">80dp</dimen>
+    <dimen name="news_margin_height">120dp</dimen>
     <dimen name="news_margin_left">162dp</dimen>
     <dimen name="ufo_width">100dp</dimen>
     <dimen name="ufo_height">100dp</dimen>
@@ -129,4 +129,5 @@
     <dimen name="illustration_height">56dp</dimen>
     <dimen name="settings_btn_margin">15dp</dimen>
     <dimen name="post_margin">40dp</dimen>
+    <dimen name="bg_line_height">24dp</dimen>
 </resources>
