@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -35,6 +37,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     String url;
     @InjectView(R.id.display_comments)
     ListView comments;
+    LinearLayout headerListView;
     JSONObject onePostFromResponse;
 
     @Override
@@ -47,6 +50,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         status = (TextView) header.findViewById(R.id.fb_status);
         fbImage = (ImageView) header.findViewById(R.id.full_picture);
         likes = (TextView) header.findViewById(R.id.likes_details);
+        headerListView = (LinearLayout) header.findViewById(R.id.header_listview);
         comments.addHeaderView(header);
         Intent intent = getIntent();
         try {
@@ -71,6 +75,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
                 status.setText(getString(R.string.status_alternative));
             }
             if (response.contains(FacebookConstants.PICTURE)) {
+                headerListView.setVisibility(View.VISIBLE);
                 loadImageFromPost(facebookResponse);
             } else {
                 fbImage.setVisibility(View.GONE);
@@ -79,9 +84,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
 
                 getLikesCount(facebookResponse);
             }
-            if (onePostFromResponse.toString().contains(FacebookConstants.COMMENTS)) {
-                getComments(facebookResponse);
-            }
+            getComments(facebookResponse);
 
 
         } catch (JSONException e) {
