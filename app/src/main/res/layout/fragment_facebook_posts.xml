@@ -25,7 +25,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/fb_title_container_margin"
-        android:layout_marginLeft="248dp"
+        android:layout_marginLeft="@dimen/line_1_margin"
         android:src="@drawable/line_fb1" />
 
     <ImageView
@@ -51,34 +51,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/no_facebook_content"
-            android:layout_width="328dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_width="@dimen/no_fb_message_width"
+            android:layout_height="@dimen/no_fb_message_hoeght"
+            android:layout_marginLeft="@dimen/no_fb_margins"
+            android:layout_marginRight="@dimen/no_fb_margins"
             android:background="#ffffff"
-            android:paddingLeft="20dp"
-            android:paddingTop="15dp"
+            android:paddingLeft="@dimen/no_fb_padding_left"
+            android:paddingTop="@dimen/no_fb_padding_top"
             android:text="@string/no_facebook_content"
-            android:textSize="18sp" />
-
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="60dp"-->
-            <!--android:layout_marginLeft="100dp"-->
-            <!--android:scaleType="fitXY"-->
-            <!--android:src="@drawable/line_fb4" />-->
+            android:textSize="@dimen/no_fb_text_size" />
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/post_1"
         style="@style/post_container"
-        tools:visibility="gone"
-        >
+        tools:visibility="gone">
 
         <FrameLayout
             android:id="@+id/image_container"
@@ -150,21 +141,20 @@
     <RelativeLayout
         android:id="@+id/post_2"
         style="@style/post_container"
-        tools:visibility="gone"
-        >
+        tools:visibility="gone">
 
         <ImageView
             android:id="@+id/fb_line_2"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="270dp"
+            android:layout_height="@dimen/line_img_height"
+            android:layout_marginLeft="@dimen/line_2_marginleft"
             android:scaleType="fitXY"
             android:src="@drawable/line_fb2" />
 
         <FrameLayout
-            android:layout_below="@+id/fb_line_2"
             android:id="@+id/image_container_2"
             style="@style/image_container_style"
+            android:layout_below="@+id/fb_line_2"
             tools:visibility="visible">
 
             <ImageView
@@ -175,7 +165,7 @@
         <TextView
             android:id="@+id/time_post_2"
             style="@style/timeText"
-            android:layout_marginTop="25dp"/>
+            android:layout_marginTop="@dimen/post_margin_top" />
 
         <RelativeLayout
             android:id="@+id/status_container_2"
@@ -232,14 +222,13 @@
 
     <RelativeLayout
         android:id="@+id/post_3"
-        style="@style/post_container"
-        >
+        style="@style/post_container">
 
         <ImageView
             android:id="@+id/fb_line_3"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="109dp"
+            android:layout_height="@dimen/line_img_height"
+            android:layout_marginLeft="@dimen/line_3_margin_left"
             android:scaleType="fitXY"
             android:src="@drawable/line_fb3" />
 
@@ -257,7 +246,7 @@
         <TextView
             android:id="@+id/time_post_3"
             style="@style/timeText"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="@dimen/time_margin_post_3" />
 
         <RelativeLayout
             style="@style/status_container"
@@ -312,9 +301,9 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/line_4_height"
+        android:layout_marginLeft="@dimen/line_4_margin_left"
         android:scaleType="fitXY"
-        android:layout_marginLeft="145dp"
         android:src="@drawable/line_fb4" />
 
 </LinearLayout>

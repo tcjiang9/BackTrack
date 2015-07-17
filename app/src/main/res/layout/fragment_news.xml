@@ -5,8 +5,8 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginLeft="162dp"
+        android:layout_height="@dimen/news_margin_height"
+        android:layout_marginLeft="@dimen/news_margin_left"
         android:scaleType="fitStart"
         android:src="@drawable/line_news" />
 
@@ -140,11 +140,10 @@
 
         <ImageView
             android:id="@+id/ufo_image_transition"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="170dp"
-            android:scaleType="fitXY"
-            android:layout_marginRight="130dp"
+            android:layout_width="@dimen/ufo_width"
+            android:layout_height="@dimen/ufo_height"
+            android:layout_marginLeft="@dimen/ufo_margin_left"
+            android:layout_marginRight="@dimen/ufo_margin_right"
             android:src="@drawable/ufo" />
 
 

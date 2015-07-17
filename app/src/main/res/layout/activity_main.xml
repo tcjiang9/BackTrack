@@ -10,13 +10,13 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="24dp"
+            android:layout_height="@dimen/header_height"
             android:background="@color/line_spacer" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/tab_layout_height"
             app:tabBackground="@drawable/selector_tab_view"
             app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable"
