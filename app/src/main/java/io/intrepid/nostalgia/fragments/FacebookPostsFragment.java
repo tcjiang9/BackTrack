@@ -22,6 +22,7 @@ import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,7 +72,8 @@ public class FacebookPostsFragment extends Fragment {
     List<ImageView> loadImages;
     @InjectViews({R.id.share_post_1, R.id.share_post_2, R.id.share_post_3})
     List<ImageButton> sharePosts;
-
+    @InjectView(R.id.no_facebook_content)
+    TextView noFbMessage;
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
@@ -177,9 +179,10 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void getUserPosts() {
-        if (AccessToken.getCurrentAccessToken() == null) {
+        if (AccessToken.getCurrentAccessToken() == null){
 
-        } else {
+        }
+        else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
                     FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {
@@ -194,13 +197,15 @@ public class FacebookPostsFragment extends Fragment {
 
     private void processFacebookResponse(GraphResponse graphResponse) {
         completeDataFromFb = graphResponse.getJSONObject();
+        if (completeDataFromFb.length() == 1) {
+            noFbMessage.setVisibility(View.VISIBLE);
+            noFbMessage.setText(getString(R.string.no_activity_msg));
+        }
         try {
             JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
+
             for (int i = 0; i < specificData.length(); i++) {
                 FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
-                if (specificData.getJSONObject(i).length() == 0) {
-                    likesCount.get(i).setText(getString(R.string.no_activity_msg));
-                }
                 if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
                     postLayout.get(i).setVisibility(View.VISIBLE);
                     imageLayout.get(i).setVisibility(View.VISIBLE);
@@ -208,11 +213,11 @@ public class FacebookPostsFragment extends Fragment {
                     likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                     commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                     loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
-                    /*if (!specificData.getJSONObject(i).has(FacebookConstants.MESSAGE)){
+                    if (!specificData.getJSONObject(i).has(FacebookConstants.MESSAGE)) {
                         status.get(i).setVisibility(View.GONE);
                     } else {
                         status.get(i).setText(facebookResponse.getStatus());
-                    }*/
+                    }
                 } else {
                     postLayout.get(i).setVisibility(View.VISIBLE);
                     status.get(i).setId(i);
@@ -222,11 +227,8 @@ public class FacebookPostsFragment extends Fragment {
                     status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                     likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                     commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
-
                 }
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -263,7 +265,7 @@ public class FacebookPostsFragment extends Fragment {
 
     private void loadImage(int imageId, ImageView image) {
         image.setVisibility(View.VISIBLE);
-        /*image.setId(imageId);
+        image.setId(imageId);
         if (imageUrl[0] != null) {
             Picasso.with(getActivity()).
                     load(imageUrl[0]).fit()
@@ -278,7 +280,7 @@ public class FacebookPostsFragment extends Fragment {
             Picasso.with(getActivity()).
                     load(imageUrl[2]).fit()
                     .into(image);
-        }*/
+        }
 
     }
 

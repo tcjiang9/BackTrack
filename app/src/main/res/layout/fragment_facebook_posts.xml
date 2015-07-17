@@ -29,14 +29,16 @@
         android:layout_marginTop="@dimen/fblogo_margin_top"
         android:src="@drawable/facebook_logo" />
     <TextView
-        android:layout_width="328dp"
-        android:layout_height="50dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="@dimen/facebook_image_width"
+        android:id="@+id/no_facebook_content"
+        android:layout_height="@dimen/fb_title_container_height"
+        android:layout_marginRight="@dimen/facebook_padding"
+        android:layout_marginLeft="@dimen/facebook_padding"
+        android:layout_marginBottom="@dimen/facebook_padding"
         android:background="#ffffff"
         android:text="@string/no_facebook_content"
-        android:textSize="18sp"/>
+        android:textSize="@dimen/no_activity_size"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/post_1"
@@ -80,7 +82,7 @@
                 android:text="@string/likes" />
 
             <ImageView
-                android:id="@+id/comments"
+                android:id="@+id/comment_name"
                 style="@style/comments_img"
                 android:layout_alignBottom="@+id/likes"
                 android:layout_below="@+id/status_1"
@@ -89,9 +91,9 @@
             <TextView
                 android:id="@+id/comments_cnt"
                 style="@style/numbers"
-                android:layout_alignBottom="@+id/comments"
-                android:layout_toEndOf="@+id/comments"
-                android:layout_toRightOf="@+id/comments"
+                android:layout_alignBottom="@+id/comment_name"
+                android:layout_toEndOf="@+id/comment_name"
+                android:layout_toRightOf="@+id/comment_name"
                 android:text="@string/comments" />
 
             <ImageButton

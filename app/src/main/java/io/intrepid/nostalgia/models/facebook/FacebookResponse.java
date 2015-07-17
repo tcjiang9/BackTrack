@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.intrepid.nostalgia.constants.FacebookConstants;
 
@@ -25,7 +26,7 @@ public class FacebookResponse {
     private String status;
     private String createdTime;
     private String name;
-    ArrayList<Comment> data = new ArrayList<>();
+    List<Comment> data = new ArrayList<>();
 
 
     public String getName() {
@@ -93,18 +94,21 @@ public class FacebookResponse {
 
     public String getLikeNames() {
         String result = "";
-        try {
-            for (int i = 0; i < getLikeCount(); i++) {
-                likeNames.add(i, likesData.getJSONObject(i).getString(FacebookConstants.NAME));
+        if (getLikeCount() > 0) {
+            try {
+                for (int i = 0; i < getLikeCount(); i++) {
+                    likeNames.add(i, likesData.getJSONObject(i).getString(FacebookConstants.NAME));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        for (String likeName : likeNames) {
-            result += likeName + ", ";
-        }
-        return result.substring(0,result.lastIndexOf(","));
+            for (String likeName : likeNames) {
+                result += likeName + ", ";
+            }
+            return result.substring(0, result.lastIndexOf(","));
+        } else
+        return null;
     }
 
     public String getPictureUrl() {
@@ -123,23 +127,19 @@ public class FacebookResponse {
     }
 
 
-    public String getCommentData() {
-        String stringBuilder = "";
+    public List getCommentData() {
         try {
             for (int i = 0; i < getCommentCount(); i++) {
                 JSONObject temp = (JSONObject) commentData.getJSONObject(i).get(FacebookConstants.FROM);
                 data.add(i, new Comment(temp.getString(FacebookConstants.NAME),
                         commentData.getJSONObject(i).getString(FacebookConstants.MESSAGE)));
             }
-            for (int i = 0; i < data.size(); i++) {
-                stringBuilder += (data.get(i).name + ": " + data.get(i).comment + "\n");
 
-            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return stringBuilder;
+        return data;
     }
 
 

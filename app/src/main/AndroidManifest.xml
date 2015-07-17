@@ -36,6 +36,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activities.FacebookPostDetailsActivity"
+            android:theme="@style/DialogNoTitleBar"
             android:label="@string/title_activity_facebook_details" >
 
         </activity>

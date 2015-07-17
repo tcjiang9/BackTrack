@@ -47,7 +47,7 @@
     </style>
 
     <style name="numbers">
-        <item name="android:layout_width">17dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">17dp</item>
         <item name="android:layout_marginTop">12.5dp</item>
         <item name="android:layout_marginLeft">10dp</item>
@@ -109,6 +109,22 @@
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="DialogNoTitleBar" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+<style name="detailsFbStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">#000000</item>
+    <item name="android:layout_marginLeft">16dp</item>
+    <item name="android:layout_marginRight">16dp</item>
+    <item name="android:textSize">15sp</item>
+</style>
+
 
 
 </resources>
