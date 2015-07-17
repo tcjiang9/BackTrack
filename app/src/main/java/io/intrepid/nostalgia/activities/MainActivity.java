@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity
         YearFragment.PrevYearButtonListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String SELECTED_FONT = "fonts/ProximaNova-Bold.otf";
+    public static final String UNSELECTED_FONT = "fonts/ProximaNova-Semibold.otf";
+    public static final int SELECTED_SIZE = 111;
+    public static final int SELECTED_WIDTH = 30;
+    public static final int UNSELECTED_SIZE = 65;
+    public static final int UNSELECTED_WIDTH = 17;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
@@ -63,8 +69,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int newPosition) {
 
-                focusSelectedYear(newPosition, 111, 30, "fonts/ProximaNova-Bold.otf");
-                focusSelectedYear(currentPosition, 65, 17, "fonts/ProximaNova-Semibold.otf");
+                focusSelectedYear(newPosition, SELECTED_SIZE, SELECTED_WIDTH, SELECTED_FONT);
+                focusSelectedYear(currentPosition, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
 
                 ViewPagerFragmentLifeCycle fragmentToHide = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(currentPosition);
                 fragmentToHide.onPauseFragment();
