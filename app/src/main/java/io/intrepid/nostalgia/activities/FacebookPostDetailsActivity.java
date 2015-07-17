@@ -70,9 +70,6 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
             if (response.contains(FacebookConstants.MESSAGE)) {
                 status.setVisibility(View.VISIBLE);
                 status.setText(facebookResponse.getStatus());
-            } else {
-                status.setVisibility(View.VISIBLE);
-                status.setText(getString(R.string.status_alternative));
             }
             if (response.contains(FacebookConstants.PICTURE)) {
                 headerListView.setVisibility(View.VISIBLE);
