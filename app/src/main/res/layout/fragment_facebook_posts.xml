@@ -131,8 +131,8 @@
     <RelativeLayout
         android:id="@+id/post_2"
         style="@style/post_container"
-        android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        >
 
         <ImageView
             android:id="@+id/fb_line_2"
@@ -156,7 +156,7 @@
         <TextView
             android:id="@+id/time_post_2"
             style="@style/timeText"
-            android:layout_marginTop="@dimen/post_margin_top" />
+            android:layout_marginTop="@dimen/time_post_margin"/>
 
         <RelativeLayout
             android:id="@+id/status_container_2"
@@ -237,7 +237,7 @@
         <TextView
             android:id="@+id/time_post_3"
             style="@style/timeText"
-            android:layout_marginTop="@dimen/post_margin" />
+            android:layout_marginTop="@dimen/time_post_margin"/>
 
         <RelativeLayout
             style="@style/status_container"
