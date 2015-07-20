@@ -122,4 +122,5 @@
     <dimen name="ufo_height">100dp</dimen>
     <dimen name="ufo_margin_left">170dp</dimen>
     <dimen name="ufo_margin_right">130dp</dimen>
+    <dimen name="comment_margin_top">30dp</dimen>
 </resources>

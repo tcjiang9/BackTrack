@@ -30,6 +30,7 @@ public class NewsFragment extends Fragment {
     public static final String YEAR = "Display Year";
     public static final String SHARE_URL = "Share url";
     public static final String TEXT_PLAIN = "text/plain";
+    String CURRENT_YEAR;
 
     public String url;
 
@@ -56,8 +57,6 @@ public class NewsFragment extends Fragment {
         i.putExtra(Intent.EXTRA_TEXT, url);
         startActivity(Intent.createChooser(i, SHARE_URL));
     }
-
-    String CURRENT_YEAR;
 
     @OnClick(R.id.read_more_nyt)
     void onReadMore() {
