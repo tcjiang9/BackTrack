@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ic_launcher"
             android:layout_margin="10dp"
+            android:onClick="openSettings"
             android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
