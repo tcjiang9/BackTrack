@@ -7,14 +7,17 @@ import android.media.MediaPlayer;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,6 +29,7 @@ import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.SinglePlayer;
 import io.intrepid.nostalgia.ViewPagerFragmentLifeCycle;
 import io.intrepid.nostalgia.adapters.YearCollectionPagerAdapter;
+import io.intrepid.nostalgia.fragments.ScrollAnimation;
 import io.intrepid.nostalgia.fragments.YearFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -46,8 +50,8 @@ public class MainActivity extends AppCompatActivity
     public static final int UNSELECTED_WIDTH = 17;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private int currentPosition;
-
+    private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
+    ScrollAnimation animation = ScrollAnimation.newInstance();
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity
         currentPosition = -1;
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+
+        viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         //TODO: align color changing with font/size
         tabLayout.setTabTextColors(getResources().getColorStateList(R.color.tabview_selector_color));
@@ -67,6 +73,7 @@ public class MainActivity extends AppCompatActivity
         ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
@@ -79,6 +86,7 @@ public class MainActivity extends AppCompatActivity
                     ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
                     fragmentToResume.onResumeFragment();
                 }
+                animation.deleteAfterAnimation();
                 focusSelectedYear(newPosition, SELECTED_SIZE, SELECTED_WIDTH, SELECTED_FONT);
                 currentPosition = newPosition;
             }
@@ -88,6 +96,15 @@ public class MainActivity extends AppCompatActivity
             }
         };
         viewPager.addOnPageChangeListener(viewPageListener);
+        tabLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.e("scrolled", "clicked");
+                getSupportFragmentManager().beginTransaction().add(R.id.container_pager,
+                     animation, ScrollAnimation.TAG).commit();
+                return false;
+            }
+        });
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
     }
 

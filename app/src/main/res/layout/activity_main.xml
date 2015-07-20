@@ -29,10 +29,14 @@
             app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/TabTextAppearance" />
-
+    <FrameLayout
+        android:id="@+id/container_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+    </FrameLayout>
 
 </LinearLayout>
