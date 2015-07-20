@@ -42,7 +42,6 @@ public class DateFormatter {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.DATE, cal.get(Calendar.DATE));
-       //cal.set(Calendar.DATE, 8);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         long initialTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;

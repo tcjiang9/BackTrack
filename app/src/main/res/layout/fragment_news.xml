@@ -6,7 +6,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="110dp"
+        android:layout_height="120dp"
         android:layout_marginLeft="162dp"
         android:scaleType="fitXY"
         android:src="@drawable/line_news" />
@@ -125,9 +125,10 @@
 
         <ImageView
             android:id="@+id/ufo_image_transition"
-            android:layout_width="@dimen/ufo_width"
-            android:layout_height="@dimen/ufo_height"
-            android:layout_marginLeft="@dimen/ufo_margin_left"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="170dp"
+            android:layout_marginRight="130dp"
             android:src="@drawable/ufo" />
     </LinearLayout>
 </FrameLayout>
