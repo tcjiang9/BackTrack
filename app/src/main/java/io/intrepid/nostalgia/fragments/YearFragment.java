@@ -60,7 +60,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     //Database variables
     DatabaseHelper myDbHelper;
-    
+
     //Song variables
     private String[] songDetails = new String[2];
     private String songUrl;
@@ -183,7 +183,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
         return rootView;
     }
-    
+
     private void initializeDb() {
         myDbHelper = new DatabaseHelper(getActivity());
         try {
