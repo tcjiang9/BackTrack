@@ -40,6 +40,7 @@ public class  FacebookPostDetailsActivity extends AppCompatActivity {
     ListView comments;
     RelativeLayout headerListView;
     JSONObject onePostFromResponse;
+    TextView numOfLikes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class  FacebookPostDetailsActivity extends AppCompatActivity {
         status = (TextView) header.findViewById(R.id.fb_status);
         fbImage = (ImageView) header.findViewById(R.id.full_picture);
         likes = (TextView) header.findViewById(R.id.likes_details);
+
         headerListView = (RelativeLayout) header.findViewById(R.id.header_listview);
         comments.addHeaderView(header);
         Intent intent = getIntent();
@@ -91,10 +93,18 @@ public class  FacebookPostDetailsActivity extends AppCompatActivity {
     }
 
     private void getLikesCount(FacebookResponse responsePojo) throws JSONException {
-        String likeNames = responsePojo.getLikeNames();
+        ArrayList<String> likeNames = responsePojo.getLikeNames();
         if (responsePojo.getLikeCount() > 0) {
             likes.setVisibility(View.VISIBLE);
-            likes.setText(getString(R.string.likes, likeNames));
+            if (likeNames.size() > 5) {
+                String temp = "";
+                for (int i = 0; i < 5; i++) {
+                    temp += likeNames.get(i) + ", ";
+                }
+                temp += "and " + String.valueOf(likeNames.size() - 5) + " others like your photo";
+                likes.setText(getString(R.string.likes, temp));
+            }
+
         }
 
     }
