@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.intrepid.nostalgia" >
+    package="io.intrepid.nostalgia">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -18,7 +18,7 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,8 +27,7 @@
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"/>
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -37,12 +36,10 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activities.FacebookPostDetailsActivity"
-            android:theme="@style/DialogNoTitleBar"
-            android:label="@string/title_activity_facebook_details" >
+            android:theme="@style/DialogNoTitleBar">
 
         </activity>
-        <activity
-            android:name=".activities.LauncherActivity">
+        <activity android:name=".activities.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

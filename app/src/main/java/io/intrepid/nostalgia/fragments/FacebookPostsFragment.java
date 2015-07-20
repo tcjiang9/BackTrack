@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -74,6 +75,8 @@ public class FacebookPostsFragment extends Fragment {
     List<ImageButton> sharePosts;
     @InjectView(R.id.no_facebook_content)
     TextView noFbMessage;
+    @InjectView(R.id.no_fb_message)
+    LinearLayout noFb;
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
@@ -180,7 +183,8 @@ public class FacebookPostsFragment extends Fragment {
 
     private void getUserPosts() {
         if (AccessToken.getCurrentAccessToken() == null){
-
+            noFb.setVisibility(View.VISIBLE);
+            noFbMessage.setText(getString(R.string.no_activity_msg));
         }
         else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
@@ -197,40 +201,41 @@ public class FacebookPostsFragment extends Fragment {
 
     private void processFacebookResponse(GraphResponse graphResponse) {
         completeDataFromFb = graphResponse.getJSONObject();
-        if (completeDataFromFb.length() == 1) {
-            noFbMessage.setVisibility(View.VISIBLE);
+        if (completeDataFromFb == null || completeDataFromFb.length() == 1) {
+            noFb.setVisibility(View.VISIBLE);
             noFbMessage.setText(getString(R.string.no_activity_msg));
-        }
-        try {
-            JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
+        } else {
+            try {
+                JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
 
-            for (int i = 0; i < specificData.length(); i++) {
-                FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
-                if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
-                    postLayout.get(i).setVisibility(View.VISIBLE);
-                    imageLayout.get(i).setVisibility(View.VISIBLE);
-                    timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
-                    likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
-                    commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
-                    loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
-                    if (!specificData.getJSONObject(i).has(FacebookConstants.MESSAGE)) {
-                        status.get(i).setVisibility(View.GONE);
+                for (int i = 0; i < specificData.length(); i++) {
+                    FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
+                    if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
+                        postLayout.get(i).setVisibility(View.VISIBLE);
+                        imageLayout.get(i).setVisibility(View.VISIBLE);
+                        timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
+                        likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
+                        commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
+                        loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
+                        if (!specificData.getJSONObject(i).has(FacebookConstants.MESSAGE)) {
+                            status.get(i).setVisibility(View.GONE);
+                        } else {
+                            status.get(i).setText(facebookResponse.getStatus());
+                        }
                     } else {
-                        status.get(i).setText(facebookResponse.getStatus());
+                        postLayout.get(i).setVisibility(View.VISIBLE);
+                        status.get(i).setId(i);
+                        timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
+                        RelativeLayout.LayoutParams currentLayoutParams = (RelativeLayout.LayoutParams) status.get(i).getLayoutParams();
+                        currentLayoutParams.addRule(RelativeLayout.BELOW, timeStamp.get(i).getId());
+                        status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
+                        likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
+                        commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                     }
-                } else {
-                    postLayout.get(i).setVisibility(View.VISIBLE);
-                    status.get(i).setId(i);
-                    timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
-                    RelativeLayout.LayoutParams currentLayoutParams = (RelativeLayout.LayoutParams) status.get(i).getLayoutParams();
-                    currentLayoutParams.addRule(RelativeLayout.BELOW, timeStamp.get(i).getId());
-                    status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
-                    likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
-                    commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
@@ -29,8 +30,12 @@ public class NewsFragment extends Fragment {
     public static final String YEAR = "Display Year";
     public static final String SHARE_URL = "Share url";
     public static final String TEXT_PLAIN = "text/plain";
+    String CURRENT_YEAR;
 
     public String url;
+
+    @InjectView(R.id.ufo_image_transition)
+    ImageView ufoTransition;
 
     @InjectView(R.id.news_headline)
     TextView newsHeadline;
@@ -77,10 +82,10 @@ public class NewsFragment extends Fragment {
     }
 
     public void sendNytGetRequest() {
-        final String CURRENT_YEAR = Integer.toString(getArguments().getInt(YEAR));
+        CURRENT_YEAR = Integer.toString(getArguments().getInt(YEAR));
         String date = DateFormatter.makeNytDate(CURRENT_YEAR);
         Log.d(TAG, "@@@@@@@@@@@@@@@@@@@@@@@" + CURRENT_YEAR);
-
+        changeUfoImage();
         NytServiceAdapter.getNytServiceInstance()
                 .getNytArticle(date, date, new Callback<NyTimesReturn>() {
                     @Override
@@ -98,14 +103,29 @@ public class NewsFragment extends Fragment {
                         newsByline.setText(by);
                         newsBody.setText(snippet);
                         ribbonDate.setText(DateFormatter.makeRibbonDateText());
-                        Log.d(TAG,"!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + pubDate + webUrl + headline + snippet);
+                        Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + pubDate + webUrl + headline + snippet);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d(TAG,"!!!!!!!!!!!!!!!!!!!!!!!!!!!" + error.toString());
+                        Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!" + error.toString());
                     }
                 });
 
+    }
+
+    private void changeUfoImage() {
+        int constantYr = 1980;
+        int currentYer = Integer.parseInt(CURRENT_YEAR);
+        int difference = currentYer - constantYr;
+        if (difference >= 30) {
+            ufoTransition.setImageResource(R.drawable.ufo);
+        } else if (difference >= 20) {
+            ufoTransition.setImageResource(R.drawable.rocket_2000);
+        } else if (difference >= 10) {
+            ufoTransition.setImageResource(R.drawable.plane_90s);
+        } else if (difference >= 0 || difference < 0) {
+            ufoTransition.setImageResource(R.drawable.hot_balloon_80s);
+        }
     }
 }
