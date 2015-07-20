@@ -191,7 +191,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
         return rootView;
     }
-    
+
     private void initAnimator() {
         objectAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 2160f);
         objectAnimator.setDuration(30000); //30 seconds in ms
@@ -207,7 +207,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         objectAnimator.start();
         objectAnimator.setCurrentPlayTime(currentTime);
     }
-    
+
     private String[] getSongFromDB(Cursor c, int index) {
         String[] artistAndSong = new String[2];
         c.moveToPosition(index);
