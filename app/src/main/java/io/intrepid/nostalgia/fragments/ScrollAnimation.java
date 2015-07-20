@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,6 @@ Timer timer = new Timer();
         return inflater.inflate(R.layout.fragment_scroll_animation, container, false);
     }
 
-
     public void deleteAfterAnimation() {
         if (getActivity().getSupportFragmentManager()!=null) {
             timer.schedule(new TimerTask() {
@@ -44,5 +44,10 @@ Timer timer = new Timer();
             }, 4000);
             getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

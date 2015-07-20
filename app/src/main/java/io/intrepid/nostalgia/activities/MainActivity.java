@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
-    ScrollAnimation animation = ScrollAnimation.newInstance();
+    public static boolean tabDragged;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +78,13 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onPageSelected(int newPosition) {
+                if (tabDragged){
+                    Fragment animation = getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
+                    getSupportFragmentManager().beginTransaction().remove(animation).commit();
+                    tabDragged=false;
+                }
+
+
 
                 if (currentPosition != -1) {
                     focusSelectedYear(currentPosition, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
@@ -86,7 +93,6 @@ public class MainActivity extends AppCompatActivity
                     ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
                     fragmentToResume.onResumeFragment();
                 }
-                animation.deleteAfterAnimation();
                 focusSelectedYear(newPosition, SELECTED_SIZE, SELECTED_WIDTH, SELECTED_FONT);
                 currentPosition = newPosition;
             }
@@ -99,13 +105,16 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.e("scrolled", "clicked");
-                getSupportFragmentManager().beginTransaction().add(R.id.container_pager,
-                     animation, ScrollAnimation.TAG).commit();
+                if(!tabDragged) {
+                    tabDragged = true;
+                    getSupportFragmentManager().beginTransaction().add(R.id.container_pager,
+                            new ScrollAnimation(), ScrollAnimation.TAG).commit();
+                }
                 return false;
             }
         });
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
+
     }
 
     @Override

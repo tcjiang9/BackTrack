@@ -3,6 +3,6 @@
     android:layout_height="match_parent"
     tools:context="io.intrepid.nostalgia.fragments.ScrollAnimation"
     android:background="#000000"
-    android:alpha="0.1">
+    android:alpha="0.4">
 
 </FrameLayout>
