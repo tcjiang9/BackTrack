@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -37,7 +38,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
     String url;
     @InjectView(R.id.display_comments)
     ListView comments;
-    LinearLayout headerListView;
+    RelativeLayout headerListView;
     JSONObject onePostFromResponse;
 
     @Override
@@ -50,7 +51,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         status = (TextView) header.findViewById(R.id.fb_status);
         fbImage = (ImageView) header.findViewById(R.id.full_picture);
         likes = (TextView) header.findViewById(R.id.likes_details);
-        headerListView = (LinearLayout) header.findViewById(R.id.header_listview);
+        headerListView = (RelativeLayout) header.findViewById(R.id.header_listview);
         comments.addHeaderView(header);
         Intent intent = getIntent();
         try {

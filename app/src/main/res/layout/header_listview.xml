@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/header_listview"
     android:orientation="vertical"
@@ -16,6 +16,7 @@
 
     <TextView
         android:id="@+id/fb_status"
+        android:layout_below="@+id/full_picture"
         style="@style/detailsFbStyle"
         android:visibility="gone"
         android:layout_marginBottom="@dimen/margin_header_listview"
@@ -23,9 +24,10 @@
 
     <TextView
         android:id="@+id/likes_details"
+        android:layout_below="@+id/fb_status"
         style="@style/detailsFbStyle"
         android:textStyle="bold"
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/margin_header_lv"/>
+        android:visibility="visible"
+        tools:text="likes" />
 
-</LinearLayout>
+</RelativeLayout>

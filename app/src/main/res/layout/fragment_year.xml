@@ -16,7 +16,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@color/application_color"
+                android:background="#85deda"
                 android:scaleType="fitXY"
                 android:src="@drawable/city_illustration" />
 

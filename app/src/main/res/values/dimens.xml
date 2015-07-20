@@ -124,4 +124,7 @@
     <dimen name="ufo_margin_right">130dp</dimen>
     <dimen name="comment_margin_top">30dp</dimen>
     <dimen name="time_post_margin">40dp</dimen>
+    <dimen name="fb_line4_hieght">52dp</dimen>
+    <dimen name="fb_line_4_margin">143dp</dimen>
+    <dimen name="illustration_height">56dp</dimen>
 </resources>
