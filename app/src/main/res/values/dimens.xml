@@ -100,7 +100,6 @@
     <dimen name="image_margin_bottom">10dp</dimen>
     <dimen name="margin_header_lv">30dp</dimen>
     <dimen name="no_activity_size">18sp</dimen>
-    <dimen name="time_post_margin">40dp</dimen>
     <dimen name="no_fb_message_width">328dp</dimen>
     <dimen name="no_fb_message_hoeght">100dp</dimen>
     <dimen name="no_fb_margins">16dp</dimen>
