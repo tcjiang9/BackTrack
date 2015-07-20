@@ -1,7 +1,6 @@
 package io.intrepid.nostalgia.fragments;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -28,7 +27,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import io.intrepid.nostalgia.DateFormatter;
 import io.intrepid.nostalgia.adapters.ItunesServiceAdapter;
 import io.intrepid.nostalgia.R;
@@ -102,7 +100,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //the current year, for future use.
         currentYear = getArguments().getInt(YEAR);
-        DatabaseHelper myDbHelper = new DatabaseHelper(getActivity());
+        DatabaseHelper myDbHelper = DatabaseHelper.getInstance(getActivity());
 
         // initialize db
         try {
@@ -116,7 +114,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             Cursor c = myDbHelper.getData(String.valueOf(currentYear));
             int i = DateFormatter.getDay();
             int index = c.getCount() % i;
-            songDetails = getRandomSongFromDb(c, index);
+            songDetails = getSongFromDB(c, index);
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
@@ -181,7 +179,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         return rootView;
     }
 
-    private String[] getRandomSongFromDb(Cursor c, int index) {
+    private String[] getSongFromDB(Cursor c, int index) {
         String[] artistAndSong = new String[2];
         c.moveToPosition(index);
         artistAndSong[0] = c.getString(0);

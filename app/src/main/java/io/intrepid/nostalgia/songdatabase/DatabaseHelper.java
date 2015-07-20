@@ -17,6 +17,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static DatabaseHelper databaseHelperInstance = null;
+
     public static final String FILE_NAME = "tracks.db";
     private final Context myContext;
     private static String DB_PATH;
@@ -25,6 +28,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase myDataBase;
 
+
+    public static DatabaseHelper getInstance(Context context) {
+        if (databaseHelperInstance == null) {
+            databaseHelperInstance = new DatabaseHelper(context);
+        }
+        return databaseHelperInstance;
+    }
+
     public DatabaseHelper(Context context) {
 
         super(context, DB_NAME, null, 1);
@@ -32,6 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String path = context.getFilesDir().getPath();
         DB_PATH = path.substring(0, path.lastIndexOf("/")) + "/databases";
     }
+
     public void createDataBase() throws IOException {
 
         boolean dbExist = checkDataBase();
@@ -48,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
+
     private boolean checkDataBase() {
 
         SQLiteDatabase checkDB = null;
@@ -65,6 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return checkDB != null;
     }
+
     private void copyDataBase() throws IOException {
 
         InputStream myInput = myContext.getAssets().open(FILE_NAME);
