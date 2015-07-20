@@ -1,5 +1,6 @@
 package io.intrepid.nostalgia.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,6 +55,11 @@ public class LoginActivity extends AppCompatActivity {
         if (intent.getBooleanExtra(intentExtra, false)) {
             onFacebookLogin(true);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     public void onFacebookLogin(final boolean skipMain) {

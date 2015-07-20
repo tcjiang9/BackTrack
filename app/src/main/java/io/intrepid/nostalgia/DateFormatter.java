@@ -1,11 +1,13 @@
 package io.intrepid.nostalgia;
 
 import android.os.Bundle;
+import android.provider.UserDictionary;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import io.intrepid.nostalgia.constants.FacebookConstants;
 
@@ -21,8 +23,9 @@ public class DateFormatter {
     }
 
     public static String makeDateText(String year) {
-        String date = new SimpleDateFormat("MMMM d").format(new Date());
-        return date + ", " + year;
+        String date = new SimpleDateFormat("MMM d").format(new Date());
+        String day = (new SimpleDateFormat("EE", Locale.ENGLISH).format(new Date())).toUpperCase();
+        return date + " " + day;
     }
 
     public static String makeRibbonDateText() {

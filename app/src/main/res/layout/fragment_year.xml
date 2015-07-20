@@ -25,6 +25,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/ribbon_top_margin"
+                android:textColor="@color/date_text"
+                android:textSize="@dimen/read_more_text"
+                android:textAppearance="@style/regular"
                 android:text="@string/date_text" />
 
         </FrameLayout>
@@ -67,13 +71,15 @@
             android:id="@+id/song_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:text="@string/song_title"
+            android:textAppearance="@style/semi_bold"/>
 
         <TextView
             android:id="@+id/song_artist_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:text="@string/song_artist"
+            android:textAppearance="@style/light"/>
 
         <RelativeLayout
             android:id="@+id/facebook_view"
@@ -100,7 +106,8 @@
             android:id="@+id/previous_year_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prev_year" />
+            android:text="@string/prev_year"
+            android:textAppearance="@style/semi_bold"/>
 
     </LinearLayout>
 </ScrollView>

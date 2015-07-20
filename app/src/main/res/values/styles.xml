@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:tabWidgetStyle">@style/CustomTabWidget</item>
+        <item name="android:tabWidgetStyle">@style/TabTextAppearance</item>
     </style>
 
     <style name="settings_style">
@@ -33,6 +33,7 @@
         <item name="android:paddingRight">17dp</item>
         <item name="android:paddingTop">2dp</item>
         <item name="android:layout_marginTop">7dp</item>
+        <item name="android:textAppearance">@style/regular</item>
     </style>
 
     <style name="status_text">
@@ -43,6 +44,7 @@
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:text">@string/status_alternative</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:textAppearance">@style/regular</item>
 
     </style>
 
@@ -52,6 +54,7 @@
         <item name="android:layout_marginTop">12.5dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">@style/regular</item>
     </style>
 
     <style name="likes_img">
@@ -92,17 +95,11 @@
         <item name="android:layout_marginBottom">16dp</item>
 
     </style>
-    <style name="CustomTabWidget" parent="@android:style/Widget.TabWidget">
-        <item name="android:textAppearance">@style/CustomTabWidgetText</item>
-    </style>
-    <style name="CustomTabWidgetText" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:textSize">50sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <style name="TabTextAppearance" >
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/tabview_selector_color</item>
+        <item name="android:textAppearance">@style/semi_bold</item>
     </style>
     
     <style name="TabTextSelected">
@@ -126,5 +123,50 @@
 </style>
 
 
+    <!--fonts-->
+
+    <style name="black">
+        <item name="fontPath">fonts/ProximaNova-Black copy.otf</item>
+    </style>
+
+    <style name="bold">
+        <item name="fontPath">fonts/ProximaNova-Bold.otf</item>
+    </style>
+    
+    <style name="bold_lt">
+        <item name="fontPath">fonts/ProximaNova-Boldlt.otf</item>
+    </style>
+
+    <style name="extra_bold" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-Extrabold.otf</item>
+    </style>
+
+    <style name="light" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-Light.otf</item>
+    </style>
+
+    <style name="light_italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-LightItalic.otf</item>
+    </style>
+
+    <style name="reg_italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-RegItalic.otf</item>
+    </style>
+
+    <style name="regular" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-Regular.otf</item>
+    </style>
+
+    <style name="regular_italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-RegularItalic.otf</item>
+    </style>
+
+    <style name="semi_bold" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-Semibold.otf</item>
+    </style>
+
+    <style name="semi_bold_italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/ProximaNova-SemiboldItalic.otf</item>
+    </style>
 
 </resources>

@@ -5,6 +5,7 @@
     <color name="light_blue">#ff3b7eff</color>
     <color name="white">#fff</color>
     <color name="byline_grey">#9B9B9B</color>
+    <color name="date_text">#49a4db</color>
 
     <!--login screen-->
     <color name="skip_facebook_grey">#ACB7BA</color>

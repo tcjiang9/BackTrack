@@ -31,7 +31,8 @@
             android:layout_marginTop="@dimen/news_top_margin"
             android:text="@string/news_tab"
             android:textColor="@color/white"
-            android:textSize="@dimen/news_header_text" />
+            android:textSize="@dimen/news_header_text"
+            android:textAppearance="@style/regular"/>
 
     </FrameLayout>
 
@@ -60,9 +61,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/byline_top_margin"
+                android:textSize="@dimen/byline_text"
                 android:textColor="@color/byline_grey"
-                android:textSize="@dimen/byline_text" />
+                android:textAppearance="@style/regular"/>
 
             <TextView
                 android:id="@+id/news_body"
@@ -70,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:textSize="@dimen/news_body_text" />
+                android:textSize="@dimen/news_body_text"
+                android:textAppearance="@style/regular"/>
 
             <TextView
                 android:id="@+id/read_more_nyt"
@@ -79,8 +81,9 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/read_more_nyt"
                 android:textColor="@color/byline_grey"
-                android:textSize="@dimen/read_more_text" />
-
+                android:textSize="@dimen/read_more_text"
+                android:textAppearance="@style/regular"/>
+            
             <ImageView
                 android:id="@+id/share_button"
                 android:layout_width="@dimen/share_dimens"
@@ -104,9 +107,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/ribbon_text_left_margin"
-            android:layout_marginTop="@dimen/ribbon_text_top_margin"
+            android:layout_marginTop="@dimen/ribbon_top_margin"
+            android:textColor="@color/white"
             android:textAllCaps="true"
-            android:textColor="@color/white" />
+            android:textAppearance="@style/regular"/>
 
     </FrameLayout>
 
