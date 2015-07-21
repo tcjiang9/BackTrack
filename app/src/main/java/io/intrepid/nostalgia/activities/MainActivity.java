@@ -104,9 +104,10 @@ public class MainActivity
                 return false;
             }
         });
-        startingFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1);
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
-        startingFragment.onResumeFragment();
+        YearFragment startingFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1);
+        startingFragment.setActive();
+        
     }
 
     @Override
