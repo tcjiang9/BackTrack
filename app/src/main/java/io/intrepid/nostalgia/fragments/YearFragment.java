@@ -115,6 +115,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             int i = DateFormatter.getDay();
             int index = c.getCount() % i;
             songDetails = getSongFromDB(c, index);
+            myDbHelper.close();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
@@ -317,6 +318,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
          **/
     }
 
+    @Override
     public void onResumeFragment() {
         updateUi(Actions.stopping);
         initPlayer();
