@@ -1,0 +1,21 @@
+pick 4447e7e Implementing animation pause
+pick 4f0beec Attempting to close DB connection temp commit
+pick 1ff7aed completing pause animation
+
+# Rebase 1bbf1f4..1ff7aed onto 1bbf1f4 (       3 TODO item(s))
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out

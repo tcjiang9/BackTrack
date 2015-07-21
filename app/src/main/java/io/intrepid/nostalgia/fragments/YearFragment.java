@@ -62,7 +62,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     DatabaseHelper myDbHelper;
 
     //Song variables
-    private String[] songDetails = new String[2];
     private String songUrl;
     private String imageUrl;
 
@@ -254,6 +253,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                             if (isActive && checkAutoPlay()) {
                                 playMusic(mediaPlayer, songUrl);
                             }
+
                         } else {
                             return;
                         }
