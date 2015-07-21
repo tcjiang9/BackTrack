@@ -128,4 +128,5 @@
     <dimen name="fb_line_4_margin">143dp</dimen>
     <dimen name="illustration_height">56dp</dimen>
     <dimen name="settings_btn_margin">15dp</dimen>
+    <dimen name="post_margin">40dp</dimen>
 </resources>

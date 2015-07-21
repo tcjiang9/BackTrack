@@ -25,7 +25,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/fb_title_container_margin"
-        android:layout_marginLeft="248dp"
+        android:layout_marginLeft="@dimen/line_1_margin"
         android:src="@drawable/line_fb1" />
 
 
@@ -121,7 +121,7 @@
                 android:layout_marginLeft="@dimen/share_btn_margin_left"
                 android:layout_marginRight="@dimen/share_btn_margin_right"
                 android:layout_marginStart="@dimen/share_btn_margin_left"
-                android:background="#FFFFFF"
+                android:background="@color/white"
                 android:src="@drawable/share" />
         </RelativeLayout>
 
@@ -219,8 +219,8 @@
         <ImageView
             android:id="@+id/fb_line_3"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="109dp"
+            android:layout_height="@dimen/line_img_height"
+            android:layout_marginLeft="@dimen/line_3_margin_left"
             android:scaleType="fitXY"
             android:src="@drawable/line_fb3" />
 
@@ -238,7 +238,7 @@
         <TextView
             android:id="@+id/time_post_3"
             style="@style/timeText"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="@dimen/post_margin" />
 
         <RelativeLayout
             style="@style/status_container"
@@ -293,9 +293,9 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/line_4_height"
         android:scaleType="fitXY"
-        android:layout_marginLeft="143dp"
+        android:layout_marginLeft="@dimen/line_4_margin_left"
         android:src="@drawable/line_fb4" />
 
 </LinearLayout>
