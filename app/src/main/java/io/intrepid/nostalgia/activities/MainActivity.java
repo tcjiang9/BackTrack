@@ -37,9 +37,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 import uk.co.chrisjenx.calligraphy.TypefaceUtils;
 
 
-public class MainActivity extends AppCompatActivity
-        implements
-        YearFragment.PrevYearButtonListener {
+public class MainActivity
+        extends AppCompatActivity
+        implements YearFragment.PrevYearButtonListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String SELECTED_FONT = "fonts/ProximaNova-Bold.otf";
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity
             public void onPageScrollStateChanged(int state) {
             }
         };
+
         viewPager.addOnPageChangeListener(viewPageListener);
         tabLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
+        ViewPagerFragmentLifeCycle startingFragment = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1 );
+        startingFragment.onResumeFragment();
     }
 
     @Override

@@ -114,8 +114,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         Log.i(TAG, String.valueOf(currentYear) + " HAS CALLED ONCREATEVIEW");
 
         initializeDb();
-        
-        String[] songDetails = getSongInfo();
+        String[] songDetails = getDbSongInfo();
 
         String songTitle = songDetails[0];
         String songArtist = songDetails[1];
@@ -188,7 +187,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         }
     }
 
-    private String[] getSongInfo() {
+    private String[] getDbSongInfo() {
         String[] artistAndSong = new String[2];
         try {
             Cursor c = myDbHelper.getData(String.valueOf(currentYear));
