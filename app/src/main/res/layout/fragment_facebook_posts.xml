@@ -48,7 +48,7 @@
             android:layout_marginBottom="@dimen/facebook_padding"
             android:layout_marginLeft="@dimen/facebook_padding"
             android:layout_marginRight="@dimen/facebook_padding"
-            android:background="#ffffff"
+            android:background="@color/white"
             android:text="@string/no_facebook_content"
             android:textSize="@dimen/no_activity_size"
             android:visibility="gone" />
@@ -136,8 +136,8 @@
         <ImageView
             android:id="@+id/fb_line_2"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="270dp"
+            android:layout_height="@dimen/line_img_height"
+            android:layout_marginLeft="@dimen/line_2_marginleft"
             android:scaleType="fitXY"
             android:src="@drawable/line_fb2" />
 
@@ -155,7 +155,7 @@
         <TextView
             android:id="@+id/time_post_2"
             style="@style/timeText"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="@dimen/post_margin_top" />
 
         <RelativeLayout
             android:id="@+id/status_container_2"
@@ -203,7 +203,7 @@
                 android:layout_marginLeft="@dimen/share_btn_margin_left"
                 android:layout_marginRight="@dimen/share_btn_margin_right"
                 android:layout_marginStart="@dimen/share_btn_margin_left"
-                android:background="#FFFFFF"
+                android:background="@color/white"
                 android:src="@drawable/share" />
         </RelativeLayout>
 
