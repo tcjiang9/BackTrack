@@ -274,12 +274,12 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         });
         if (isPaused) {
             mediaPlayer.start();
+            Log.i(TAG, "QUICKSTART");
             isPaused = false;
             updateUi(Actions.starting);
         } else {
             try {
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                Log.i(TAG, "Right before data source");
                 Log.i(TAG, songUrl);
                 mediaPlayer.setDataSource(songUrl);
                 Log.i(TAG, "!!!!!!!!About to prepare async!!!!!!!!!!!");
