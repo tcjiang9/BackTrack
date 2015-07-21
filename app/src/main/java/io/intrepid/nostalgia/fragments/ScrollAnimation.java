@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import java.util.Timer;
 
@@ -106,6 +104,7 @@ public class ScrollAnimation extends Fragment {
                 ufo.setVisibility(View.GONE);
                 light.setVisibility(View.GONE);
                 clouds.setVisibility(View.GONE);
+                getActivity().getSupportFragmentManager().beginTransaction().remove(ScrollAnimation.this).commit();
             }
 
             @Override
@@ -114,14 +113,15 @@ public class ScrollAnimation extends Fragment {
             }
         });
 
-        deleteAfterAnimation();
+       // deleteAfterAnimation();
         return view;
     }
 
     public void deleteAfterAnimation() {
-        if (getActivity().getSupportFragmentManager() != null) {
+       // if (getActivity().getSupportFragmentManager() != null) {
+            ufo.setVisibility(View.VISIBLE);
             ufo.startAnimation(ufoSlideUpAnimation);
-        }
+        //}
     }
 
 

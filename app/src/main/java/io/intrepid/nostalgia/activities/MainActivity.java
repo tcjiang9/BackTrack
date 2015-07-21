@@ -79,8 +79,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int newPosition) {
                 if (tabDragged){
-                    Fragment animation = getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
-                    getSupportFragmentManager().beginTransaction().remove(animation).commit();
+                    ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
+                    animation.deleteAfterAnimation();
+                  //  getSupportFragmentManager().beginTransaction().remove(animation).commit();
                     tabDragged=false;
                 }
 
