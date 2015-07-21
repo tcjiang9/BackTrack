@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
     public static final int UNSELECTED_WIDTH = 17;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
+    private int currentPosition;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -54,13 +54,16 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         SinglePlayer.getInstance();
         final YearCollectionPagerAdapter pagerAdapter = new YearCollectionPagerAdapter(getSupportFragmentManager());
+        currentPosition = -1;
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         //TODO: align color changing with font/size
         tabLayout.setTabTextColors(getResources().getColorStateList(R.color.tabview_selector_color));
         tabLayout.setupWithViewPager(viewPager);
+        for (int j = 0; j<= (Constants.NUMBER_OF_YEARS - 1); j ++){
+            focusSelectedYear(j, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
+        }
         ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -69,14 +72,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int newPosition) {
 
+                if (currentPosition != -1) {
+                    focusSelectedYear(currentPosition, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
+                    ViewPagerFragmentLifeCycle fragmentToHide = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(currentPosition);
+                    fragmentToHide.onPauseFragment();
+                    ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
+                    fragmentToResume.onResumeFragment();
+                }
                 focusSelectedYear(newPosition, SELECTED_SIZE, SELECTED_WIDTH, SELECTED_FONT);
-                focusSelectedYear(currentPosition, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
-
-                ViewPagerFragmentLifeCycle fragmentToHide = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(currentPosition);
-                fragmentToHide.onPauseFragment();
-
-                ViewPagerFragmentLifeCycle fragmentToResume = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(newPosition);
-                fragmentToResume.onResumeFragment();
                 currentPosition = newPosition;
             }
 
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity
             }
         };
         viewPager.addOnPageChangeListener(viewPageListener);
+        viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
     }
 
     @Override

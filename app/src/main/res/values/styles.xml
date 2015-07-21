@@ -102,11 +102,6 @@
         <item name="android:textColor">@color/tabview_selector_color</item>
         <item name="android:textAppearance">@style/semi_bold</item>
     </style>
-    
-    <style name="TabTextSelected">
-        <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <style name="DialogNoTitleBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
