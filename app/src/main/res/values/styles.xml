@@ -4,8 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:tabWidgetStyle">@style/TabTextAppearance</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:statusBarColor">#85deda</item>
+        <item name="android:colorPrimaryDark">@color/application_color</item>
     </style>
 
     <style name="settings_style">

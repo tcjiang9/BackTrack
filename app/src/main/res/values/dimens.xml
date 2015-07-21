@@ -82,7 +82,7 @@
     <dimen name="settings_text">16sp</dimen>
     <dimen name="settings_line_width">329dp</dimen>
     <dimen name="settings_line_height">1dp</dimen>
-    <dimen name="settings_box_height">45dp</dimen>
+    <dimen name="settings_box_height">50dp</dimen>
     <dimen name="feedback_top_margin">10dp</dimen>
     <dimen name="feedback_arrow_width">13dp</dimen>
     <dimen name="feedback_arrow_height">21dp</dimen>
@@ -123,4 +123,10 @@
     <dimen name="ufo_margin_left">170dp</dimen>
     <dimen name="ufo_margin_right">130dp</dimen>
     <dimen name="comment_margin_top">30dp</dimen>
+    <dimen name="time_post_margin">40dp</dimen>
+    <dimen name="fb_line4_hieght">52dp</dimen>
+    <dimen name="fb_line_4_margin">143dp</dimen>
+    <dimen name="illustration_height">56dp</dimen>
+    <dimen name="settings_btn_margin">15dp</dimen>
+    <dimen name="post_margin">40dp</dimen>
 </resources>

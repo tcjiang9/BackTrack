@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,18 @@ public class FacebookPostsFragment extends Fragment {
     JSONObject completeDataFromFb;
     String[] imageUrl = new String[3];
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_facebook_posts, container, false);
+        ButterKnife.inject(this, rootView);
+        currentYear = getArguments().getInt(YEAR_KEY);
+        callbackManager = CallbackManager.Factory.create();
+        getUserPosts();
+        return rootView;
+    }
+
     @OnClick(R.id.share_post_1) void onShareOne() {
         shareFacebookPost(0);
     }
@@ -92,6 +105,13 @@ public class FacebookPostsFragment extends Fragment {
 
     @OnClick(R.id.share_post_3) void onShareThree() {
         shareFacebookPost(2);
+    }
+
+    @OnClick({R.id.post_1, R.id.post_2, R.id.post_3})
+    void onClickLayout(View view){
+        Log.e("on click on layuout", "" + view.getId());
+        openPhotoDetails(view.getId());
+
     }
 
     private void shareFacebookPost(int order) {
@@ -133,36 +153,6 @@ public class FacebookPostsFragment extends Fragment {
 
     public FacebookPostsFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_facebook_posts, container, false);
-        ButterKnife.inject(this, rootView);
-        currentYear = getArguments().getInt(YEAR_KEY);
-        callbackManager = CallbackManager.Factory.create();
-        getUserPosts();
-        return rootView;
-    }
-
-    @OnClick({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
-    void openScreenForActivity(View view) {
-        openPhotoDetails(view.getId());
-    }
-
-    @OnClick({R.id.status_1, R.id.status_2, R.id.status_3})
-    void statusUpdate(View view) {
-        openPhotoDetails(view.getId());
-    }
-
-    @OnClick({R.id.share_post_1, R.id.share_post_2, R.id.share_post_3})
-    void onClickShareStatus(View view) {
-        shareFbPosts(view.getId());
-    }
-
-    private void shareFbPosts(int viewId) {
-
     }
 
     private void openPhotoDetails(int viewType) {
@@ -210,7 +200,7 @@ public class FacebookPostsFragment extends Fragment {
 
                 for (int i = 0; i < specificData.length(); i++) {
                     FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
-                    if (specificData.getJSONObject(i).toString().contains(FacebookConstants.PICTURE)) {
+                    if (specificData.getJSONObject(i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.ADDED_PHOTOS)) {
                         postLayout.get(i).setVisibility(View.VISIBLE);
                         imageLayout.get(i).setVisibility(View.VISIBLE);
                         timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
@@ -222,7 +212,7 @@ public class FacebookPostsFragment extends Fragment {
                         } else {
                             status.get(i).setText(facebookResponse.getStatus());
                         }
-                    } else {
+                    } else if(specificData.getJSONObject(i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.STATUS)) {
                         postLayout.get(i).setVisibility(View.VISIBLE);
                         status.get(i).setId(i);
                         timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
@@ -231,9 +221,12 @@ public class FacebookPostsFragment extends Fragment {
                         status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                         likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                         commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
+                    } else {
+                        noFb.setVisibility(View.VISIBLE);
+                        noFbMessage.setText(getString(R.string.no_activity_msg));
                     }
                 }
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -270,6 +263,7 @@ public class FacebookPostsFragment extends Fragment {
 
     private void loadImage(int imageId, ImageView image) {
         image.setVisibility(View.VISIBLE);
+        postLayout.get(imageId).setId(imageId);
         image.setId(imageId);
         if (imageUrl[0] != null) {
             Picasso.with(getActivity()).

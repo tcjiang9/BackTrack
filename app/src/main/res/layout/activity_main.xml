@@ -1,17 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="@dimen/settings_box_height"
+        android:orientation="vertical"
+        android:background="@color/application_color">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/header_height"
-            android:background="@color/line_spacer" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting"
+            android:layout_margin="@dimen/settings_btn_margin"
+            android:onClick="openSettings"
+            android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
@@ -27,5 +33,4 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </LinearLayout>
 </LinearLayout>
