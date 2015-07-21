@@ -158,11 +158,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         songArtistView.setText(songArtist);
 
         getChildFragmentManager().beginTransaction()
-                .add(R.id.facebook_view, FacebookPostsFragment.getInstance(currentYear))
+                .replace(R.id.facebook_view, FacebookPostsFragment.getInstance(currentYear))
                 .commit();
 
         getChildFragmentManager().beginTransaction()
-                .add(R.id.news_view, NewsFragment.getInstance(currentYear))
+                .replace(R.id.news_view, NewsFragment.getInstance(currentYear))
                 .commit();
 
         Button prevYearButton = (Button) rootView.findViewById(R.id.previous_year_button);
