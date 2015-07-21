@@ -48,10 +48,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     public static final String YEAR = "Display Year";
     public static final String KEY = "year";
     public int currentYear;
+    private boolean isActive = false;
 
     private PrevYearButtonListener prevYearButtonListener;
 
-    //MediaPlayer variables
+    // MediaPlayer variables
     private MediaPlayer mediaPlayer;
     private boolean isPreparing = false;
     private boolean isPaused = false;
@@ -240,7 +241,12 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                                     .placeholder(R.drawable.default_record)
                                     .into(musicImage);
                             Log.i(TAG, imageUrl);
-
+                            if (isActive) {
+                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                                if (sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true)) {
+                                    playMusic(mediaPlayer, songUrl);
+                                }
+                            }
                         } else {
                             return;
                         }
@@ -346,6 +352,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @Override
     public void onPauseFragment() {
+        isActive = false;
         if (mediaPlayer == null) {
             mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
         }
@@ -364,13 +371,14 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @Override
     public void onResumeFragment() {
+        isActive = true;
         Log.i(TAG, String.valueOf(currentYear) + " HAS RESUMED");
         updateUi(Actions.stopping);
         initPlayer();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
-        if (sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true)) {
-           playMusic(mediaPlayer, songUrl);
-        }
+    }
+
+    public void setActive() {
+        isActive = true;
     }
 
     private void initPlayer() {

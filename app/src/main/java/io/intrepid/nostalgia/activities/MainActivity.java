@@ -2,9 +2,6 @@ package io.intrepid.nostalgia.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.media.MediaPlayer;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -20,18 +16,17 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
-import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.SinglePlayer;
 import io.intrepid.nostalgia.ViewPagerFragmentLifeCycle;
 import io.intrepid.nostalgia.adapters.YearCollectionPagerAdapter;
+import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.fragments.ScrollAnimation;
 import io.intrepid.nostalgia.fragments.YearFragment;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 import uk.co.chrisjenx.calligraphy.TypefaceUtils;
@@ -109,8 +104,8 @@ public class MainActivity
                 return false;
             }
         });
+        startingFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1);
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
-        ViewPagerFragmentLifeCycle startingFragment = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1 );
         startingFragment.onResumeFragment();
     }
 
