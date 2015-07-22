@@ -74,6 +74,7 @@ public class ScrollAnimation extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+
                 container.startAnimation(endAnimation);
             }
 
@@ -102,15 +103,12 @@ public class ScrollAnimation extends Fragment {
             }
         });
 
-        // deleteAfterAnimation();
         return view;
     }
 
     public void deleteAfterAnimation() {
-        // if (getActivity().getSupportFragmentManager() != null) {
         ufo.setVisibility(View.VISIBLE);
         ufo.startAnimation(ufoSlideUpAnimation);
-        //}
     }
 
 

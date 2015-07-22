@@ -40,15 +40,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/no_facebook_content"
             android:layout_width="@dimen/facebook_image_width"
             android:layout_height="@dimen/fb_title_container_height"
-            android:layout_marginBottom="@dimen/facebook_padding"
-            android:layout_marginLeft="@dimen/facebook_padding"
-            android:layout_marginRight="@dimen/facebook_padding"
+            android:paddingBottom="@dimen/facebook_padding"
+            android:paddingLeft="@dimen/facebook_padding"
+            android:paddingRight="@dimen/facebook_padding"
+            android:paddingTop="@dimen/facebook_padding"
             android:background="@color/white"
             android:text="@string/no_facebook_content"
             android:textSize="@dimen/no_activity_size" />

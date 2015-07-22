@@ -65,7 +65,7 @@
     <dimen name="fb_title_height">24dp</dimen>
     <dimen name="fb_title_width">236dp</dimen>
     <dimen name="fb_title_container_margin">35dp</dimen>
-    <dimen name="fb_title_container_height">51dp</dimen>
+    <dimen name="fb_title_container_height">60dp</dimen>
     <dimen name="share_btn_width">24dp</dimen>
     <dimen name="share_btn_height">24dp</dimen>
     <dimen name="share_btn_margin_left">290dp</dimen>
