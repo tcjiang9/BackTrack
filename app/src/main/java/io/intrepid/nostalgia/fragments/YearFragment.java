@@ -49,6 +49,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     public static final String KEY = "year";
     public int currentYear;
     private boolean isActive = false;
+    private boolean isMusicImageLoaded = false;
 
     private PrevYearButtonListener prevYearButtonListener;
 
@@ -121,20 +122,22 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         String songArtist = songDetails[1];
         String searchTerm = songTitle + " " + songArtist;
 
-        fetchMusicJson(searchTerm);
+        if (songUrl == null || imageUrl == null) {
+            fetchMusicJson(searchTerm);
+        }
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
         initAnimator();
+        initPlayer();
 
         dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
-
 
         playMusicButton.setImageResource(mediaPlayer != null && mediaPlayer.isPlaying()
                 ? R.drawable.pause_circle_button
                 : R.drawable.play_circle_button);
-        initPlayer();
+
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,16 +240,18 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                             songUrl = itunesSongs.get(0).getPreviewUrl();
                             imageUrl = itunesSongs.get(0).getArtworkUrl100()
                                     .replaceAll("100x100", Constants.IMAGE_WIDTH + "x" + Constants.IMAGE_HEIGHT);
-                            Picasso.with(getActivity())
-                                    .load(imageUrl)
-                                    .placeholder(R.drawable.default_record)
-                                    .into(musicImage);
+
+                            if (!isMusicImageLoaded) {
+                                Picasso.with(getActivity())
+                                        .load(imageUrl)
+                                        .placeholder(R.drawable.default_record)
+                                        .into(musicImage);
+                                isMusicImageLoaded = true;
+                            }
+
                             Log.i(TAG, imageUrl);
-                            if (isActive) {
-                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                                if (sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true)) {
-                                    playMusic(mediaPlayer, songUrl);
-                                }
+                            if (isActive && checkAutoPlay()) {
+                                playMusic(mediaPlayer, songUrl);
                             }
                         } else {
                             return;
@@ -373,9 +378,25 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @Override
     public void onResumeFragment() {
         isActive = true;
+        initPlayer();
         Log.i(TAG, String.valueOf(currentYear) + " HAS RESUMED");
         updateUi(Actions.stopping);
-        //initPlayer();
+        if (imageUrl != null && !isMusicImageLoaded) {
+            Picasso.with(getActivity())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.default_record)
+                    .into(musicImage);
+            isMusicImageLoaded = true;
+        }
+        if (songUrl != null && checkAutoPlay()) {
+            Log.i(TAG, "ITS PLAYING MUSIC THROUGH ONRESUMEFRAGMENT");
+            playMusic(mediaPlayer, songUrl);
+        }
+    }
+
+    private boolean checkAutoPlay() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        return sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true);
     }
 
     public void setActive() {
@@ -388,4 +409,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         isPaused = false;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, String.valueOf(currentYear) + " has called onPause");
+        isMusicImageLoaded = false;
+    }
 }
