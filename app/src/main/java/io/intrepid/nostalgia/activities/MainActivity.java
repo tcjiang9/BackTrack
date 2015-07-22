@@ -96,7 +96,7 @@ public class MainActivity
         tabLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(!tabDragged) {
+                if (!tabDragged) {
                     tabDragged = true;
                     getSupportFragmentManager().beginTransaction().add(R.id.container_pager,
                             new ScrollAnimation(), ScrollAnimation.TAG).commit();
@@ -109,7 +109,6 @@ public class MainActivity
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         startingFragment.setActive();
     }
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
