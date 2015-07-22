@@ -39,7 +39,8 @@
     <LinearLayout
         android:id="@+id/no_fb_message"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/no_facebook_content"
@@ -50,8 +51,7 @@
             android:layout_marginRight="@dimen/facebook_padding"
             android:background="@color/white"
             android:text="@string/no_facebook_content"
-            android:textSize="@dimen/no_activity_size"
-            android:visibility="gone" />
+            android:textSize="@dimen/no_activity_size" />
 
     </LinearLayout>
 
