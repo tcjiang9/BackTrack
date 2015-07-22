@@ -1,12 +1,14 @@
 package io.intrepid.nostalgia.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,6 +46,7 @@ import butterknife.OnClick;
 import io.intrepid.nostalgia.DateFormatter;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.activities.FacebookPostDetailsActivity;
+import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.constants.FacebookConstants;
 import io.intrepid.nostalgia.models.facebook.FacebookResponse;
 
@@ -172,9 +175,11 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void getUserPosts() {
-        if (AccessToken.getCurrentAccessToken() == null){
+        SharedPreferences editor = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+        String access = editor.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
+        if (access == null){
             noFb.setVisibility(View.VISIBLE);
-            noFbMessage.setText(getString(R.string.no_activity_msg));
+            noFbMessage.setText(getString(R.string.no_facebook_content));
         }
         else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
