@@ -130,10 +130,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
         dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
 
+
         playMusicButton.setImageResource(mediaPlayer != null && mediaPlayer.isPlaying()
                 ? R.drawable.pause_circle_button
                 : R.drawable.play_circle_button);
-
+        initPlayer();
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -374,7 +375,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         isActive = true;
         Log.i(TAG, String.valueOf(currentYear) + " HAS RESUMED");
         updateUi(Actions.stopping);
-        initPlayer();
+        //initPlayer();
     }
 
     public void setActive() {
