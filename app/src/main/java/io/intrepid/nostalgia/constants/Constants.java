@@ -8,7 +8,7 @@ public class Constants {
     public static final String SHARED_PREFS_LOGIN = "activity_executed";
     public static final String SHARED_PREFS_AUTOPLAY = "autoPlay";
 
-    public static final int MIN_YEAR = 1980;
+    public static final int MIN_YEAR = 1981;
     /**
      * the default year to display, one less than the present year
      */

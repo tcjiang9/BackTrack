@@ -45,7 +45,7 @@ public class MainActivity
     public static final int UNSELECTED_WIDTH = 17;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
+    private int currentPosition;
     public static boolean tabDragged;
 
     @Override
@@ -93,6 +93,7 @@ public class MainActivity
         };
 
         viewPager.addOnPageChangeListener(viewPageListener);
+        viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         tabLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
