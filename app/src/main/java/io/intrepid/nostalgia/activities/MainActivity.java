@@ -106,8 +106,8 @@ public class MainActivity
         });
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         YearFragment startingFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1);
+        viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         startingFragment.setActive();
-        
     }
 
     @Override
