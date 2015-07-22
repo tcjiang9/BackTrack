@@ -47,7 +47,6 @@
             android:layout_width="@dimen/facebook_image_width"
             android:layout_height="@dimen/fb_title_container_height"
             android:layout_marginLeft="@dimen/facebook_padding"
-            android:background="@color/white"
             android:paddingBottom="@dimen/facebook_padding"
             android:paddingLeft="@dimen/facebook_padding"
             android:paddingRight="@dimen/facebook_padding"

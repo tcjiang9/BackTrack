@@ -204,7 +204,6 @@ public class FacebookPostsFragment extends Fragment {
             } else {
                 try {
                     JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
-
                     for (int i = 0; i < specificData.length(); i++) {
                         FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
                         if (specificData.getJSONObject(i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.ADDED_PHOTOS)) {
