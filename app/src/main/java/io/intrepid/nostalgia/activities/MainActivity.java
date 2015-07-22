@@ -125,6 +125,11 @@ public class MainActivity
     public void openSettings(View v) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+        resetPlayer();
+    }
+
+    private void resetPlayer(){
+        SinglePlayer.getInstance().getMediaPlayer().reset();
     }
 
     @Override
