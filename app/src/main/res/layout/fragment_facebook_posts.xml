@@ -44,6 +44,7 @@
 
         <TextView
             android:id="@+id/no_facebook_content"
+            android:layout_marginLeft="@dimen/facebook_padding"
             android:layout_width="@dimen/facebook_image_width"
             android:layout_height="@dimen/fb_title_container_height"
             android:paddingBottom="@dimen/facebook_padding"
