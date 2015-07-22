@@ -24,6 +24,7 @@
     <color name="line_spacer">#85deda</color>
     <color name="settings_background">#e5edef</color>
     <color name="settings_text">#141414</color>
+    <color name="animation_background">#95000000</color>
     <color name="application_color">#85deda</color>
 </resources>
 
