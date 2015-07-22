@@ -29,7 +29,7 @@ import io.intrepid.nostalgia.models.facebook.Comment;
 import io.intrepid.nostalgia.models.facebook.FacebookResponse;
 
 
-public class FacebookPostDetailsActivity extends AppCompatActivity {
+public class  FacebookPostDetailsActivity extends AppCompatActivity {
 
 
     TextView status;
@@ -115,6 +115,4 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
                     load(url).fit().into(fbImage);
         }
     }
-
-
 }
