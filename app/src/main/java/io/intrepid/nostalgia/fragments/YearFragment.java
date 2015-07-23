@@ -29,10 +29,10 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import io.intrepid.nostalgia.DateFormatter;
-import io.intrepid.nostalgia.adapters.ItunesServiceAdapter;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.SinglePlayer;
 import io.intrepid.nostalgia.ViewPagerFragmentLifeCycle;
+import io.intrepid.nostalgia.adapters.ItunesServiceAdapter;
 import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesResults;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesSong;
@@ -205,7 +205,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         }
         return artistAndSong;
     }
-    
+
     private String[] getSongFromDb(Cursor c, int index) {
         String[] artistAndSong = new String[2];
         c.moveToPosition(index);
