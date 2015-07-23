@@ -47,6 +47,7 @@
             android:layout_width="@dimen/facebook_image_width"
             android:layout_height="@dimen/fb_title_container_height"
             android:layout_marginLeft="@dimen/facebook_padding"
+            android:background="@color/white"
             android:paddingBottom="@dimen/facebook_padding"
             android:paddingLeft="@dimen/facebook_padding"
             android:paddingRight="@dimen/facebook_padding"
@@ -212,7 +213,8 @@
 
     <RelativeLayout
         android:id="@+id/post_3"
-        style="@style/post_container">
+        style="@style/post_container"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/fb_line_3"
@@ -294,5 +296,5 @@
         android:layout_height="@dimen/line_4_height"
         android:layout_marginLeft="@dimen/line_4_margin_left"
         android:scaleType="fitXY"
-        android:src="@drawable/line_fb4" />
+        android:src="@drawable/line_news1" />
 </LinearLayout>

@@ -242,6 +242,13 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                             songUrl = itunesSongs.get(0).getPreviewUrl();
                             imageUrl = itunesSongs.get(0).getArtworkUrl100()
                                     .replaceAll("100x100", Constants.IMAGE_WIDTH + "x" + Constants.IMAGE_HEIGHT);
+                            if (getActivity() != null) {
+                                Picasso.with(getActivity())
+                                        .load(imageUrl)
+                                        .placeholder(R.drawable.default_record)
+                                        .into(musicImage);
+                                Log.i(TAG, imageUrl);
+                            }
 
                             if (!isMusicImageLoaded) {
                                 Picasso.with(getActivity())

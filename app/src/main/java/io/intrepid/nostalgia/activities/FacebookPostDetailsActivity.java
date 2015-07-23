@@ -29,7 +29,7 @@ import io.intrepid.nostalgia.models.facebook.Comment;
 import io.intrepid.nostalgia.models.facebook.FacebookResponse;
 
 
-public class  FacebookPostDetailsActivity extends AppCompatActivity {
+public class FacebookPostDetailsActivity extends AppCompatActivity {
 
 
     TextView status;
@@ -52,7 +52,6 @@ public class  FacebookPostDetailsActivity extends AppCompatActivity {
         status = (TextView) header.findViewById(R.id.fb_status);
         fbImage = (ImageView) header.findViewById(R.id.full_picture);
         likes = (TextView) header.findViewById(R.id.likes_details);
-
         headerListView = (RelativeLayout) header.findViewById(R.id.header_listview);
         comments.addHeaderView(header);
         Intent intent = getIntent();

@@ -63,7 +63,7 @@ public class MainActivity
         for (int j = 0; j <= (Constants.NUMBER_OF_YEARS - 1); j++) {
             focusSelectedYear(j, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
         }
-        ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
+        final ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -103,6 +103,26 @@ public class MainActivity
                             new ScrollAnimation(), ScrollAnimation.TAG).commit();
                 }
                 return false;
+            }
+        });
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tabDragged){
+                    ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
+                    animation.deleteAfterAnimation();
+                    tabDragged=false;
+                }
             }
         });
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
