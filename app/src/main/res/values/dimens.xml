@@ -65,7 +65,7 @@
     <dimen name="fb_title_height">24dp</dimen>
     <dimen name="fb_title_width">236dp</dimen>
     <dimen name="fb_title_container_margin">35dp</dimen>
-    <dimen name="fb_title_container_height">51dp</dimen>
+    <dimen name="fb_title_container_height">60dp</dimen>
     <dimen name="share_btn_width">24dp</dimen>
     <dimen name="share_btn_height">24dp</dimen>
     <dimen name="share_btn_margin_left">290dp</dimen>
@@ -88,6 +88,8 @@
     <dimen name="feedback_arrow_height">21dp</dimen>
     <dimen name="feedback_left_margin">-16dp</dimen>
     <dimen name="feedback_arrow_top">10dp</dimen>
+
+
     <dimen name="plane_top_margin">34dp</dimen>
     <dimen name="news_backsplash">51dp</dimen>
     <dimen name="music_image_width">244dp</dimen>
@@ -116,7 +118,7 @@
     <dimen name="tab_layout_height">40dp</dimen>
     <dimen name="header_height">24dp</dimen>
     <dimen name="line_1_margin">248dp</dimen>
-    <dimen name="news_margin_height">80dp</dimen>
+    <dimen name="news_margin_height">120dp</dimen>
     <dimen name="news_margin_left">162dp</dimen>
     <dimen name="ufo_width">100dp</dimen>
     <dimen name="ufo_height">100dp</dimen>
@@ -124,9 +126,17 @@
     <dimen name="ufo_margin_right">130dp</dimen>
     <dimen name="comment_margin_top">30dp</dimen>
     <dimen name="time_post_margin">40dp</dimen>
+    <dimen name="ufo_margin_top">70dp</dimen>
+    <dimen name="anim_ufo_width">100dp</dimen>
+    <dimen name="anim_ufo_height">100dp</dimen>
+    <dimen name="anim_light_width">150dp</dimen>
+    <dimen name="anim_light_height">200dp</dimen>
+    <dimen name="anim_clouds_width">250dp</dimen>
+    <dimen name="anim_clouds_margin">-230dp</dimen>
     <dimen name="fb_line4_hieght">52dp</dimen>
     <dimen name="fb_line_4_margin">143dp</dimen>
     <dimen name="illustration_height">56dp</dimen>
     <dimen name="settings_btn_margin">15dp</dimen>
     <dimen name="post_margin">40dp</dimen>
+    <dimen name="bg_line_height">24dp</dimen>
 </resources>

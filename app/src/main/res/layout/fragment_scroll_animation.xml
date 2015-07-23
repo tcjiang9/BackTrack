@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/animation_background"
+    android:orientation="vertical"
+    android:id="@+id/container"
+    tools:context="io.intrepid.nostalgia.fragments.ScrollAnimation">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/ufo"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/ufo_margin_top"
+        android:layout_width="@dimen/anim_ufo_width"
+        android:layout_height="@dimen/anim_ufo_height"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitEnd"
+        android:src="@drawable/ufo_2010" />
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/light"
+        android:layout_width="@dimen/anim_light_width"
+        android:layout_height="@dimen/anim_light_height"
+        android:src="@drawable/light"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>
+    <ImageView
+        android:id="@+id/clouds"
+        android:visibility="gone"
+        android:layout_width="@dimen/anim_clouds_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/anim_clouds_margin"
+        android:src="@drawable/clouds"/>
+
+</LinearLayout>

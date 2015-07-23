@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:id="@+id/main">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/settings_box_height"
@@ -14,7 +15,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/setting"
+            android:src="@drawable/more"
             android:layout_margin="@dimen/settings_btn_margin"
             android:onClick="openSettings"
             android:layout_alignParentRight="true"/>
@@ -28,10 +29,14 @@
             app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/TabTextAppearance" />
-
+    <FrameLayout
+        android:id="@+id/container_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+    </FrameLayout>
 
 </LinearLayout>

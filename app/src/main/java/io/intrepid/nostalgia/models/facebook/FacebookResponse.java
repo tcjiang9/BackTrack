@@ -92,7 +92,7 @@ public class FacebookResponse {
         return likeCount;
     }
 
-    public String getLikeNames() {
+    public ArrayList getLikeNames() {
         String result = "";
         if (getLikeCount() > 0) {
             try {
@@ -103,10 +103,7 @@ public class FacebookResponse {
                 e.printStackTrace();
             }
 
-            for (String likeName : likeNames) {
-                result += likeName + ", ";
-            }
-            return result.substring(0, result.lastIndexOf(","));
+            return likeNames;
         } else
         return null;
     }

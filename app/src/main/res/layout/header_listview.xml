@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/header_listview"
-    android:orientation="vertical"
     android:layout_width="@dimen/facebook_image_width"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/full_picture"
@@ -16,16 +16,18 @@
 
     <TextView
         android:id="@+id/fb_status"
-        android:layout_below="@+id/full_picture"
         style="@style/detailsFbStyle"
-        android:visibility="gone"
+        android:layout_below="@+id/full_picture"
         android:layout_marginBottom="@dimen/margin_header_listview"
+        android:visibility="visible"
         tools:text="@string/status" />
 
     <TextView
         android:id="@+id/likes_details"
-        android:layout_below="@+id/fb_status"
         style="@style/detailsFbStyle"
+        android:layout_below="@+id/fb_status"
+        android:layout_alignParentLeft="true"
+        android:scrollHorizontally="false"
         android:textStyle="bold"
         android:visibility="visible"
         tools:text="likes" />

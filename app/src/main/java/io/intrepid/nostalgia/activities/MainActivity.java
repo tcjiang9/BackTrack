@@ -7,14 +7,17 @@ import android.media.MediaPlayer;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,6 +29,7 @@ import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.SinglePlayer;
 import io.intrepid.nostalgia.ViewPagerFragmentLifeCycle;
 import io.intrepid.nostalgia.adapters.YearCollectionPagerAdapter;
+import io.intrepid.nostalgia.fragments.ScrollAnimation;
 import io.intrepid.nostalgia.fragments.YearFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -46,7 +50,8 @@ public class MainActivity extends AppCompatActivity
     public static final int UNSELECTED_WIDTH = 17;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private int currentPosition;
+    private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
+    public static boolean tabDragged;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -58,20 +63,24 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        //TODO: align color changing with font/size
         tabLayout.setTabTextColors(getResources().getColorStateList(R.color.tabview_selector_color));
         tabLayout.setupWithViewPager(viewPager);
-        for (int j = 0; j<= (Constants.NUMBER_OF_YEARS - 1); j ++){
+        for (int j = 0; j <= (Constants.NUMBER_OF_YEARS - 1); j++) {
             focusSelectedYear(j, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
         }
         ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
             public void onPageSelected(int newPosition) {
-
+                if (tabDragged) {
+                    ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
+                    animation.deleteAfterAnimation();
+                    tabDragged = false;
+                }
                 if (currentPosition != -1) {
                     focusSelectedYear(currentPosition, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
                     ViewPagerFragmentLifeCycle fragmentToHide = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(currentPosition);
@@ -88,6 +97,17 @@ public class MainActivity extends AppCompatActivity
             }
         };
         viewPager.addOnPageChangeListener(viewPageListener);
+        tabLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(!tabDragged) {
+                    tabDragged = true;
+                    getSupportFragmentManager().beginTransaction().add(R.id.container_pager,
+                            new ScrollAnimation(), ScrollAnimation.TAG).commit();
+                }
+                return false;
+            }
+        });
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
     }
 
@@ -103,10 +123,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void openSettings(View v){
+    public void openSettings(View v) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+
     @Override
     public void onPrevYearButtonClicked() {
         viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
