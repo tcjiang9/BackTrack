@@ -263,6 +263,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
                     @Override
                     public void failure(RetrofitError error) {
+                        //Todo: show toast on failure
                     }
                 });
     }
