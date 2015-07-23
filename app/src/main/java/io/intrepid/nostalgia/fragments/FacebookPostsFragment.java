@@ -60,7 +60,6 @@ public class FacebookPostsFragment extends Fragment {
     public static final String SHARE_VIA = "Share via";
     public static final String TEXT_PLAIN = "text/plain";
 
-
     @InjectViews({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     List<TextView> likesCount;
     @InjectViews({R.id.comments_cnt, R.id.comments_cnt_2, R.id.comments_cnt_3})
@@ -285,7 +284,7 @@ public class FacebookPostsFragment extends Fragment {
         if (imageUrl[2] != null) {
             Picasso.with(getActivity()).
                     load(imageUrl[2]).fit()
-                    .into(image);
+                     .into(image);
         }
 
     }
