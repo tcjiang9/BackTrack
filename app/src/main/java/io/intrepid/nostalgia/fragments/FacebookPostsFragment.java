@@ -244,7 +244,6 @@ public class FacebookPostsFragment extends Fragment {
         if (AccessToken.getCurrentAccessToken() != null) {
             getFullImage(image, imageId, obj);
         }
-
     }
 
     private void getFullImage(final ImageView image, final int imageId, String obj) {
@@ -294,6 +293,5 @@ public class FacebookPostsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-
     }
 }
