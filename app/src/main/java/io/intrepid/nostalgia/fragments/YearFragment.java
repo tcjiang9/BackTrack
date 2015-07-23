@@ -1,5 +1,7 @@
 package io.intrepid.nostalgia.fragments;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -13,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,10 +29,10 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import io.intrepid.nostalgia.DateFormatter;
-import io.intrepid.nostalgia.adapters.ItunesServiceAdapter;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.SinglePlayer;
 import io.intrepid.nostalgia.ViewPagerFragmentLifeCycle;
+import io.intrepid.nostalgia.adapters.ItunesServiceAdapter;
 import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesResults;
 import io.intrepid.nostalgia.models.itunesmodels.ItunesSong;
@@ -42,19 +43,31 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle {
+
     public static final String TAG = YearFragment.class.getSimpleName();
     public static final String YEAR = "Display Year";
     public static final String KEY = "year";
     public int currentYear;
+    private boolean isActive = false;
+    private boolean isMusicImageLoaded = false;
 
     private PrevYearButtonListener prevYearButtonListener;
+
+    // MediaPlayer variables
     private MediaPlayer mediaPlayer;
-    private boolean autoPlay = true;
     private boolean isPreparing = false;
     private boolean isPaused = false;
-    private String[] songDetails = new String[2];
+
+    //Database variables
+    DatabaseHelper myDbHelper;
+
+    //Song variables
     private String songUrl;
     private String imageUrl;
+
+    //Animation variables
+    ObjectAnimator objectAnimator;
+    private long currentTime;
 
     @InjectView(R.id.play_music_button)
     ImageButton playMusicButton;
@@ -98,36 +111,26 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //the current year, for future use.
+        // the current year, for future use.
         currentYear = getArguments().getInt(YEAR);
-        DatabaseHelper myDbHelper = DatabaseHelper.getInstance(getActivity());
+        Log.i(TAG, String.valueOf(currentYear) + " HAS CALLED ONCREATEVIEW");
 
-        // initialize db
-        try {
-            myDbHelper.createDataBase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create database");
-        }
-
-        //call for song title and artist name
-        try {
-            Cursor c = myDbHelper.getData(String.valueOf(currentYear));
-            int i = DateFormatter.getDay();
-            int index = c.getCount() % i;
-            songDetails = getSongFromDB(c, index);
-            myDbHelper.close();
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-        }
+        initializeDb();
+        String[] songDetails = getDbSongInfo();
 
         String songTitle = songDetails[0];
         String songArtist = songDetails[1];
         String searchTerm = songTitle + " " + songArtist;
 
-        fetchMusicJson(searchTerm);
+        if (songUrl == null || imageUrl == null) {
+            fetchMusicJson(searchTerm);
+        }
 
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
+
+        initAnimator();
+        initPlayer();
 
         dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
 
@@ -180,7 +183,30 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         return rootView;
     }
 
-    private String[] getSongFromDB(Cursor c, int index) {
+    private void initializeDb() {
+        myDbHelper = new DatabaseHelper(getActivity());
+        try {
+            myDbHelper.createDataBase();
+        } catch (IOException ioe) {
+            throw new Error("Unable to create database");
+        }
+    }
+
+    private String[] getDbSongInfo() {
+        String[] artistAndSong = new String[2];
+        try {
+            Cursor c = myDbHelper.getData(String.valueOf(currentYear));
+            int i = DateFormatter.getDay();
+            int index = c.getCount() % i;
+            artistAndSong = getSongFromDb(c, index);
+            myDbHelper.close();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        return artistAndSong;
+    }
+
+    private String[] getSongFromDb(Cursor c, int index) {
         String[] artistAndSong = new String[2];
         c.moveToPosition(index);
         artistAndSong[0] = c.getString(0);
@@ -214,11 +240,19 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                             songUrl = itunesSongs.get(0).getPreviewUrl();
                             imageUrl = itunesSongs.get(0).getArtworkUrl100()
                                     .replaceAll("100x100", Constants.IMAGE_WIDTH + "x" + Constants.IMAGE_HEIGHT);
-                            Picasso.with(getActivity())
-                                    .load(imageUrl)
-                                    .placeholder(R.drawable.default_record)
-                                    .into(musicImage);
+
+                            if (!isMusicImageLoaded) {
+                                Picasso.with(getActivity())
+                                        .load(imageUrl)
+                                        .placeholder(R.drawable.default_record)
+                                        .into(musicImage);
+                                isMusicImageLoaded = true;
+                            }
+
                             Log.i(TAG, imageUrl);
+                            if (isActive && checkAutoPlay()) {
+                                playMusic(mediaPlayer, songUrl);
+                            }
                         } else {
                             return;
                         }
@@ -230,15 +264,36 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 });
     }
 
+    private void initAnimator() {
+        objectAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 2160f);
+        objectAnimator.setDuration(Constants.SONG_DURATION);
+        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+    }
+
+    private void pauseAnimation() {
+        currentTime = objectAnimator.getCurrentPlayTime();
+        objectAnimator.cancel();
+    }
+
+    private void startAnimation() {
+        objectAnimator.start();
+        objectAnimator.setCurrentPlayTime(currentTime);
+    }
+
     private void playMusic(final MediaPlayer mediaPlayer, String songUrl) {
         if (songUrl == null) {
             Log.i(TAG, "!!!!!TRACK NOT FOUND!!!!!!!");
             return;
         }
+        if (mediaPlayer.isPlaying()) {
+            Log.i(TAG, "Attempted to play music while already playing");
+            return;
+        }
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                isPaused = true;
+                mediaPlayer.stop();
+                mediaPlayer.reset();
                 updateUi(Actions.stopping);
                 isPreparing = false;
                 Log.i(TAG, "Music completed");
@@ -246,12 +301,12 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         });
         if (isPaused) {
             mediaPlayer.start();
+            Log.i(TAG, "QUICKSTART");
             isPaused = false;
             updateUi(Actions.starting);
         } else {
             try {
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                Log.i(TAG, "Right before data source");
                 Log.i(TAG, songUrl);
                 mediaPlayer.setDataSource(songUrl);
                 Log.i(TAG, "!!!!!!!!About to prepare async!!!!!!!!!!!");
@@ -292,10 +347,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private void updateUi(Actions action) {
         if (action == Actions.stopping) {
             playMusicButton.setImageResource(R.drawable.play_circle_button);
-            musicImage.clearAnimation();
+            pauseAnimation();
         } else if (action == Actions.starting) {
             playMusicButton.setImageResource(R.drawable.pause_circle_button);
-            musicImage.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.spinner_clockwise));
+            startAnimation();
         } else if (action == Actions.loading) {
             playMusicButton.setImageResource(R.drawable.music_loading_circle);
         }
@@ -303,9 +358,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @Override
     public void onPauseFragment() {
+        isActive = false;
         if (mediaPlayer == null) {
             mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
         }
+        objectAnimator.end();
         Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
         stopMusic();
         initPlayer();
@@ -320,12 +377,30 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @Override
     public void onResumeFragment() {
-        updateUi(Actions.stopping);
+        isActive = true;
         initPlayer();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
-        //if (sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true)) {
-        //   playMusic(mediaPlayer);
-        //      }
+        Log.i(TAG, String.valueOf(currentYear) + " HAS RESUMED");
+        updateUi(Actions.stopping);
+        if (imageUrl != null && !isMusicImageLoaded) {
+            Picasso.with(getActivity())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.default_record)
+                    .into(musicImage);
+            isMusicImageLoaded = true;
+        }
+        if (songUrl != null && checkAutoPlay()) {
+            Log.i(TAG, "ITS PLAYING MUSIC THROUGH ONRESUMEFRAGMENT");
+            playMusic(mediaPlayer, songUrl);
+        }
+    }
+
+    private boolean checkAutoPlay() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        return sharedPreferences.getBoolean(Constants.SHARED_PREFS_AUTOPLAY, true);
+    }
+
+    public void setActive() {
+        isActive = true;
     }
 
     private void initPlayer() {
@@ -334,5 +409,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         isPaused = false;
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, String.valueOf(currentYear) + " has called onPause");
+        isMusicImageLoaded = false;
+    }
 }
