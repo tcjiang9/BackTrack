@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
     public static boolean tabDragged;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,13 +62,10 @@ public class MainActivity extends AppCompatActivity
         currentPosition = -1;
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
-
-        viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        //TODO: align color changing with font/size
         tabLayout.setTabTextColors(getResources().getColorStateList(R.color.tabview_selector_color));
         tabLayout.setupWithViewPager(viewPager);
-        for (int j = 0; j<= (Constants.NUMBER_OF_YEARS - 1); j ++){
+        for (int j = 0; j <= (Constants.NUMBER_OF_YEARS - 1); j++) {
             focusSelectedYear(j, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
         }
         ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
@@ -78,15 +76,11 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onPageSelected(int newPosition) {
-                if (tabDragged){
+                if (tabDragged) {
                     ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
                     animation.deleteAfterAnimation();
-                  //  getSupportFragmentManager().beginTransaction().remove(animation).commit();
-                    tabDragged=false;
+                    tabDragged = false;
                 }
-
-
-
                 if (currentPosition != -1) {
                     focusSelectedYear(currentPosition, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
                     ViewPagerFragmentLifeCycle fragmentToHide = (ViewPagerFragmentLifeCycle) pagerAdapter.getItem(currentPosition);
@@ -115,7 +109,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
-
     }
 
     @Override
@@ -130,10 +123,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void openSettings(View v){
+    public void openSettings(View v) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+
     @Override
     public void onPrevYearButtonClicked() {
         viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);

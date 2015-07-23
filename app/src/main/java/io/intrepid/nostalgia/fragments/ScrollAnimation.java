@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 
 import java.util.Timer;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import io.intrepid.nostalgia.R;
 
 
@@ -19,9 +21,15 @@ public class ScrollAnimation extends Fragment {
     public static final String TAG = "ScrollFragment";
     Animation ufoSlideUpAnimation, lightAnimation, cloudAnimation;
     Animation endAnimation;
-    ImageView ufo, light, clouds;
+    @InjectView(R.id.container)
     LinearLayout container;
-    Timer timer = new Timer();
+    @InjectView(R.id.ufo)
+    ImageView ufo;
+    @InjectView(R.id.light)
+    ImageView light;
+    @InjectView(R.id.clouds)
+    ImageView clouds;
+
 
     public static ScrollAnimation newInstance() {
         ScrollAnimation fragment = new ScrollAnimation();
@@ -37,10 +45,7 @@ public class ScrollAnimation extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_scroll_animation, container, false);
-        ufo = (ImageView) view.findViewById(R.id.ufo);
-        light = (ImageView) view.findViewById(R.id.light);
-        clouds = (ImageView) view.findViewById(R.id.clouds);
-        container = (LinearLayout) view.findViewById(R.id.container);
+        ButterKnife.inject(this, view);
         ufoSlideUpAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up_ufo);
         lightAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.light_animation);
         cloudAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.cloud_animation);

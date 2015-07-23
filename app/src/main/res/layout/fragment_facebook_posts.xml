@@ -44,19 +44,17 @@
 
         <TextView
             android:id="@+id/no_facebook_content"
-            android:layout_marginLeft="@dimen/facebook_padding"
             android:layout_width="@dimen/facebook_image_width"
             android:layout_height="@dimen/fb_title_container_height"
+            android:layout_marginLeft="@dimen/facebook_padding"
+            android:background="@color/white"
             android:paddingBottom="@dimen/facebook_padding"
             android:paddingLeft="@dimen/facebook_padding"
             android:paddingRight="@dimen/facebook_padding"
             android:paddingTop="@dimen/facebook_padding"
-            android:background="@color/white"
             android:text="@string/no_facebook_content"
             android:textSize="@dimen/no_activity_size" />
-
     </LinearLayout>
-
 
     <RelativeLayout
         android:id="@+id/post_1"
@@ -133,8 +131,7 @@
     <RelativeLayout
         android:id="@+id/post_2"
         style="@style/post_container"
-        tools:visibility="visible"
-        >
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/fb_line_2"
@@ -158,7 +155,7 @@
         <TextView
             android:id="@+id/time_post_2"
             style="@style/timeText"
-            android:layout_marginTop="@dimen/time_post_margin"/>
+            android:layout_marginTop="@dimen/time_post_margin" />
 
         <RelativeLayout
             android:id="@+id/status_container_2"
@@ -239,7 +236,7 @@
         <TextView
             android:id="@+id/time_post_3"
             style="@style/timeText"
-            android:layout_marginTop="@dimen/time_post_margin"/>
+            android:layout_marginTop="@dimen/time_post_margin" />
 
         <RelativeLayout
             style="@style/status_container"
