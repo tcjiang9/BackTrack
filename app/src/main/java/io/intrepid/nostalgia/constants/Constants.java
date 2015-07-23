@@ -18,4 +18,6 @@ public class Constants {
 
     public static final String IMAGE_WIDTH = "244";
     public static final String IMAGE_HEIGHT = "244";
+
+    public static final long SONG_DURATION = 30000; //30 seconds in ms
 }

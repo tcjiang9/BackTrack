@@ -266,7 +266,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     private void initAnimator() {
         objectAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 2160f);
-        objectAnimator.setDuration(30000); //30 seconds in ms
+        objectAnimator.setDuration(Constants.SONG_DURATION);
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
     }
 
