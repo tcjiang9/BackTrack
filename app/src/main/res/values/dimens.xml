@@ -96,7 +96,7 @@
     <dimen name="music_image_width">244dp</dimen>
     <dimen name="music_image_height">244dp</dimen>
     <dimen name="vinyl_frame_marginTop">31dp</dimen>
-    <dimen name="handle_marginLeft">260dp</dimen>
+    <dimen name="handle_marginLeft">235dp</dimen>
     <dimen name="handle_marginTop">31dp</dimen>
     <dimen name="city_illustration_height">56dp</dimen>
     <dimen name="comment_margin">5dp</dimen>

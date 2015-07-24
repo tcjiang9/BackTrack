@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/handle_marginLeft"
                 android:layout_marginTop="@dimen/handle_marginTop"
-                android:src="@drawable/handle_v2" />
+                android:src="@drawable/handle" />
 
         </FrameLayout>
 
