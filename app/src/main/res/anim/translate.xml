@@ -6,6 +6,7 @@
     android:pivotX="50%"
     android:pivotY="50%"
     android:repeatCount="infinite"
-    android:interpolator="@android:anim/linear_interpolator"
-    android:duration="5000">
+    android:interpolator="@android:anim/decelerate_interpolator"
+    android:repeatMode="reverse"
+    android:duration="3000">
 </rotate>

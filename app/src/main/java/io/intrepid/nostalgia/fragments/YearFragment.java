@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -66,8 +68,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private String imageUrl;
 
     //Animation variables
-    ObjectAnimator objectAnimator;
-    private long currentTime;
+    ObjectAnimator discAnimator;
+    ObjectAnimator loadingAnimator;
+    private long currentDiscAnimTime;
 
     @InjectView(R.id.play_music_button)
     ImageButton playMusicButton;
@@ -129,7 +132,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
-        initAnimator();
+        initAnimators();
         initPlayer();
 
         dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
@@ -211,7 +214,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         c.moveToPosition(index);
         artistAndSong[0] = c.getString(0);
         artistAndSong[1] = c.getString(1);
-
         c.close();
         return artistAndSong;
     }
@@ -249,10 +251,11 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                                 isMusicImageLoaded = true;
                             }
 
-                            Log.i(TAG, imageUrl);
+                            //Log.i(TAG, imageUrl);
                             if (isActive && checkAutoPlay()) {
                                 playMusic(mediaPlayer, songUrl);
                             }
+
                         } else {
                             return;
                         }
@@ -260,24 +263,31 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
                     @Override
                     public void failure(RetrofitError error) {
+                        //Todo: show toast on failure
                     }
                 });
     }
 
-    private void initAnimator() {
-        objectAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 2160f);
-        objectAnimator.setDuration(Constants.SONG_DURATION);
-        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+    private void initAnimators() {
+        discAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 2160f);
+        discAnimator.setDuration(Constants.SONG_DURATION); //30 seconds in ms
+        discAnimator.setRepeatCount(ValueAnimator.INFINITE);
+
+        loadingAnimator = ObjectAnimator.ofFloat(playMusicButton, "translation", 0f, 100f);
+        loadingAnimator.setDuration(3000);
+        loadingAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        loadingAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        loadingAnimator.setInterpolator(new DecelerateInterpolator());
     }
 
-    private void pauseAnimation() {
-        currentTime = objectAnimator.getCurrentPlayTime();
-        objectAnimator.cancel();
+    private void pauseDiscAnimation() {
+        currentDiscAnimTime = discAnimator.getCurrentPlayTime();
+        discAnimator.cancel();
     }
 
-    private void startAnimation() {
-        objectAnimator.start();
-        objectAnimator.setCurrentPlayTime(currentTime);
+    private void startDiscAnimation() {
+        discAnimator.start();
+        discAnimator.setCurrentPlayTime(currentDiscAnimTime);
     }
 
     private void playMusic(final MediaPlayer mediaPlayer, String songUrl) {
@@ -347,12 +357,14 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private void updateUi(Actions action) {
         if (action == Actions.stopping) {
             playMusicButton.setImageResource(R.drawable.play_circle_button);
-            pauseAnimation();
+            pauseDiscAnimation();
         } else if (action == Actions.starting) {
             playMusicButton.setImageResource(R.drawable.pause_circle_button);
-            startAnimation();
+            startDiscAnimation();
+            playMusicButton.clearAnimation();
         } else if (action == Actions.loading) {
             playMusicButton.setImageResource(R.drawable.music_loading_circle);
+            playMusicButton.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.translate));
         }
     }
 
@@ -362,7 +374,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         if (mediaPlayer == null) {
             mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
         }
-        objectAnimator.end();
+        discAnimator.end();
         Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
         stopMusic();
         initPlayer();
