@@ -111,13 +111,11 @@ public class FacebookPostsFragment extends Fragment {
 
     @OnClick({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
     void onClickLayout(View view) {
-        Log.e("on click on layuout", "" + view.getId());
         openPhotoDetails(view.getId());
 
     }
     @OnClick({R.id.status_1, R.id.status_2, R.id.status_3})
     void onClickStatus(View view) {
-        Log.e("on click on layuout", "" + view.getId());
         openPhotoDetails(view.getId());
 
     }
@@ -176,10 +174,9 @@ public class FacebookPostsFragment extends Fragment {
         Bundle bundle = new Bundle();
         if (completeDataFromFb != null) {
             try {
-                Log.e("viewtype",""+viewType);
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
-                if (completeDataFromFb.has(FacebookConstants.PICTURE))
+                if (completeDataFromFb.toString().contains(FacebookConstants.PICTURE))
                 bundle.putString(IMAGE_URL, imageUrl[viewType]);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -192,7 +189,7 @@ public class FacebookPostsFragment extends Fragment {
     private void getUserPosts() {
         SharedPreferences editor = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         String access = editor.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
-        if (AccessToken.getCurrentAccessToken() == null) {
+        if (access == null) {
             noFb.setVisibility(View.VISIBLE);
             noFbMessage.setText(getString(R.string.no_facebook_content));
         } else {
@@ -234,6 +231,7 @@ public class FacebookPostsFragment extends Fragment {
                             postLayout.get(i).setVisibility(View.VISIBLE);
                             status.get(i).setVisibility(View.VISIBLE);
                             status.get(i).setId(i);
+                            timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
                             status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                             likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                             commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
