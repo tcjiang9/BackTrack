@@ -66,7 +66,15 @@ public class MainActivity
         final ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+    //                Log.e("position",""+position);
+    //                Log.e("positionOffset",""+positionOffset);
+    //                Log.e("positionPixels",""+positionOffsetPixels);
+    //                if(positionOffset == 0.0){
+    //                    currentPosition = position;
+    //                    viewPager.setCurrentItem(currentPosition);
+    //                } else {
+    //
+    //                }
             }
 
             @Override
@@ -113,15 +121,16 @@ public class MainActivity
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                Log.e("!!!!!!!!!!!",""+tab.getPosition());
+                currentPosition = tab.getPosition();
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                if (tabDragged){
+                if (tabDragged) {
                     ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
                     animation.deleteAfterAnimation();
-                    tabDragged=false;
+                    tabDragged = false;
                 }
             }
         });

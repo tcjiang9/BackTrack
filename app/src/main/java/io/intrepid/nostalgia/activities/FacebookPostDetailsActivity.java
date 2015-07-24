@@ -56,6 +56,7 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
         comments.addHeaderView(header);
         Intent intent = getIntent();
         try {
+            if (intent.getExtras().containsKey(FacebookPostsFragment.IMAGE_URL))
             url = intent.getExtras().getString(FacebookPostsFragment.IMAGE_URL);
             onePostFromResponse = new JSONObject(intent.getExtras().getString(FacebookConstants.JSON_OBJECT));
             processFacebookResponse();
