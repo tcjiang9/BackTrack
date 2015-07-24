@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -121,7 +122,7 @@ public class MainActivity
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.e("!!!!!!!!!!!",""+tab.getPosition());
+                Log.e("!!!!!!!!!!!", "" + tab.getPosition());
                 currentPosition = tab.getPosition();
             }
 

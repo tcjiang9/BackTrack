@@ -25,7 +25,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/fb_title_container_margin"
-        android:layout_marginLeft="248dp"
+        android:layout_marginLeft="@dimen/line_1_margin"
         android:src="@drawable/line_fb1" />
 
     <ImageView
@@ -48,7 +48,6 @@
             android:layout_height="@dimen/fb_title_container_height"
             android:background="@color/white"
             android:layout_marginLeft="@dimen/facebook_padding"
-            android:background="@color/white"
             android:paddingBottom="@dimen/facebook_padding"
             android:paddingLeft="@dimen/facebook_padding"
             android:paddingRight="@dimen/facebook_padding"
