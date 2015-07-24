@@ -142,4 +142,6 @@
     <dimen name="bg_line_height">24dp</dimen>
     <dimen name="comments_margin">20dp</dimen>
     <dimen name="likes_margin">30dp</dimen>
+    <dimen name="pivot_x">105dp</dimen>
+    <dimen name="pivot_y">5dp</dimen>
 </resources>

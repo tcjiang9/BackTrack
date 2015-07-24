@@ -255,9 +255,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         loadingAnimator.setRepeatMode(ValueAnimator.REVERSE);
         loadingAnimator.setInterpolator(new DecelerateInterpolator());
 
-        handleImage.setPivotX(105f);
-        handleImage.setPivotY(145f);
-        handleAnimator = ObjectAnimator.ofFloat(handleImage, "rotation", 0f, 45f);
+        handleImage.setPivotX(getResources().getDimension(R.dimen.pivot_x));
+        handleImage.setPivotY(getResources().getDimension(R.dimen.pivot_y));
+        handleAnimator = ObjectAnimator.ofFloat(handleImage, "rotation", 0f, 30f);
         handleAnimator.setDuration(2000);
         handleAnimator.setRepeatCount(0);
         handleAnimator.setInterpolator(new DecelerateInterpolator());
@@ -381,6 +381,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
         }
         discAnimator.end();
+        handleImage.setRotation(0);
+
         Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
         stopMusic();
         initPlayer();
