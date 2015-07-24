@@ -140,4 +140,6 @@
     <dimen name="settings_btn_margin">15dp</dimen>
     <dimen name="post_margin">40dp</dimen>
     <dimen name="bg_line_height">24dp</dimen>
+    <dimen name="comments_margin">20dp</dimen>
+    <dimen name="likes_margin">30dp</dimen>
 </resources>
