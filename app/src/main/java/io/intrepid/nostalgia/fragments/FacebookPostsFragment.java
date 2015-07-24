@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
@@ -86,6 +87,7 @@ public class FacebookPostsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_facebook_posts, container, false);
+        FacebookSdk.sdkInitialize(getActivity());
         ButterKnife.inject(this, rootView);
         currentYear = getArguments().getInt(YEAR_KEY);
         callbackManager = CallbackManager.Factory.create();
@@ -174,6 +176,7 @@ public class FacebookPostsFragment extends Fragment {
         Bundle bundle = new Bundle();
         if (completeDataFromFb != null) {
             try {
+                Log.e("viewtype",""+viewType);
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
                 if (completeDataFromFb.toString().contains(FacebookConstants.PICTURE))
