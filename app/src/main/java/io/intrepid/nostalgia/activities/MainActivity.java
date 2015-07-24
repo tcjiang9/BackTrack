@@ -33,9 +33,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 import uk.co.chrisjenx.calligraphy.TypefaceUtils;
 
 
-public class MainActivity
-        extends AppCompatActivity
-        implements YearFragment.PrevYearButtonListener {
+public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String SELECTED_FONT = "fonts/ProximaNova-Bold.otf";
@@ -159,11 +157,6 @@ public class MainActivity
 
     private void resetPlayer(){
         SinglePlayer.getInstance().getMediaPlayer().reset();
-    }
-
-    @Override
-    public void onPrevYearButtonClicked() {
-        viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
     }
 
     public void focusSelectedYear(int newPosition, int w, int textSize, String font) {

@@ -2,7 +2,6 @@ package io.intrepid.nostalgia.fragments;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -52,8 +50,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     public int currentYear;
     private boolean isActive = false;
     private boolean isMusicImageLoaded = false;
-
-    private PrevYearButtonListener prevYearButtonListener;
 
     // MediaPlayer variables
     private MediaPlayer mediaPlayer;
@@ -93,23 +89,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @InjectView(R.id.music_image)
     ImageView musicImage;
 
-    public interface PrevYearButtonListener {
-        void onPrevYearButtonClicked();
-    }
-
     private enum Actions {
         starting, stopping, loading
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            prevYearButtonListener = (PrevYearButtonListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement PrevYearButtonListener");
-        }
     }
 
     @Override
@@ -169,14 +150,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.news_view, NewsFragment.getInstance(currentYear))
                 .commit();
-
-        Button prevYearButton = (Button) rootView.findViewById(R.id.previous_year_button);
-        prevYearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prevYearButtonListener.onPrevYearButtonClicked();
-            }
-        });
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if (preferences.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null) == null) {
@@ -362,7 +335,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             playMusicButton.clearAnimation();
         } else if (action == Actions.loading) {
             playMusicButton.setImageResource(R.drawable.music_loading_circle);
-            playMusicButton.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.translate));
+            playMusicButton.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.rotate));
         }
     }
 
