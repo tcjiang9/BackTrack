@@ -47,11 +47,9 @@ public class CustomListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-
             holder = new ViewHolder();
             convertView = this.inflater.inflate(R.layout.list_item_comment,
                     parent, false);
-
             holder.commentName = (TextView) convertView
                     .findViewById(R.id.comment_name);
             holder.commentData = (TextView) convertView

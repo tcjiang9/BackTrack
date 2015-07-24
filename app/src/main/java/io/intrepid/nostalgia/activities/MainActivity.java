@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -45,7 +46,7 @@ public class MainActivity
     public static final int UNSELECTED_WIDTH = 17;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private int currentPosition = Constants.NUMBER_OF_YEARS - 1;
+    private int currentPosition;
     public static boolean tabDragged;
 
     @Override
@@ -63,10 +64,18 @@ public class MainActivity
         for (int j = 0; j <= (Constants.NUMBER_OF_YEARS - 1); j++) {
             focusSelectedYear(j, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
         }
-        ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
+        final ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+    //                Log.e("position",""+position);
+    //                Log.e("positionOffset",""+positionOffset);
+    //                Log.e("positionPixels",""+positionOffsetPixels);
+    //                if(positionOffset == 0.0){
+    //                    currentPosition = position;
+    //                    viewPager.setCurrentItem(currentPosition);
+    //                } else {
+    //
+    //                }
             }
 
             @Override
@@ -93,10 +102,11 @@ public class MainActivity
         };
 
         viewPager.addOnPageChangeListener(viewPageListener);
+        viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         tabLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(!tabDragged) {
+                if (!tabDragged) {
                     tabDragged = true;
                     getSupportFragmentManager().beginTransaction().add(R.id.container_pager,
                             new ScrollAnimation(), ScrollAnimation.TAG).commit();
@@ -104,12 +114,32 @@ public class MainActivity
                 return false;
             }
         });
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                Log.e("!!!!!!!!!!!", "" + tab.getPosition());
+                currentPosition = tab.getPosition();
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tabDragged) {
+                    ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
+                    animation.deleteAfterAnimation();
+                    tabDragged = false;
+                }
+            }
+        });
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         YearFragment startingFragment = (YearFragment) pagerAdapter.getItem(Constants.NUMBER_OF_YEARS - 1);
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         startingFragment.setActive();
     }
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

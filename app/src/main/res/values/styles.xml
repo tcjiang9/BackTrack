@@ -42,7 +42,7 @@
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">34dp</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">40dp</item>
         <item name="android:text">@string/status_alternative</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textAppearance">@style/regular</item>
@@ -59,6 +59,8 @@
     </style>
 
     <style name="likes_img">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">30dp</item>
         <item name="android:layout_width">15dp</item>
         <item name="android:layout_height">14dp</item>
         <item name="android:src">@drawable/heart</item>
@@ -71,12 +73,14 @@
         <item name="android:layout_height">15dp</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:src">@drawable/comment</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginLeft">68dp</item>
     </style>
 
     <style name="post_container">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:visibility">gone</item>
     </style>
 
@@ -85,6 +89,7 @@
         <item name="android:layout_width">328dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
+        <item name="android:visibility">gone</item>
     </style>
 
     <style name="status_container">

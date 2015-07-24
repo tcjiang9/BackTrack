@@ -66,6 +66,7 @@
     <dimen name="fb_title_width">236dp</dimen>
     <dimen name="fb_title_container_margin">35dp</dimen>
     <dimen name="fb_title_container_height">60dp</dimen>
+    <dimen name="no_fb_height">100dp</dimen>
     <dimen name="share_btn_width">24dp</dimen>
     <dimen name="share_btn_height">24dp</dimen>
     <dimen name="share_btn_margin_left">290dp</dimen>
@@ -113,8 +114,8 @@
     <dimen name="post_margin_top">25dp</dimen>
     <dimen name="line_3_margin_left">109dp</dimen>
     <dimen name="time_margin_post_3">40dp</dimen>
-    <dimen name="line_4_height">50dp</dimen>
-    <dimen name="line_4_margin_left">145dp</dimen>
+    <dimen name="line_4_height">60dp</dimen>
+    <dimen name="line_4_margin_left">140dp</dimen>
     <dimen name="tab_layout_height">40dp</dimen>
     <dimen name="header_height">24dp</dimen>
     <dimen name="line_1_margin">248dp</dimen>

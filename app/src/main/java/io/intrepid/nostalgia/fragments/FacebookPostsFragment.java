@@ -70,6 +70,8 @@ public class FacebookPostsFragment extends Fragment {
     List<TextView> timeStamp;
     @InjectViews({R.id.post_1, R.id.post_2, R.id.post_3})
     List<RelativeLayout> postLayout;
+    @InjectViews({R.id.status_container, R.id.status_container_2, R.id.status_container_3})
+    List<RelativeLayout> statusContainer;
     @InjectViews({R.id.image_container, R.id.image_container_2, R.id.image_container_3})
     List<FrameLayout> imageLayout;
     @InjectViews({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
@@ -97,20 +99,29 @@ public class FacebookPostsFragment extends Fragment {
         return rootView;
     }
 
-    @OnClick(R.id.share_post_1) void onShareOne() {
+    @OnClick(R.id.share_post_1)
+    void onShareOne() {
         shareFacebookPost(0);
     }
 
-    @OnClick(R.id.share_post_2) void onShareTwo() {
+    @OnClick(R.id.share_post_2)
+    void onShareTwo() {
         shareFacebookPost(1);
     }
 
-    @OnClick(R.id.share_post_3) void onShareThree() {
+    @OnClick(R.id.share_post_3)
+    void onShareThree() {
         shareFacebookPost(2);
     }
 
-    @OnClick({R.id.post_1, R.id.post_2, R.id.post_3})
-    void onClickLayout(View view){
+    @OnClick({R.id.image_shared, R.id.image_shared_2, R.id.image_shared_3})
+    void onClickLayout(View view) {
+        Log.e("on click on layuout", "" + view.getId());
+        openPhotoDetails(view.getId());
+
+    }
+    @OnClick({R.id.status_1, R.id.status_2, R.id.status_3})
+    void onClickStatus(View view) {
         Log.e("on click on layuout", "" + view.getId());
         openPhotoDetails(view.getId());
 
@@ -162,8 +173,10 @@ public class FacebookPostsFragment extends Fragment {
         Bundle bundle = new Bundle();
         if (completeDataFromFb != null) {
             try {
+                Log.e("viewtype",""+viewType);
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
+                if (completeDataFromFb.has(FacebookConstants.PICTURE))
                 bundle.putString(IMAGE_URL, imageUrl[viewType]);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -176,11 +189,10 @@ public class FacebookPostsFragment extends Fragment {
     private void getUserPosts() {
         SharedPreferences editor = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         String access = editor.getString(Constants.SHARED_PREFS_ACCESS_TOKEN, null);
-        if (access == null){
+        if (AccessToken.getCurrentAccessToken() == null) {
             noFb.setVisibility(View.VISIBLE);
             noFbMessage.setText(getString(R.string.no_facebook_content));
-        }
-        else {
+        } else {
             new GraphRequest(AccessToken.getCurrentAccessToken(),
                     FacebookConstants.ME_POSTS, DateFormatter.makeFacebookDate(currentYear), HttpMethod.GET,
                     new GraphRequest.Callback() {
@@ -194,15 +206,14 @@ public class FacebookPostsFragment extends Fragment {
     }
 
     private void processFacebookResponse(GraphResponse graphResponse) {
+        completeDataFromFb = graphResponse.getJSONObject();
         if (isAdded()) {
-            completeDataFromFb = graphResponse.getJSONObject();
-            if (completeDataFromFb.length() == 1 || completeDataFromFb.toString() == null) {
+            if (completeDataFromFb == null || completeDataFromFb.length() == 1) {
                 noFb.setVisibility(View.VISIBLE);
                 noFbMessage.setText(getString(R.string.no_activity_msg));
             } else {
                 try {
                     JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
-
                     for (int i = 0; i < specificData.length(); i++) {
                         FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
                         if (specificData.getJSONObject(i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.ADDED_PHOTOS)) {
@@ -212,17 +223,14 @@ public class FacebookPostsFragment extends Fragment {
                             likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                             commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                             loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
-                            if (!specificData.getJSONObject(i).has(FacebookConstants.MESSAGE)) {
-                                status.get(i).setVisibility(View.GONE);
-                            } else {
+                            if (specificData.getJSONObject(i).has(FacebookConstants.MESSAGE)) {
+                                status.get(i).setVisibility(View.VISIBLE);
                                 status.get(i).setText(facebookResponse.getStatus());
                             }
                         } else if (specificData.getJSONObject(i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.STATUS)) {
                             postLayout.get(i).setVisibility(View.VISIBLE);
+                            status.get(i).setVisibility(View.VISIBLE);
                             status.get(i).setId(i);
-                            timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
-                            RelativeLayout.LayoutParams currentLayoutParams = (RelativeLayout.LayoutParams) status.get(i).getLayoutParams();
-                            currentLayoutParams.addRule(RelativeLayout.BELOW, timeStamp.get(i).getId());
                             status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
                             likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                             commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
@@ -243,7 +251,6 @@ public class FacebookPostsFragment extends Fragment {
         if (AccessToken.getCurrentAccessToken() != null) {
             getFullImage(image, imageId, obj);
         }
-
     }
 
     private void getFullImage(final ImageView image, final int imageId, String obj) {
@@ -255,12 +262,14 @@ public class FacebookPostsFragment extends Fragment {
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         JSONObject arr = response.getJSONObject();
-                        try {
-                            JSONArray jsonArr = arr.getJSONArray(FacebookConstants.IMAGES);
-                            imageUrl[imageId] = jsonArr.getJSONObject(0).get(FacebookConstants.SOURCE).toString();
-                            loadImage(imageId, image);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        if (arr != null) {
+                            try {
+                                JSONArray jsonArr = arr.getJSONArray(FacebookConstants.IMAGES);
+                                imageUrl[imageId] = jsonArr.getJSONObject(0).get(FacebookConstants.SOURCE).toString();
+                                loadImage(imageId, image);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -293,6 +302,5 @@ public class FacebookPostsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-
     }
 }
