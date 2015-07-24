@@ -70,7 +70,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     //Animation variables
     ObjectAnimator discAnimator;
     ObjectAnimator loadingAnimator;
-    private long currentTime;
+    private long currentDiscAnimTime;
 
     @InjectView(R.id.play_music_button)
     ImageButton playMusicButton;
@@ -280,14 +280,14 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         loadingAnimator.setInterpolator(new DecelerateInterpolator());
     }
 
-    private void pauseAnimation() {
-        currentTime = discAnimator.getCurrentPlayTime();
+    private void pauseDiscAnimation() {
+        currentDiscAnimTime = discAnimator.getCurrentPlayTime();
         discAnimator.cancel();
     }
 
-    private void startAnimation() {
+    private void startDiscAnimation() {
         discAnimator.start();
-        discAnimator.setCurrentPlayTime(currentTime);
+        discAnimator.setCurrentPlayTime(currentDiscAnimTime);
     }
 
     private void playMusic(final MediaPlayer mediaPlayer, String songUrl) {
@@ -357,16 +357,14 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private void updateUi(Actions action) {
         if (action == Actions.stopping) {
             playMusicButton.setImageResource(R.drawable.play_circle_button);
-            pauseAnimation();
+            pauseDiscAnimation();
         } else if (action == Actions.starting) {
             playMusicButton.setImageResource(R.drawable.pause_circle_button);
-            startAnimation();
-            //loadingAnimator.end();
+            startDiscAnimation();
             playMusicButton.clearAnimation();
         } else if (action == Actions.loading) {
             playMusicButton.setImageResource(R.drawable.music_loading_circle);
             playMusicButton.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.translate));
-            //loadingAnimator.start();
         }
     }
 
