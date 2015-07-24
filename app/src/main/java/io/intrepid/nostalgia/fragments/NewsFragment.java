@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.InjectViews;
 import butterknife.OnClick;
 import io.intrepid.nostalgia.DateFormatter;
 import io.intrepid.nostalgia.adapters.NytServiceAdapter;
@@ -28,8 +27,8 @@ import retrofit.client.Response;
 public class NewsFragment extends Fragment {
     public static final String TAG = NewsFragment.class.getSimpleName();
     public static final String YEAR = "Display Year";
-    public static final String SHARE_URL = "Share url";
     public static final String TEXT_PLAIN = "text/plain";
+    private String shareVia;
 
     public String url;
     String CURRENT_YEAR;
@@ -55,7 +54,7 @@ public class NewsFragment extends Fragment {
         i.setType(TEXT_PLAIN);
         i.putExtra(Intent.EXTRA_SUBJECT, "This day in " + Integer.toString(getArguments().getInt(YEAR)));
         i.putExtra(Intent.EXTRA_TEXT, url);
-        startActivity(Intent.createChooser(i, SHARE_URL));
+        startActivity(Intent.createChooser(i, shareVia));
     }
 
     @OnClick(R.id.read_more_nyt)
@@ -70,6 +69,7 @@ public class NewsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.inject(this, rootView);
         sendNytGetRequest();
+        shareVia = getString(R.string.share_via);
         return rootView;
     }
 

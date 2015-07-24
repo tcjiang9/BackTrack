@@ -3,8 +3,6 @@ package io.intrepid.nostalgia.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,11 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -56,9 +51,12 @@ public class FacebookPostsFragment extends Fragment {
     public static final String YEAR_KEY = "YEAR_KEY";
     public static final int MILLISECOND_PER_SECOND = 1000;
     public static final String IMAGE_URL = "image_url";
-    public static final String SHARE_TEXT = "Share text";
-    public static final String SHARE_VIA = "Share via";
     public static final String TEXT_PLAIN = "text/plain";
+    String shareVia;
+    CallbackManager callbackManager;
+    private int currentYear;
+    JSONObject completeDataFromFb;
+    String[] imageUrl = new String[3];
 
     @InjectViews({R.id.likes_cnt, R.id.likes_cnt_2, R.id.likes_cnt_3})
     List<TextView> likesCount;
@@ -80,10 +78,6 @@ public class FacebookPostsFragment extends Fragment {
     TextView noFbMessage;
     @InjectView(R.id.no_fb_message)
     LinearLayout noFb;
-    CallbackManager callbackManager;
-    private int currentYear;
-    JSONObject completeDataFromFb;
-    String[] imageUrl = new String[3];
 
 
     @Override
@@ -94,6 +88,7 @@ public class FacebookPostsFragment extends Fragment {
         currentYear = getArguments().getInt(YEAR_KEY);
         callbackManager = CallbackManager.Factory.create();
         getUserPosts();
+        shareVia = getString(R.string.share_via);
         return rootView;
     }
 
@@ -116,33 +111,41 @@ public class FacebookPostsFragment extends Fragment {
 
     }
 
-    private void shareFacebookPost(int order) {
-        if (loadImages.get(order) != null) {
-            loadImages.get(order).setDrawingCacheEnabled(true);
-
-            Bitmap bitmap = loadImages.get(order).getDrawingCache();
-            File root = Environment.getExternalStorageDirectory();
-            File cachePath = new File(root.getAbsolutePath() + "/DCIM/Camera/image.jpg");
-            try {
-                cachePath.createNewFile();
-                FileOutputStream ostream = new FileOutputStream(cachePath);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-                ostream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            Intent share = new Intent(Intent.ACTION_SEND);
-            share.setType("image/*");
-            share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(cachePath));
-            startActivity(Intent.createChooser(share, SHARE_VIA));
+    private void shareFacebookPost(int index) {
+        if (imageUrl[index] != null) {
+            sharePhoto(index);
         } else {
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType(TEXT_PLAIN);
-            i.putExtra(Intent.EXTRA_TEXT, status.get(order).toString());
-            startActivity(Intent.createChooser(i, SHARE_TEXT));
+            shareText(index);
         }
 
+    }
+
+    private void sharePhoto(int index) {
+        loadImages.get(index).setDrawingCacheEnabled(true);
+
+        Bitmap bitmap = loadImages.get(index).getDrawingCache();
+        File root = Environment.getExternalStorageDirectory();
+        File cachePath = new File(root.getAbsolutePath() + "/DCIM/Camera/image.jpg");
+        try {
+            cachePath.createNewFile();
+            FileOutputStream ostream = new FileOutputStream(cachePath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+            ostream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/*");
+        share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(cachePath));
+        startActivity(Intent.createChooser(share, shareVia));
+    }
+
+    private void shareText(int index) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType(TEXT_PLAIN);
+        i.putExtra(Intent.EXTRA_TEXT, status.get(index).toString());
+        startActivity(Intent.createChooser(i, shareVia));
     }
 
     public static FacebookPostsFragment getInstance(int currentYear) {
