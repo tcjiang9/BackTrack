@@ -1,5 +1,6 @@
 package io.intrepid.nostalgia.fragments;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
@@ -67,6 +68,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     ObjectAnimator discAnimator;
     ObjectAnimator loadingAnimator;
     private long currentDiscAnimTime;
+    ObjectAnimator handleAnimator;
 
     @InjectView(R.id.play_music_button)
     ImageButton playMusicButton;
@@ -88,6 +90,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @InjectView(R.id.music_image)
     ImageView musicImage;
+
+    @InjectView(R.id.handle)
+    ImageView handleImage;
 
     private enum Actions {
         starting, stopping, loading
@@ -249,6 +254,38 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         loadingAnimator.setRepeatCount(ValueAnimator.INFINITE);
         loadingAnimator.setRepeatMode(ValueAnimator.REVERSE);
         loadingAnimator.setInterpolator(new DecelerateInterpolator());
+
+        handleImage.setPivotX(105f);
+        handleImage.setPivotY(145f);
+        handleAnimator = ObjectAnimator.ofFloat(handleImage, "rotation", 0f, 45f);
+        handleAnimator.setDuration(2000);
+        handleAnimator.setRepeatCount(0);
+        handleAnimator.setInterpolator(new DecelerateInterpolator());
+        handleAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                //on animation complete
+                mediaPlayer.start();
+                Log.i(TAG, "this has prepared");
+                isPreparing = false;
+                updateUi(Actions.starting);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 
     private void pauseDiscAnimation() {
@@ -294,10 +331,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mp) {
-                        mediaPlayer.start();
-                        Log.i(TAG, "this has prepared");
-                        isPreparing = false;
-                        updateUi(Actions.starting);
+                        handleAnimator.start();
+                        //start needle animation
                     }
                 });
                 mediaPlayer.prepareAsync();
