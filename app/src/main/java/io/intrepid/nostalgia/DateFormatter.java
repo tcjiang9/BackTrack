@@ -40,18 +40,48 @@ public class DateFormatter {
     public static Bundle makeFacebookDate(int year) {
         Bundle parameters = new Bundle();
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2015);
-        cal.set(Calendar.DATE, 20);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
+        if (year == 2014) {
+            cal.set(Calendar.YEAR, 2015);
+            cal.set(Calendar.DATE, 24);
+            cal.set(Calendar.HOUR_OF_DAY, 9);
+            cal.set(Calendar.MINUTE, 40);
+            setUpParameters(parameters, cal, year);
+        } else
+        if (year == 2013) {
+            cal.set(Calendar.YEAR, 2015);
+            cal.set(Calendar.DATE, 24);
+            cal.set(Calendar.HOUR_OF_DAY, 10);
+            cal.set(Calendar.MINUTE, 50);
+            setUpParameters(parameters, cal, year);
+        } else
+        if (year == 2012) {
+            cal.set(Calendar.YEAR, year);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            setUpParameters(parameters, cal, year);
+        } else {
+            setUpParameters(parameters, cal, year);
+        }
+        return parameters;
+
+    }
+
+    private static void setUpParameters(Bundle parameters, Calendar cal, int year) {
         long initialTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
         parameters.putString(FacebookConstants.SINCE, "" + initialTime);
-        cal.set(Calendar.DATE, cal.get(Calendar.DATE));
-        //cal.set(Calendar.DATE, 8);
-        cal.set(Calendar.HOUR_OF_DAY, 23);
+        if (year == 2014) {
+            cal.set(Calendar.HOUR_OF_DAY, 10);
+        } else
+        if (year == 2013) {
+            cal.set(Calendar.HOUR_OF_DAY, 12);
+        } else
+        if (year == 2012) {
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+        } else{
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+        }
         long limitTime = cal.getTimeInMillis() / MILLISECOND_PER_SECOND;
         parameters.putString(FacebookConstants.UNTIL, "" + limitTime);
         parameters.putString(FacebookConstants.LIMIT, "3");
-        return parameters;
     }
 }

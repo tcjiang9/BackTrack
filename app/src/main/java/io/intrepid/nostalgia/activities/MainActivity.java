@@ -122,7 +122,6 @@ public class MainActivity
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.e("!!!!!!!!!!!", "" + tab.getPosition());
                 currentPosition = tab.getPosition();
             }
 

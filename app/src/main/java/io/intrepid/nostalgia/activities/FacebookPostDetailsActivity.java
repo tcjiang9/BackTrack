@@ -103,6 +103,12 @@ public class FacebookPostDetailsActivity extends AppCompatActivity {
                 }
                 temp += "and " + String.valueOf(likeNames.size() - 5) + " others like your photo";
                 likes.setText(getString(R.string.likes, temp));
+            } else {
+                String temp = "";
+                for (int i = 0; i < likeNames.size(); i++) {
+                    temp += likeNames.get(i) + ", ";
+                }
+                likes.setText(getString(R.string.likes, temp.substring(0,temp.lastIndexOf(","))));
             }
 
         }
