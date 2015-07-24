@@ -52,7 +52,7 @@ public class FacebookPostsFragment extends Fragment {
     public static final int MILLISECOND_PER_SECOND = 1000;
     public static final String IMAGE_URL = "image_url";
     public static final String TEXT_PLAIN = "text/plain";
-    String shareVia;
+    String sharingHeader;
     CallbackManager callbackManager;
     private int currentYear;
     JSONObject completeDataFromFb;
@@ -88,7 +88,7 @@ public class FacebookPostsFragment extends Fragment {
         currentYear = getArguments().getInt(YEAR_KEY);
         callbackManager = CallbackManager.Factory.create();
         getUserPosts();
-        shareVia = getString(R.string.share_via);
+        sharingHeader = getString(R.string.share_via);
         return rootView;
     }
 
@@ -138,14 +138,14 @@ public class FacebookPostsFragment extends Fragment {
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/*");
         share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(cachePath));
-        startActivity(Intent.createChooser(share, shareVia));
+        startActivity(Intent.createChooser(share, sharingHeader));
     }
 
     private void shareText(int index) {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType(TEXT_PLAIN);
         i.putExtra(Intent.EXTRA_TEXT, status.get(index).toString());
-        startActivity(Intent.createChooser(i, shareVia));
+        startActivity(Intent.createChooser(i, sharingHeader));
     }
 
     public static FacebookPostsFragment getInstance(int currentYear) {
