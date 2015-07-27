@@ -197,11 +197,15 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     /**
+     * Fetches the music json and if autoplay is enabled, plays the music when the information is
+     * ready
+     *
      * Modifies songUrl to contain the iTunes preview url of the song found via the search term
      * Modifies imageUrl to contain the iTunes url for the artist image
+     * Modifies musicImage to display the image from imageUrl
      *
-     * @param searchTerm the "term=" query in our http request, the artist name and song name concatanated with a space
-     *                   in between
+     * @param searchTerm the "term=" query in our http request, the artist name and song name
+     *                   concatanated with a space in between
      */
     private void fetchMusicJson(String searchTerm) {
         ItunesService itunesService = ItunesServiceAdapter.getItunesServiceInstance();
@@ -332,7 +336,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                     @Override
                     public void onPrepared(MediaPlayer mp) {
                         handleAnimator.start();
-                        //start needle animation
                     }
                 });
                 mediaPlayer.prepareAsync();
@@ -350,13 +353,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             Log.i(TAG, "Stopping mediaPlayer via stopMusic()");
             mediaPlayer.stop();
         }
-        //  getActivity().runOnUiThread(new Runnable() {
-        //    @Override
-        //    public void run() {
         updateUi(Actions.stopping);
         Log.i(TAG, "Button text set, resetting player");
-        //  }
-        //});
         mediaPlayer.reset();
     }
 
@@ -386,13 +384,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
         stopMusic();
         initPlayer();
-        /**
-         Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-         Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
-         for (int i = 0; i < threadArray.length; i ++) {
-         Log.i(TAG, threadArray[i].toString());
-         }
-         **/
     }
 
     @Override
