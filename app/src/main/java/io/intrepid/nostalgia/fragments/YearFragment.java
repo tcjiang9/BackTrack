@@ -58,17 +58,19 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private boolean isPaused = false;
 
     //Database variables
-    DatabaseHelper myDbHelper;
+    private DatabaseHelper myDbHelper;
 
     //Song variables
     private String songUrl;
     private String imageUrl;
 
     //Animation variables
-    ObjectAnimator discAnimator;
-    ObjectAnimator loadingAnimator;
+    private ObjectAnimator discAnimator;
+    private ObjectAnimator loadingAnimator;
     private long currentDiscAnimTime;
-    ObjectAnimator handleAnimator;
+    private ObjectAnimator handleAnimator;
+    private boolean isHandleAnimComplete = false;
+
 
     @InjectView(R.id.play_music_button)
     ImageButton playMusicButton;
@@ -199,7 +201,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     /**
      * Fetches the music json and if autoplay is enabled, plays the music when the information is
      * ready
-     *
+     * <p/>
      * Modifies songUrl to contain the iTunes preview url of the song found via the search term
      * Modifies imageUrl to contain the iTunes url for the artist image
      * Modifies musicImage to display the image from imageUrl
@@ -209,7 +211,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
      */
     private void fetchMusicJson(String searchTerm) {
         ItunesService itunesService = ItunesServiceAdapter.getItunesServiceInstance();
-        String limit = "2";
+        String limit = "1";
         itunesService.listSongInfo(
                 searchTerm,
                 Constants.COUNTRY,
@@ -335,7 +337,14 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mp) {
-                        handleAnimator.start();
+                        if (!isHandleAnimComplete) {
+                            handleAnimator.start();
+                        } else {
+                            mediaPlayer.start();
+                            Log.i(TAG, "this has prepared");
+                            isPreparing = false;
+                            updateUi(Actions.starting);
+                        }
                     }
                 });
                 mediaPlayer.prepareAsync();
