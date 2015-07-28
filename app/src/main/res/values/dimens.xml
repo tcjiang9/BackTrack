@@ -120,7 +120,7 @@
     <dimen name="header_height">24dp</dimen>
     <dimen name="line_1_margin">248dp</dimen>
     <dimen name="news_margin_height">120dp</dimen>
-    <dimen name="news_margin_left">162dp</dimen>
+    <dimen name="news_margin_left">166dp</dimen>
     <dimen name="ufo_width">100dp</dimen>
     <dimen name="ufo_height">100dp</dimen>
     <dimen name="ufo_margin_left">170dp</dimen>

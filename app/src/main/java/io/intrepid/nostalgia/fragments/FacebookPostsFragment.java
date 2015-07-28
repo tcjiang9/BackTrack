@@ -176,7 +176,6 @@ public class FacebookPostsFragment extends Fragment {
         Bundle bundle = new Bundle();
         if (completeDataFromFb != null) {
             try {
-                Log.e("viewtype",""+viewType);
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(index).toString());
                 if (completeDataFromFb.toString().contains(FacebookConstants.PICTURE))
@@ -300,7 +299,6 @@ public class FacebookPostsFragment extends Fragment {
                     load(imageUrl[2]).fit()
                      .into(image);
         }
-
     }
 
     @Override

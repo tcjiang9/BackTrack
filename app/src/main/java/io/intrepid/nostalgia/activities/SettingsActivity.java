@@ -89,12 +89,12 @@ public class SettingsActivity extends AppCompatActivity{
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-//        startActivity(i);
-//        finish();
-//    }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        finish();
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
