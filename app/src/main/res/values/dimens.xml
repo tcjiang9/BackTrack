@@ -96,7 +96,7 @@
     <dimen name="music_image_width">244dp</dimen>
     <dimen name="music_image_height">244dp</dimen>
     <dimen name="vinyl_frame_marginTop">31dp</dimen>
-    <dimen name="handle_marginLeft">260dp</dimen>
+    <dimen name="handle_marginLeft">235dp</dimen>
     <dimen name="handle_marginTop">31dp</dimen>
     <dimen name="city_illustration_height">56dp</dimen>
     <dimen name="comment_margin">5dp</dimen>
@@ -142,4 +142,6 @@
     <dimen name="bg_line_height">24dp</dimen>
     <dimen name="comments_margin">20dp</dimen>
     <dimen name="likes_margin">30dp</dimen>
+    <dimen name="pivot_x">105dp</dimen>
+    <dimen name="pivot_y">5dp</dimen>
 </resources>

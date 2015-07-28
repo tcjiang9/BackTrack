@@ -1,5 +1,6 @@
 package io.intrepid.nostalgia.fragments;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
@@ -57,16 +58,21 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private boolean isPaused = false;
 
     //Database variables
-    DatabaseHelper myDbHelper;
+    private DatabaseHelper myDbHelper;
 
     //Song variables
     private String songUrl;
     private String imageUrl;
 
     //Animation variables
-    ObjectAnimator discAnimator;
-    ObjectAnimator loadingAnimator;
+    private ObjectAnimator discAnimator;
+    private ObjectAnimator loadingAnimator;
     private long currentDiscAnimTime;
+    private ObjectAnimator handleAnimator;
+    private boolean isHandleAnimComplete = false;
+    private final float handleAnimAngle = 30f;
+    private final long handleAnimDur = 2000;
+
 
     @InjectView(R.id.play_music_button)
     ImageButton playMusicButton;
@@ -89,38 +95,52 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @InjectView(R.id.music_image)
     ImageView musicImage;
 
+    @InjectView(R.id.handle)
+    ImageView handleImage;
+
     private enum Actions {
         starting, stopping, loading
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // the current year, for future use.
-        currentYear = getArguments().getInt(YEAR);
-        Log.i(TAG, String.valueOf(currentYear) + " HAS CALLED ONCREATEVIEW");
-
-        initializeDb();
-        String[] songDetails = getDbSongInfo();
-
-        String songTitle = songDetails[0];
-        String songArtist = songDetails[1];
-        String searchTerm = songTitle + " " + songArtist;
-
-        if (songUrl == null || imageUrl == null) {
-            fetchMusicJson(searchTerm);
-        }
-
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
+        currentYear = getArguments().getInt(YEAR);
+        Log.i(TAG, String.valueOf(currentYear) + " HAS CALLED ONCREATEVIEW");
+        initializeDb();
+
+        String[] songDetails = getDbSongInfo();
+        String songTitle = songDetails[0];
+        String songArtist = songDetails[1];
+
+        String searchTerm = songTitle + " " + songArtist;
         initAnimators();
         initPlayer();
+        if (isActive) {
+            Log.i(TAG, String.valueOf(currentYear) + " We are setting the oncompletion listener");
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    updateUi(Actions.stopping);
+                    isPreparing = false;
+                    Log.i(TAG, "Music completed");
+                }
+            });
+        }
 
         dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
 
         playMusicButton.setImageResource(mediaPlayer != null && mediaPlayer.isPlaying()
                 ? R.drawable.pause_circle_button
                 : R.drawable.play_circle_button);
+
+        if (songUrl == null || imageUrl == null) {
+            fetchMusicJson(searchTerm);
+        }
 
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,15 +212,19 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     /**
+     * Fetches the music json and if autoplay is enabled, plays the music when the information is
+     * ready
+     * <p/>
      * Modifies songUrl to contain the iTunes preview url of the song found via the search term
      * Modifies imageUrl to contain the iTunes url for the artist image
+     * Modifies musicImage to display the image from imageUrl
      *
-     * @param searchTerm the "term=" query in our http request, the artist name and song name concatanated with a space
-     *                   in between
+     * @param searchTerm the "term=" query in our http request, the artist name and song name
+     *                   concatanated with a space in between
      */
     private void fetchMusicJson(String searchTerm) {
         ItunesService itunesService = ItunesServiceAdapter.getItunesServiceInstance();
-        String limit = "2";
+        String limit = "1";
         itunesService.listSongInfo(
                 searchTerm,
                 Constants.COUNTRY,
@@ -240,15 +264,48 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     private void initAnimators() {
-        discAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 2160f);
+        discAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 1440f);
         discAnimator.setDuration(Constants.SONG_DURATION); //30 seconds in ms
-        discAnimator.setRepeatCount(ValueAnimator.INFINITE);
-
+        discAnimator.setRepeatCount(0);
+/**
         loadingAnimator = ObjectAnimator.ofFloat(playMusicButton, "translation", 0f, 100f);
         loadingAnimator.setDuration(3000);
         loadingAnimator.setRepeatCount(ValueAnimator.INFINITE);
         loadingAnimator.setRepeatMode(ValueAnimator.REVERSE);
         loadingAnimator.setInterpolator(new DecelerateInterpolator());
+**/
+        handleImage.setPivotX(getResources().getDimension(R.dimen.pivot_x));
+        handleImage.setPivotY(getResources().getDimension(R.dimen.pivot_y));
+        handleAnimator = ObjectAnimator.ofFloat(handleImage, "rotation", 0f, handleAnimAngle);
+        handleAnimator.setDuration(handleAnimDur);
+        handleAnimator.setRepeatCount(0);
+        handleAnimator.setInterpolator(new DecelerateInterpolator());
+        handleAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                //on animation complete
+                mediaPlayer.start();
+                Log.i(TAG, "this has prepared");
+                updateUi(Actions.starting);
+                isHandleAnimComplete = true;
+                isPreparing = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 
     private void pauseDiscAnimation() {
@@ -262,24 +319,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     private void playMusic(final MediaPlayer mediaPlayer, String songUrl) {
-        if (songUrl == null) {
-            Log.i(TAG, "!!!!!TRACK NOT FOUND!!!!!!!");
+        if (songUrl == null || mediaPlayer.isPlaying()) {
             return;
         }
-        if (mediaPlayer.isPlaying()) {
-            Log.i(TAG, "Attempted to play music while already playing");
-            return;
-        }
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mediaPlayer.stop();
-                mediaPlayer.reset();
-                updateUi(Actions.stopping);
-                isPreparing = false;
-                Log.i(TAG, "Music completed");
-            }
-        });
         if (isPaused) {
             mediaPlayer.start();
             Log.i(TAG, "QUICKSTART");
@@ -294,10 +336,14 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mp) {
-                        mediaPlayer.start();
-                        Log.i(TAG, "this has prepared");
-                        isPreparing = false;
-                        updateUi(Actions.starting);
+                        if (!isHandleAnimComplete) {
+                            handleAnimator.start();
+                        } else {
+                            mediaPlayer.start();
+                            Log.i(TAG, "this has prepared");
+                            isPreparing = false;
+                            updateUi(Actions.starting);
+                        }
                     }
                 });
                 mediaPlayer.prepareAsync();
@@ -315,13 +361,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
             Log.i(TAG, "Stopping mediaPlayer via stopMusic()");
             mediaPlayer.stop();
         }
-        //  getActivity().runOnUiThread(new Runnable() {
-        //    @Override
-        //    public void run() {
         updateUi(Actions.stopping);
         Log.i(TAG, "Button text set, resetting player");
-        //  }
-        //});
         mediaPlayer.reset();
     }
 
@@ -342,20 +383,15 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @Override
     public void onPauseFragment() {
         isActive = false;
-        if (mediaPlayer == null) {
-            mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
-        }
-        discAnimator.end();
+        isHandleAnimComplete = false;
         Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
-        stopMusic();
-        initPlayer();
-        /**
-         Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-         Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
-         for (int i = 0; i < threadArray.length; i ++) {
-         Log.i(TAG, threadArray[i].toString());
-         }
-         **/
+        playMusicButton.clearAnimation();
+        if (mediaPlayer != null) {
+            stopMusic();
+            initPlayer();
+            discAnimator.end();
+            handleImage.setRotation(0);
+        }
     }
 
     @Override

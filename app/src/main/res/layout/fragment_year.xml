@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">    
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,17 +26,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/ribbon_top_margin"
-                android:textColor="@color/date_text"
-                android:textSize="@dimen/read_more_text"
+                android:text="@string/date_text"
                 android:textAppearance="@style/regular"
-                android:text="@string/date_text" />
+                android:textColor="@color/date_text"
+                android:textSize="@dimen/read_more_text" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            
+
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:id="@+id/music_image"
                     android:layout_width="@dimen/music_image_width"
                     android:layout_height="@dimen/music_image_height"
-                    android:src="@drawable/default_record"/>
+                    android:src="@drawable/default_record" />
 
                 <ImageButton
                     android:id="@+id/play_music_button"
@@ -59,11 +59,12 @@
             </FrameLayout>
 
             <ImageView
+                android:id="@+id/handle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/handle_marginLeft"
                 android:layout_marginTop="@dimen/handle_marginTop"
-                android:src="@drawable/handle_v2" />
+                android:src="@drawable/handle" />
 
         </FrameLayout>
 
@@ -72,14 +73,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/song_title"
-            android:textAppearance="@style/semi_bold"/>
+            android:textAppearance="@style/semi_bold" />
 
         <TextView
             android:id="@+id/song_artist_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/song_artist"
-            android:textAppearance="@style/light"/>
+            android:textAppearance="@style/light" />
 
         <RelativeLayout
             android:id="@+id/facebook_view"
@@ -90,8 +91,8 @@
             <TextView
                 android:id="@+id/no_facebook_account"
                 android:layout_width="wrap_content"
-                android:background="@color/white"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:visibility="gone" />
 
         </RelativeLayout>
