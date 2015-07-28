@@ -70,6 +70,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     private long currentDiscAnimTime;
     private ObjectAnimator handleAnimator;
     private boolean isHandleAnimComplete = false;
+    private final float handleAnimAngle = 30f;
+    private final long handleAnimDur = 2000;
 
 
     @InjectView(R.id.play_music_button)
@@ -113,10 +115,6 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         String songArtist = songDetails[1];
         String searchTerm = songTitle + " " + songArtist;
 
-        if (songUrl == null || imageUrl == null) {
-            fetchMusicJson(searchTerm);
-        }
-
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
@@ -128,6 +126,10 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
         playMusicButton.setImageResource(mediaPlayer != null && mediaPlayer.isPlaying()
                 ? R.drawable.pause_circle_button
                 : R.drawable.play_circle_button);
+
+        if (songUrl == null || imageUrl == null) {
+            fetchMusicJson(searchTerm);
+        }
 
         playMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,8 +265,8 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
         handleImage.setPivotX(getResources().getDimension(R.dimen.pivot_x));
         handleImage.setPivotY(getResources().getDimension(R.dimen.pivot_y));
-        handleAnimator = ObjectAnimator.ofFloat(handleImage, "rotation", 0f, 30f);
-        handleAnimator.setDuration(2000);
+        handleAnimator = ObjectAnimator.ofFloat(handleImage, "rotation", 0f, handleAnimAngle);
+        handleAnimator.setDuration(handleAnimDur);
         handleAnimator.setRepeatCount(0);
         handleAnimator.setInterpolator(new DecelerateInterpolator());
         handleAnimator.addListener(new Animator.AnimatorListener() {
@@ -384,15 +386,14 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @Override
     public void onPauseFragment() {
         isActive = false;
-        if (mediaPlayer == null) {
-            mediaPlayer = SinglePlayer.getInstance().getMediaPlayer();
-        }
-        discAnimator.end();
-        handleImage.setRotation(0);
-
         Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
-        stopMusic();
-        initPlayer();
+        playMusicButton.clearAnimation();
+        if (mediaPlayer != null) {
+            stopMusic();
+            initPlayer();
+            discAnimator.end();
+            handleImage.setRotation(0);
+        }
     }
 
     @Override
