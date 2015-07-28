@@ -104,22 +104,33 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // the current year, for future use.
-        currentYear = getArguments().getInt(YEAR);
-        Log.i(TAG, String.valueOf(currentYear) + " HAS CALLED ONCREATEVIEW");
-
-        initializeDb();
-        String[] songDetails = getDbSongInfo();
-
-        String songTitle = songDetails[0];
-        String songArtist = songDetails[1];
-        String searchTerm = songTitle + " " + songArtist;
-
         View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         ButterKnife.inject(this, rootView);
 
+        currentYear = getArguments().getInt(YEAR);
+        Log.i(TAG, String.valueOf(currentYear) + " HAS CALLED ONCREATEVIEW");
+        initializeDb();
+
+        String[] songDetails = getDbSongInfo();
+        String songTitle = songDetails[0];
+        String songArtist = songDetails[1];
+
+        String searchTerm = songTitle + " " + songArtist;
         initAnimators();
         initPlayer();
+        if (isActive) {
+            Log.i(TAG, String.valueOf(currentYear) + " We are setting the oncompletion listener");
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    updateUi(Actions.stopping);
+                    isPreparing = false;
+                    Log.i(TAG, "Music completed");
+                }
+            });
+        }
 
         dateText.setText(DateFormatter.makeDateText(Integer.toString(currentYear)));
 
@@ -253,16 +264,16 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     private void initAnimators() {
-        discAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 2160f);
+        discAnimator = ObjectAnimator.ofFloat(musicImage, "rotation", 0f, 1440f);
         discAnimator.setDuration(Constants.SONG_DURATION); //30 seconds in ms
-        discAnimator.setRepeatCount(ValueAnimator.INFINITE);
-
+        discAnimator.setRepeatCount(0);
+/**
         loadingAnimator = ObjectAnimator.ofFloat(playMusicButton, "translation", 0f, 100f);
         loadingAnimator.setDuration(3000);
         loadingAnimator.setRepeatCount(ValueAnimator.INFINITE);
         loadingAnimator.setRepeatMode(ValueAnimator.REVERSE);
         loadingAnimator.setInterpolator(new DecelerateInterpolator());
-
+**/
         handleImage.setPivotX(getResources().getDimension(R.dimen.pivot_x));
         handleImage.setPivotY(getResources().getDimension(R.dimen.pivot_y));
         handleAnimator = ObjectAnimator.ofFloat(handleImage, "rotation", 0f, handleAnimAngle);
@@ -280,8 +291,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
                 //on animation complete
                 mediaPlayer.start();
                 Log.i(TAG, "this has prepared");
-                isPreparing = false;
                 updateUi(Actions.starting);
+                isHandleAnimComplete = true;
+                isPreparing = false;
             }
 
             @Override
@@ -307,24 +319,9 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     }
 
     private void playMusic(final MediaPlayer mediaPlayer, String songUrl) {
-        if (songUrl == null) {
-            Log.i(TAG, "!!!!!TRACK NOT FOUND!!!!!!!");
+        if (songUrl == null || mediaPlayer.isPlaying()) {
             return;
         }
-        if (mediaPlayer.isPlaying()) {
-            Log.i(TAG, "Attempted to play music while already playing");
-            return;
-        }
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mediaPlayer.stop();
-                mediaPlayer.reset();
-                updateUi(Actions.stopping);
-                isPreparing = false;
-                Log.i(TAG, "Music completed");
-            }
-        });
         if (isPaused) {
             mediaPlayer.start();
             Log.i(TAG, "QUICKSTART");
@@ -386,6 +383,7 @@ public class YearFragment extends Fragment implements ViewPagerFragmentLifeCycle
     @Override
     public void onPauseFragment() {
         isActive = false;
+        isHandleAnimComplete = false;
         Log.i(TAG, String.valueOf(currentYear) + " This has paused fragment");
         playMusicButton.clearAnimation();
         if (mediaPlayer != null) {
