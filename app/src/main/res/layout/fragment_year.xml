@@ -102,13 +102,5 @@
             android:layout_height="wrap_content">
 
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/previous_year_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/prev_year"
-            android:textAppearance="@style/semi_bold"/>
-
     </LinearLayout>
 </ScrollView>
