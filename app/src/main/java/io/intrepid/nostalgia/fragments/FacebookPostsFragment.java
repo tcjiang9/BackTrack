@@ -167,7 +167,7 @@ public class FacebookPostsFragment extends Fragment {
     private void shareText(int index) {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType(TEXT_PLAIN);
-        i.putExtra(Intent.EXTRA_TEXT, status.get(index).toString());
+        i.putExtra(Intent.EXTRA_TEXT, status.get(index).getText().toString());
         startActivity(Intent.createChooser(i, sharingHeader));
     }
 

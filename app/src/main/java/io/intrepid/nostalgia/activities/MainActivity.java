@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int newPosition) {
                 if (tabDragged) {
                     ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
+                    if (animation != null)
                     animation.deleteAfterAnimation(tabLayout);
                     tabDragged = false;
                     tabLayout.setClickable(true);
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         startingFragment.setActive();
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         resetPlayer();
     }
 
-    private void resetPlayer(){
+    private void resetPlayer() {
         SinglePlayer.getInstance().getMediaPlayer().reset();
     }
 

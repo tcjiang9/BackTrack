@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -20,6 +22,7 @@ import com.facebook.login.LoginResult;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 import io.intrepid.nostalgia.constants.Constants;
 import io.intrepid.nostalgia.R;
@@ -28,6 +31,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity {
 
+    @InjectView(R.id.login_button)
+    LinearLayout login;
     CallbackManager callbackManager;
     FacebookCallback<LoginResult> facebookCallback;
     public static boolean isFacebook;
@@ -42,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_button) void onLoginClick() {
         onFacebookLogin(false);
+        login.setClickable(false);
     }
 
     @Override
@@ -78,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
                 profileTracker.startTracking();
+                login.setClickable(true);
             }
 
             @Override

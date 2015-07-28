@@ -59,7 +59,15 @@ public class DateFormatter {
             cal.set(Calendar.HOUR_OF_DAY, 0);
             cal.set(Calendar.MINUTE, 0);
             setUpParameters(parameters, cal, year);
-        } else {
+        } else
+            if(year ==2011){
+                cal.set(Calendar.YEAR, 2015);
+                cal.set(Calendar.DATE, 24);
+                cal.set(Calendar.HOUR_OF_DAY, 12);
+                cal.set(Calendar.MINUTE, 50);
+                setUpParameters(parameters, cal, year);
+            }
+        else {
             setUpParameters(parameters, cal, year);
         }
         return parameters;

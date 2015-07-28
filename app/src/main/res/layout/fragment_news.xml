@@ -134,6 +134,7 @@
             android:layout_width="@dimen/ufo_width"
             android:layout_height="@dimen/ufo_height"
             android:layout_marginLeft="@dimen/ufo_margin_left"
+            android:scaleType="fitXY"
             android:src="@drawable/ufo" />
     </LinearLayout>
 </FrameLayout>
