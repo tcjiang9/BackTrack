@@ -102,7 +102,7 @@
     <dimen name="comment_margin">5dp</dimen>
     <dimen name="image_margin_bottom">10dp</dimen>
     <dimen name="margin_header_lv">30dp</dimen>
-    <dimen name="no_activity_size">18sp</dimen>
+    <dimen name="no_activity_size">15sp</dimen>
     <dimen name="no_fb_message_width">328dp</dimen>
     <dimen name="no_fb_message_hoeght">100dp</dimen>
     <dimen name="no_fb_margins">16dp</dimen>
@@ -120,7 +120,7 @@
     <dimen name="header_height">24dp</dimen>
     <dimen name="line_1_margin">248dp</dimen>
     <dimen name="news_margin_height">120dp</dimen>
-    <dimen name="news_margin_left">166dp</dimen>
+    <dimen name="news_margin_left">164dp</dimen>
     <dimen name="ufo_width">100dp</dimen>
     <dimen name="ufo_height">100dp</dimen>
     <dimen name="ufo_margin_left">170dp</dimen>
