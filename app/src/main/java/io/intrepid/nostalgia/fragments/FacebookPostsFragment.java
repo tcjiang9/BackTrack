@@ -128,6 +128,7 @@ public class FacebookPostsFragment extends Fragment {
         openPhotoDetails(view.getId());
 
     }
+
     @OnClick({R.id.status_1, R.id.status_2, R.id.status_3})
     void onClickStatus(View view) {
         openPhotoDetails(view.getId());
@@ -179,7 +180,7 @@ public class FacebookPostsFragment extends Fragment {
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
                 bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(index).toString());
                 if (completeDataFromFb.toString().contains(FacebookConstants.PICTURE))
-                bundle.putString(IMAGE_URL, imageUrl[index]);
+                    bundle.putString(IMAGE_URL, imageUrl[index]);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -216,26 +217,27 @@ public class FacebookPostsFragment extends Fragment {
             } else {
                 try {
                     JSONArray specificData = (JSONArray) completeDataFromFb.get(FacebookConstants.DATA);
+                    int size = specificData.length() -1;
                     for (int i = 0; i < specificData.length(); i++) {
-                        FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(i));
-                        if (specificData.getJSONObject(i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.ADDED_PHOTOS)) {
+                        FacebookResponse facebookResponse = new FacebookResponse(specificData.getJSONObject(size - i));
+                        if (specificData.getJSONObject(size - i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.ADDED_PHOTOS)) {
                             postLayout.get(i).setVisibility(View.VISIBLE);
                             imageLayout.get(i).setVisibility(View.VISIBLE);
                             status.get(i).setId(i);
                             timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
                             likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                             commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
-                            loadImageFromPost(specificData.getJSONObject(i), loadImages.get(i), i);
-                            if (specificData.getJSONObject(i).has(FacebookConstants.MESSAGE)) {
+                            loadImageFromPost(specificData.getJSONObject(size - i), loadImages.get(i), i);
+                            if (specificData.getJSONObject(size - i).has(FacebookConstants.MESSAGE)) {
                                 status.get(i).setVisibility(View.VISIBLE);
                                 status.get(i).setText(facebookResponse.getStatus());
                             }
-                        } else if (specificData.getJSONObject(i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.STATUS)) {
+                        } else if (specificData.getJSONObject(size - i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.STATUS)) {
                             postLayout.get(i).setVisibility(View.VISIBLE);
                             status.get(i).setVisibility(View.VISIBLE);
                             status.get(i).setId(i);
                             timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
-                            status.get(i).setText(specificData.getJSONObject(i).get(FacebookConstants.MESSAGE).toString());
+                            status.get(i).setText(specificData.getJSONObject(size - i).get(FacebookConstants.MESSAGE).toString());
                             likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                             commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
                         } else {
@@ -297,7 +299,7 @@ public class FacebookPostsFragment extends Fragment {
         if (imageUrl[2] != null) {
             Picasso.with(getActivity()).
                     load(imageUrl[2]).fit()
-                     .into(image);
+                    .into(image);
         }
     }
 
