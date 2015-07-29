@@ -108,17 +108,6 @@ public class FacebookResponse {
         return null;
     }
 
-    public String getPictureUrl() {
-        try {
-            pictureUrl = parseJson.get(FacebookConstants.PICTURE).toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return pictureUrl;
-    }
-
-
     public FacebookResponse(JSONObject onePostDetails) {
         this.parseJson = onePostDetails;
     }

@@ -1,6 +1,7 @@
 package io.intrepid.nostalgia.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ public class ScrollAnimation extends Fragment {
     ImageView light;
     @InjectView(R.id.clouds)
     ImageView clouds;
+
+    private TabLayout tabLayout;
 
 
     public static ScrollAnimation newInstance() {
@@ -100,6 +103,7 @@ public class ScrollAnimation extends Fragment {
                 light.setVisibility(View.GONE);
                 clouds.setVisibility(View.GONE);
                 getActivity().getSupportFragmentManager().beginTransaction().remove(ScrollAnimation.this).commit();
+                tabLayout.setEnabled(true);
             }
 
             @Override
@@ -111,7 +115,9 @@ public class ScrollAnimation extends Fragment {
         return view;
     }
 
-    public void deleteAfterAnimation() {
+    public void deleteAfterAnimation(TabLayout tabLayout) {
+        this.tabLayout = tabLayout;
+        tabLayout.setEnabled(false);
         ufo.setVisibility(View.VISIBLE);
         ufo.startAnimation(ufoSlideUpAnimation);
     }

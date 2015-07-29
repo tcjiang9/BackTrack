@@ -91,6 +91,7 @@
     </style>
 
     <style name="status_container">
+        <item name="android:paddingBottom">20dp</item>
         <item name="android:background">#FFFFFF</item>
         <item name="android:layout_width">328dp</item>
         <item name="android:layout_height">134dp</item>

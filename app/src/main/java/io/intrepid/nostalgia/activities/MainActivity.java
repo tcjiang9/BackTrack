@@ -65,23 +65,16 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager.OnPageChangeListener viewPageListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    //                Log.e("position",""+position);
-    //                Log.e("positionOffset",""+positionOffset);
-    //                Log.e("positionPixels",""+positionOffsetPixels);
-    //                if(positionOffset == 0.0){
-    //                    currentPosition = position;
-    //                    viewPager.setCurrentItem(currentPosition);
-    //                } else {
-    //
-    //                }
             }
 
             @Override
             public void onPageSelected(int newPosition) {
                 if (tabDragged) {
                     ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
-                    animation.deleteAfterAnimation();
+                    if (animation != null)
+                    animation.deleteAfterAnimation(tabLayout);
                     tabDragged = false;
+                    tabLayout.setClickable(true);
                 }
                 if (currentPosition != -1) {
                     focusSelectedYear(currentPosition, UNSELECTED_SIZE, UNSELECTED_WIDTH, UNSELECTED_FONT);
@@ -127,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
                 if (tabDragged) {
                     ScrollAnimation animation = (ScrollAnimation) getSupportFragmentManager().findFragmentByTag(ScrollAnimation.TAG);
-                    animation.deleteAfterAnimation();
+                    animation.deleteAfterAnimation(tabLayout);
                     tabDragged = false;
                 }
             }
@@ -137,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(Constants.NUMBER_OF_YEARS - 1);
         startingFragment.setActive();
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -155,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         resetPlayer();
     }
 
-    private void resetPlayer(){
+    private void resetPlayer() {
         SinglePlayer.getInstance().getMediaPlayer().reset();
     }
 
@@ -172,5 +166,11 @@ public class MainActivity extends AppCompatActivity {
         CalligraphyTypefaceSpan typefaceSpan = new CalligraphyTypefaceSpan(TypefaceUtils.load(getAssets(), font));
         sBuilder.setSpan(typefaceSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(sBuilder, TextView.BufferType.SPANNABLE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }

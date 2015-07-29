@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:id="@+id/main">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/settings_box_height"
@@ -29,6 +28,10 @@
             app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/TabTextAppearance" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_bottom_view_height"
+        android:background="@color/application_color"/>
     <FrameLayout
         android:id="@+id/container_pager"
         android:layout_width="match_parent"

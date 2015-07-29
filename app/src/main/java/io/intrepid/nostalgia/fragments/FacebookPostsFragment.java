@@ -83,6 +83,18 @@ public class FacebookPostsFragment extends Fragment {
     LinearLayout noFb;
 
 
+    public static FacebookPostsFragment getInstance(int currentYear) {
+        FacebookPostsFragment fragment = new FacebookPostsFragment();
+        Bundle args = new Bundle();
+        args.putInt(YEAR_KEY, currentYear);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public FacebookPostsFragment() {
+        // Required empty public constructor
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -155,32 +167,19 @@ public class FacebookPostsFragment extends Fragment {
     private void shareText(int index) {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType(TEXT_PLAIN);
-        i.putExtra(Intent.EXTRA_TEXT, status.get(index).toString());
+        i.putExtra(Intent.EXTRA_TEXT, status.get(index).getText().toString());
         startActivity(Intent.createChooser(i, sharingHeader));
     }
 
-    public static FacebookPostsFragment getInstance(int currentYear) {
-        FacebookPostsFragment fragment = new FacebookPostsFragment();
-        Bundle args = new Bundle();
-        args.putInt(YEAR_KEY, currentYear);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public FacebookPostsFragment() {
-        // Required empty public constructor
-    }
-
-    private void openPhotoDetails(int viewType) {
+    private void openPhotoDetails(int index) {
         Intent intent = new Intent(getActivity(), FacebookPostDetailsActivity.class);
         Bundle bundle = new Bundle();
         if (completeDataFromFb != null) {
             try {
-                Log.e("viewtype",""+viewType);
                 JSONArray array = completeDataFromFb.getJSONArray(FacebookConstants.DATA);
-                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(viewType).toString());
+                bundle.putString(FacebookConstants.JSON_OBJECT, array.getJSONObject(index).toString());
                 if (completeDataFromFb.toString().contains(FacebookConstants.PICTURE))
-                bundle.putString(IMAGE_URL, imageUrl[viewType]);
+                bundle.putString(IMAGE_URL, imageUrl[index]);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -222,6 +221,7 @@ public class FacebookPostsFragment extends Fragment {
                         if (specificData.getJSONObject(i).get(FacebookConstants.TYPE).toString().equals(FacebookConstants.ADDED_PHOTOS)) {
                             postLayout.get(i).setVisibility(View.VISIBLE);
                             imageLayout.get(i).setVisibility(View.VISIBLE);
+                            status.get(i).setId(i);
                             timeStamp.get(i).setText(String.valueOf(facebookResponse.getCreatedTime()));
                             likesCount.get(i).setText(String.valueOf(facebookResponse.getLikeCount()));
                             commentsCount.get(i).setText(String.valueOf(facebookResponse.getCommentCount()));
@@ -299,7 +299,6 @@ public class FacebookPostsFragment extends Fragment {
                     load(imageUrl[2]).fit()
                      .into(image);
         }
-
     }
 
     @Override

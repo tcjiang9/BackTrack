@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 import butterknife.OnTouch;
 import io.intrepid.nostalgia.R;
 import io.intrepid.nostalgia.constants.Constants;
@@ -71,13 +72,13 @@ public class SettingsActivity extends AppCompatActivity{
         }
     }
 
-    @OnTouch(R.id.feedback_setting) boolean onFeedbackSettingTouched() {
+    @OnClick(R.id.feedback_setting)
+    void onFeedbackSettingTouched() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("plain/text");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL});
         intent.putExtra(Intent.EXTRA_SUBJECT, SUBJECT_LINE);
         startActivity(Intent.createChooser(intent, ""));
-        return true;
     }
 
     @Override
@@ -168,4 +169,6 @@ public class SettingsActivity extends AppCompatActivity{
         finish();
         Toast.makeText(getApplicationContext(), "Logged in as : " + profile.getFirstName(), Toast.LENGTH_LONG).show();
     }
+
+
 }
